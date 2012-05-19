@@ -1,0 +1,9 @@
+[submodule ".vim/plugins/Command-T"]
+	path = .vim/plugins/Command-T
+	url = https://github.com/wincent/Command-T.git
+[submodule ".vim/plugins/vim-colors-solarized"]
+	path = .vim/plugins/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized
+[submodule ".vim/plugins/vim-colorscheme-elrodeo"]
+	path = .vim/plugins/vim-colorscheme-elrodeo
+	url = https://github.com/chmllr/vim-colorscheme-elrodeo.git
