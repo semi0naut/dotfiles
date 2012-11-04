@@ -98,6 +98,9 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=","
 
+" insert an end tag with <c-e>
+imap <c-e> end
+
 " insert a hash rocket with <c-l> 
 imap <c-l> <space>=><space>
 
