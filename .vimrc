@@ -4,8 +4,11 @@
 call pathogen#infect()
 call pathogen#helptags()
 
-" Command-T Config
+" ctrlp.vim Config
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 map <leader>gR :call ShowRoutes()<cr>
+
+" Command-T Config
 map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
 map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
 map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
