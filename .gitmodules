@@ -1,0 +1,12 @@
+[submodule ".vim/bundle/Command-T"]
+	path = .vim/bundle/Command-T
+	url = git://github.com/wincent/Command-T.git
+[submodule ".vim/bundle/vim-fugitive"]
+	path = .vim/bundle/vim-fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule ".vim/bundle/vim-colors-solarized"]
+	path = .vim/bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized
+[submodule ".vim/bundle/vim-colorscheme-elrodeo"]
+	path = .vim/bundle/vim-colorscheme-elrodeo
+	url = git://github.com/chmllr/vim-colorscheme-elrodeo.git
