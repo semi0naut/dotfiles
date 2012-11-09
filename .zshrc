@@ -41,6 +41,14 @@ export SAVEHIST=$HISTSIZE
 # Alias
 alias r=rails
 alias g=git
+alias gst='git st'
+alias gci='git ci'
+alias gpom='git push origin master'
+alias gf='git fetch'
+alias gaa='git add --all'
+alias gl='!source ~/.githelpers && pretty_git_log'
+alias gdc='git diff --cached'
+alias gam='git commit --amend'
 alias cls=clear
 alias sl=ls # often screw this up
 alias history='fc -l 1'
