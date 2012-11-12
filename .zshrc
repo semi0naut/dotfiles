@@ -31,7 +31,7 @@ alias ls='ls -G'
 alias ll='ls -lG'
 alias l='ls -laG'
 alias duh='du -csh'
-export GREP_OPTIONS="--color"
+export GREP_OPTIONS="-n --color"
 
 # Unbreak history
 export HISTSIZE=10000
@@ -43,12 +43,14 @@ alias r=rails
 alias g=git
 alias gst='git st'
 alias gci='git ci'
+alias gp='git push'
 alias gpom='git push origin master'
 alias gf='git fetch'
 alias gaa='git add --all'
-alias gl='!source ~/.githelpers && pretty_git_log'
+alias gl="!source ~/.githelpers && pretty_git_log"
 alias gdc='git diff --cached'
 alias gam='git commit --amend'
+alias gre='git remote'
 alias cls=clear
 alias sl=ls # often screw this up
 alias history='fc -l 1'
