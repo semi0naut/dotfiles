@@ -31,7 +31,7 @@ alias ls='ls -G'
 alias ll='ls -lG'
 alias l='ls -laG'
 alias duh='du -csh'
-export GREP_OPTIONS="-n --color"
+export GREP_OPTIONS="-nr --color"
 
 # Unbreak history
 export HISTSIZE=10000
@@ -41,6 +41,7 @@ export SAVEHIST=$HISTSIZE
 # Alias
 alias r=rails
 alias g=git
+alias gco='git co'
 alias gst='git st'
 alias gci='git ci'
 alias gp='git push'
