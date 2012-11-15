@@ -8,9 +8,6 @@ call pathogen#helptags()
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 map <leader>gR :call ShowRoutes()<cr>
 map <leader>gv :CtrlP app/views<cr>
-
-" Command-T Config
-map <leader>gv :CtrlP app/views<cr>
 map <leader>gc :CtrlP app/controllers<cr>
 map <leader>gm :CtrlP app/models<cr>
 map <leader>gh :CtrlP app/helpers<cr>
@@ -73,6 +70,7 @@ filetype plugin indent on
 set wildmode=longest,list
 " make tab completion for files/buffers act like bash
 set wildmenu
+colorscheme Monokai
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -150,13 +148,28 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GREP SEARCH 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! Search()
   let term = input('Grep search term: ')
   if term != ''
-    exec '!grep ' . term . ' .'
+    exec '!grep "' . term . '" .'
   endif
 endfunction
 map <leader>s :call Search()<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RUBY DOC SEARCH 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RubyDocSearch()
+  let term = input('Ruby Doc search term: ')
+  if term != ''
+    exec '!ri ' . term 
+  endif
+endfunction
+map <leader>d :call RubyDocSearch()<cr>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PROMOTE VARIABLE TO RSPEC LET

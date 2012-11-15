@@ -31,7 +31,7 @@ alias ls='ls -G'
 alias ll='ls -lG'
 alias l='ls -laG'
 alias duh='du -csh'
-export GREP_OPTIONS="-nr --color"
+export GREP_OPTIONS="-nRi --color --exclude-dir=tmp --exclude-dir=log"
 
 # Unbreak history
 export HISTSIZE=10000
@@ -44,6 +44,7 @@ alias g=git
 alias gco='git co'
 alias gst='git st'
 alias gci='git ci'
+alias gpff='git pullff'
 alias gp='git push'
 alias gpom='git push origin master'
 alias gf='git fetch'
