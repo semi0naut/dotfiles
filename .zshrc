@@ -54,8 +54,8 @@ alias gdc='git diff --cached'
 alias gam='git commit --amend'
 alias gre='git remote'
 alias cls=clear
-alias sl=ls # often screw this up
 alias history='fc -l 1'
+alias cd-='cd -'
 alias ..='cd ../'
 alias ...='cd ../..'
 alias cd..='cd ..'
@@ -63,7 +63,8 @@ alias cd...='cd ../..'
 alias cd....='cd ../../..'
 alias cd.....='cd ../../../..'
 alias cd/='cd /'
-
+# easier reload
+alias reload='source ~/.zshrc'
 
 # Misc
 activate_virtualenv() {
@@ -75,3 +76,6 @@ activate_virtualenv() {
 }
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

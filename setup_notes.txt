@@ -8,3 +8,7 @@ Setting up Ruby
   rdoc-data --install
   # to regenerate all gem docs
   gem rdoc --all --overwrite
+
+Setup Vim
+---------
+Map <CapsLock> to <Ctrl> in System Preferences -> Keyboard -> Modifier Keys. Now <caps-c> can leave insert mode.

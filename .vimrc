@@ -6,18 +6,20 @@ call pathogen#helptags()
 
 " ctrlp.vim Config
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-map <leader>gR :call ShowRoutes()<cr>
-map <leader>gv :CtrlP app/views<cr>
-map <leader>gc :CtrlP app/controllers<cr>
-map <leader>gm :CtrlP app/models<cr>
-map <leader>gh :CtrlP app/helpers<cr>
-map <leader>gl :CtrlP<cr> lib<cr>
-map <leader>gp :CtrlP public<cr>
-map <leader>gs :CtrlP public/stylesheets/sass<cr>
-map <leader>gf :CtrlP features<cr>
+let g:ctrlp_map = '<leader>ff'
+let g:ctrlp_cmd = 'CtrlP'
+
+map <leader>fR :call ShowRoutes()<cr>
+nmap <leader>fv :CtrlP app/views<cr>
+nmap <leader>fc :CtrlP app/controllers<cr>
+nmap <leader>fm :CtrlP app/models<cr>
+map <leader>fh :CtrlP app/helpers<cr>
+map <leader>fl :CtrlP<cr> lib<cr>
+map <leader>fp :CtrlP public<cr>
+map <leader>fs :CtrlP app/views/stylesheets<cr>
 map <leader>gg :topleft 100 :split Gemfile<cr>
-map <leader>f :CtrlP<cr>
-map <leader>F :CtrlP %%<cr>
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
@@ -68,9 +70,8 @@ syntax on
 filetype plugin indent on
 " use emacs-style tab completion when selecting files, etc
 set wildmode=longest,list
-" make tab completion for files/buffers act like bash
-set wildmenu
 colorscheme Monokai
+set wildignore+=*/tmp/*,*/log/*,*.so,*.swp,*.zip
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -107,6 +108,23 @@ imap <c-l> <space>=><space>
 
 " set esc to <c-c>
 imap <c-c> <esc>
+
+" remap semicovlon
+nmap <leader>. :
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<cr>
+nmap <silent> <leader>rv :so $MYVIMRC<cr>
+
+" remap saving and quiting :P
+nmap <leader>w :w<cr>
+nmap <leader>q :q<cr>
+nmap <leader>Q :q!<cr>
+nmap <leader>x :x<cr>
+:ca WQ wq
+:ca Wq wq
+:ca W w
+:ca Q q
 
 " Clear the search buffer (highlighting) when hitting return
 function! MapCR()
@@ -233,7 +251,7 @@ function! AlternateForCurrentFile()
   endif
   return new_file
 endfunction
-nnoremap <leader>. :call OpenTestAlternate()<cr>
+nnoremap <leader>o :call OpenTestAlternate()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS
@@ -242,7 +260,6 @@ map <leader>t :call RunTestFile()<cr>
 map <leader>T :call RunNearestTest()<cr>
 map <leader>a :call RunTests('')<cr>
 map <leader>c :w\|:!script/features<cr>
-map <leader>w :w\|:!script/features --profile wip<cr>
 
 function! RunTestFile(...)
     if a:0
