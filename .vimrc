@@ -1,3 +1,5 @@
+let mapleader=","
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -8,18 +10,15 @@ call pathogen#helptags()
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_map = '<leader>ff'
 let g:ctrlp_cmd = 'CtrlP'
-
-map <leader>fR :call ShowRoutes()<cr>
-nmap <leader>fv :CtrlP app/views<cr>
-nmap <leader>fc :CtrlP app/controllers<cr>
-nmap <leader>fm :CtrlP app/models<cr>
-map <leader>fh :CtrlP app/helpers<cr>
-map <leader>fl :CtrlP<cr> lib<cr>
-map <leader>fp :CtrlP public<cr>
-map <leader>fs :CtrlP app/views/stylesheets<cr>
-map <leader>gg :topleft 100 :split Gemfile<cr>
-
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+map <leader>fR :call ShowRoutes()<cr>
+map <leader>fv :CtrlP app/views<cr>
+map <leader>fc :CtrlP app/controllers<cr>
+map <leader>fm :CtrlP app/models<cr>
+map <leader>fh :CtrlP app/helpers<cr>
+map <leader>fl :CtrlP lib<cr>
+map <leader>fp :CtrlP public<cr>
+map <leader>fs :CtrlP app/stylesheets<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
@@ -98,8 +97,6 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader=","
-
 " insert an end tag with <c-e>
 imap <c-e> end
 
@@ -109,7 +106,7 @@ imap <c-l> <space>=><space>
 " set esc to <c-c>
 imap <c-c> <esc>
 
-" remap semicovlon
+" remap semicolon
 nmap <leader>. :
 
 " Quickly edit/reload the vimrc file
@@ -125,6 +122,14 @@ nmap <leader>x :x<cr>
 :ca Wq wq
 :ca W w
 :ca Q q
+
+" Map ctrl-movement keys to window switching
+map <c-k> <c-w><Up>
+map <c-j> <c-w><Down>
+map <c-l> <c-w><Right>
+map <c-h> <c-w><Left>
+
+map <leader>gg :topleft 100 :split Gemfile<cr>
 
 " Clear the search buffer (highlighting) when hitting return
 function! MapCR()
