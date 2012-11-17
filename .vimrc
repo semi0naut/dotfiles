@@ -19,7 +19,10 @@ map <leader>fh :CtrlP app/helpers<cr>
 map <leader>fl :CtrlP lib<cr>
 map <leader>fp :CtrlP public<cr>
 map <leader>fs :CtrlP app/stylesheets<cr>
-
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -107,7 +110,10 @@ imap <c-l> <space>=><space>
 imap <c-c> <esc>
 
 " remap semicolon
-nmap <leader>. :
+nmap ; :
+
+" suspend process
+nmap <leader>z <c-z>
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<cr>
@@ -314,3 +320,53 @@ function! RunTests(filename)
         end
     end
 endfunction
+
+
+" From http://vim.wikia.com/wiki/Move_current_window_between_tabs
+" Moves a window from one tab to another.
+function MoveToPrevTab()
+  "there is only one window
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    return
+  endif
+  "preparing new window
+  let l:tab_nr = tabpagenr('$')
+  let l:cur_buf = bufnr('%')
+  if tabpagenr() != 1
+    close!
+    if l:tab_nr == tabpagenr('$')
+      tabprev
+    endif
+    sp
+  else
+    close!
+    exe "0tabnew"
+  endif
+  "opening current buffer in new window
+  exe "b".l:cur_buf
+endfunc
+
+function MoveToNextTab()
+  "there is only one window
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    return
+  endif
+  "preparing new window
+  let l:tab_nr = tabpagenr('$')
+  let l:cur_buf = bufnr('%')
+  if tabpagenr() < tab_nr
+    close!
+    if l:tab_nr == tabpagenr('$')
+      tabnext
+    endif
+    sp
+  else
+    close!
+    tabnew
+  endif
+  "opening current buffer in new window
+  exe "b".l:cur_buf
+endfunc
+map <C-m> :call MoveToNextTab()<CR><C-w>H
+map <C-n> :call MoveToPrevTab()<CR><C-w>H
+
