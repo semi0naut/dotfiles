@@ -109,9 +109,6 @@ imap <c-l> <space>=><space>
 " set esc to <c-c>
 imap <c-c> <esc>
 
-" remap semicolon
-nmap ; :
-
 " suspend process
 nmap <leader>z <c-z>
 
@@ -320,7 +317,6 @@ function! RunTests(filename)
         end
     end
 endfunction
-
 
 " From http://vim.wikia.com/wiki/Move_current_window_between_tabs
 " Moves a window from one tab to another.
