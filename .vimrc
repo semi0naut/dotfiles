@@ -19,10 +19,10 @@ map <leader>fh :CtrlP app/helpers<cr>
 map <leader>fl :CtrlP lib<cr>
 map <leader>fp :CtrlP public<cr>
 map <leader>fs :CtrlP app/stylesheets<cr>
-let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<c-t>'],
-    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-    \ }
+"let g:ctrlp_prompt_mappings = {
+"    \ 'AcceptSelection("e")': ['<c-t>'],
+"    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+"    \ }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -320,7 +320,7 @@ endfunction
 
 " From http://vim.wikia.com/wiki/Move_current_window_between_tabs
 " Moves a window from one tab to another.
-function MoveToPrevTab()
+function! MoveToPrevTab()
   "there is only one window
   if tabpagenr('$') == 1 && winnr('$') == 1
     return
@@ -340,9 +340,9 @@ function MoveToPrevTab()
   endif
   "opening current buffer in new window
   exe "b".l:cur_buf
-endfunc
+endfunction
 
-function MoveToNextTab()
+function! MoveToNextTab()
   "there is only one window
   if tabpagenr('$') == 1 && winnr('$') == 1
     return
@@ -362,7 +362,7 @@ function MoveToNextTab()
   endif
   "opening current buffer in new window
   exe "b".l:cur_buf
-endfunc
+endfunction
 map <C-m> :call MoveToNextTab()<CR><C-w>H
 map <C-n> :call MoveToPrevTab()<CR><C-w>H
 
