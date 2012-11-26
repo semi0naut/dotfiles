@@ -31,7 +31,7 @@ alias ls='ls -G'
 alias ll='ls -lG'
 alias l='ls -laG'
 alias duh='du -csh'
-export GREP_OPTIONS="-nRi --color --exclude-dir=tmp --exclude-dir=log"
+export GREP_OPTIONS="-nRi --color --exclude-dir=tmp --exclude-dir=log --exclude-dir=public"
 
 # Unbreak history
 export HISTSIZE=10000
