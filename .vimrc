@@ -74,6 +74,7 @@ filetype plugin indent on
 set wildmode=longest,list
 colorscheme Monokai
 set wildignore+=*/tmp/*,*/log/*,*.so,*.swp,*.zip
+set colorcolumn=90
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -184,18 +185,6 @@ function! Search()
   endif
 endfunction
 map <leader>s :call Search()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RUBY DOC SEARCH 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! RubyDocSearch()
-  let term = input('Ruby Doc search term: ')
-  if term != ''
-    exec '!ri ' . term 
-  endif
-endfunction
-map <leader>d :call RubyDocSearch()<cr>
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PROMOTE VARIABLE TO RSPEC LET
