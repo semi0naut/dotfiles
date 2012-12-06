@@ -11,7 +11,7 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_map = '<leader>ff'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-map <leader>fR :call ShowRoutes()<cr>
+map <leader>fr :call ShowRoutes()<cr>
 map <leader>fv :CtrlP app/views<cr>
 map <leader>fc :CtrlP app/controllers<cr>
 map <leader>fm :CtrlP app/models<cr>
@@ -19,6 +19,7 @@ map <leader>fh :CtrlP app/helpers<cr>
 map <leader>fl :CtrlP lib<cr>
 map <leader>fp :CtrlP public<cr>
 map <leader>fs :CtrlP app/stylesheets<cr>
+map <leader>ft :CtrlP test<cr>
 "let g:ctrlp_prompt_mappings = {
 "    \ 'AcceptSelection("e")': ['<c-t>'],
 "    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
@@ -181,7 +182,7 @@ map <leader>n :call RenameFile()<cr>
 function! Search()
   let term = input('Grep search term: ')
   if term != ''
-    exec '!grep "' . term . '" .'
+    exec '!grep "' . term . '" *'
   endif
 endfunction
 map <leader>s :call Search()<cr>
