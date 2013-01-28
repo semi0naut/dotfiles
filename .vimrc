@@ -17,8 +17,8 @@ map <leader>fc :CtrlP app/controllers<cr>
 map <leader>fm :CtrlP app/models<cr>
 map <leader>fh :CtrlP app/helpers<cr>
 map <leader>fl :CtrlP lib<cr>
-map <leader>fp :CtrlP public<cr>
-map <leader>fs :CtrlP app/stylesheets<cr>
+map <leader>fp :CtrlP vendor/plugins<cr>
+map <leader>fs :CtrlP spec<cr>
 map <leader>ft :CtrlP test<cr>
 "let g:ctrlp_prompt_mappings = {
 "    \ 'AcceptSelection("e")': ['<c-t>'],
@@ -76,6 +76,9 @@ set wildmode=longest,list
 colorscheme Monokai
 set wildignore+=*/tmp/*,*/log/*,*.so,*.swp,*.zip
 set colorcolumn=90
+" Show trailing whitespace
+highlight ExtraWhitespace ctermbg=green guibg=green
+match ExtraWhitespace /\s\+$/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
