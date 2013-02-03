@@ -31,7 +31,7 @@ alias ls='ls -G'
 alias ll='ls -lG'
 alias l='ls -laG'
 alias duh='du -csh'
-export GREP_OPTIONS="-nRi --color --exclude-dir=tmp --exclude-dir=log --exclude-dir=public"
+export GREP_OPTIONS="-nRi --color --exclude-dir=tmp --exclude-dir=log --exclude-dir=public --exclude-dir=vendor/assets --exclude-dir=fonts --exclude-dir=images"
 
 # Unbreak history
 export HISTSIZE=10000
@@ -75,7 +75,7 @@ activate_virtualenv() {
   fi
 }
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
