@@ -27,11 +27,13 @@ export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
 export PATH="$HOME/bin:$PATH"
 
 # Unbreak broken, non-colored terminal
+export TERM=xterm-256color
+
 alias ls='ls -G'
 alias ll='ls -lG'
 alias l='ls -laG'
 alias duh='du -csh'
-export GREP_OPTIONS="-nRi --color --exclude-dir=tmp --exclude-dir=log --exclude-dir=public --exclude-dir=vendor/assets --exclude-dir=fonts --exclude-dir=images"
+export GREP_OPTIONS="-nRi --color --exclude-dir=tmp --exclude-dir=log --exclude-dir=public --exclude-dir=vendor/assets --exclude-dir=fonts --exclude-dir=images --exclude-dir=coverage"
 
 # Unbreak history
 export HISTSIZE=10000
