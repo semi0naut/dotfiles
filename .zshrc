@@ -29,18 +29,19 @@ export PATH="$HOME/bin:$PATH"
 # Unbreak broken, non-colored terminal
 export TERM=xterm-256color
 
-alias ls='ls -G'
-alias ll='ls -lG'
-alias l='ls -laG'
-alias duh='du -csh'
-export GREP_OPTIONS="-nRi --color --exclude-dir=tmp --exclude-dir=log --exclude-dir=public --exclude-dir=vendor/assets --exclude-dir=fonts --exclude-dir=images --exclude-dir=coverage"
-
 # Unbreak history
 export HISTSIZE=10000
 export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
 
+# Grep tweaks
+export GREP_OPTIONS="-nRi --color --exclude-dir=tmp --exclude-dir=public --exclude-dir=log --exclude-dir=vendor/assets --exclude-dir=fonts --exclude-dir=images --exclude-dir=coverage --exclude-dir=rdoc"
+
 # Alias
+alias ls='ls -G'
+alias ll='ls -lG'
+alias l='ls -laG'
+alias duh='du -csh'
 alias r=rails
 alias g=git
 alias gco='git co'
