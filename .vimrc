@@ -74,7 +74,7 @@ filetype plugin indent on
 " use emacs-style tab completion when selecting files, etc
 set wildmode=longest,list
 colorscheme Monokai
-set wildignore+=*/tmp/*,*/log/*,*.so,*.swp,*.zip
+set wildignore+=*/tmp/*,*/log/*,*.so,*.swp,*.zip,*/rdoc/*
 set colorcolumn=90
 " Show trailing whitespace
 highlight ExtraWhitespace ctermbg=green guibg=green
