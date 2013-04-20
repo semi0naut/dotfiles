@@ -20,17 +20,13 @@ map <leader>fl :CtrlP lib<cr>
 map <leader>fp :CtrlP vendor/plugins<cr>
 map <leader>fs :CtrlP spec<cr>
 map <leader>ft :CtrlP test<cr>
-"let g:ctrlp_prompt_mappings = {
-"    \ 'AcceptSelection("e")': ['<c-t>'],
-"    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-"    \ }
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
-" remember more commands and search history
 set history=10000
 set expandtab
 set tabstop=2
@@ -40,6 +36,7 @@ set autoindent
 set laststatus=2
 set showmatch
 set incsearch
+set dictionary+=/usr/share/dict/words
 set number
 set hlsearch
 " make searches case-sensitive only if they contain upper-case characters
@@ -111,8 +108,9 @@ imap <c-e> end
 " insert a hash rocket with <c-l> 
 imap <c-l> <space>=><space>
 
-" set esc to <c-c>
-imap <c-c> <esc>
+" Mapping ESC in insert mode and command mode to double i
+imap ii <C-[>
+cmap ii <C-[>
 
 " suspend process
 nmap <leader>z <c-z>
@@ -136,6 +134,11 @@ map <c-k> <c-w><Up>
 map <c-j> <c-w><Down>
 map <c-l> <c-w><Right>
 map <c-h> <c-w><Left>
+
+" Window splitting - couldn't figure out how to remap <c-w>v & <c-w>n to <c-m>
+" & <c-n>
+map <leader>m :vsplit<cr>
+map <leader>mm :split<cr>
 
 map <leader>gg :topleft 100 :split Gemfile<cr>
 
@@ -180,12 +183,12 @@ endfunction
 map <leader>n :call RenameFile()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GREP SEARCH 
+" GREP SEARCH
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! Search()
   let term = input('Grep search term: ')
   if term != ''
-    exec '!grep "' . term . '" *'
+    exec 'Ag "' . term . '"'
   endif
 endfunction
 map <leader>s :call Search()<cr>
