@@ -21,6 +21,12 @@ map <leader>fp :CtrlP vendor/plugins<cr>
 map <leader>fs :CtrlP spec<cr>
 map <leader>ft :CtrlP test<cr>
 
+" # gist-vim
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+let g:gist_show_privates = 1
+let g:gist_post_private = 1
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
