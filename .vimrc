@@ -80,8 +80,7 @@ colorscheme Monokai
 set wildignore+=*/tmp/*,*/log/*,*.so,*.swp,*.zip,*/rdoc/*
 set colorcolumn=90
 " Show trailing whitespace
-highlight ExtraWhitespace ctermbg=green guibg=green
-match ExtraWhitespace /\s\+$/
+set list listchars=tab:»·,trail:·
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
