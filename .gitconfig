@@ -3,6 +3,15 @@
   email = mikecampo@gmail.com
 [merge]
   summary = true
+  tool = vimdiff
+[core]
+	editor = /usr/bin/vim
+[push]
+	default = tracking
+[github]
+	user = mikecampo
+[diff]
+	algorithm = patience
 [color]
   diff = auto
   status = auto
@@ -57,12 +66,6 @@
   pom = push origin master
   ds = diff --stat=160,120
   dh1 = diff HEAD~1
-
-[merge]
-  tool = vimdiff
-[core]
-	editor = /usr/bin/vim
-[push]
-	default = tracking
-[github]
-	user = mikecampo
+  snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+  ours   = "!f() { git checkout --ours $@ && git add $@; }; f"
+  theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"

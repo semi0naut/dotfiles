@@ -81,6 +81,8 @@ set wildignore+=*/tmp/*,*/log/*,*.so,*.swp,*.zip,*/rdoc/*
 set colorcolumn=90
 " Show trailing whitespace
 set list listchars=tab:»·,trail:·
+" Adding this since the esc remap on the 'i' key had a long delay when pressed
+set timeoutlen=300 ttimeoutlen=0
 
 " Fix vim's background colour erase - http://snk.tuxfamily.org/log/vim-256color-bce.html
 if &term =~ '256color'
