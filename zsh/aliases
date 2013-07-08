@@ -20,6 +20,7 @@ alias cd/='cd /'
 alias ls='ls -G'
 
 alias aliases='vim ~/.dotfiles/zsh/aliases'
+alias functions='vim ~/.dotfiles/zsh/functions'
 alias bake='bundle exec rake'
 alias be='bundle exec'
 alias bi='bundle install'
@@ -93,13 +94,15 @@ alias zsh='vim ~/.zshrc'
 alias todo='vim ~/Dropbox/notes/life-todo'
 alias wtodo='vim ~/Dropbox/notes/work-todo'
 alias sharp='vim ~/Dropbox/notes/sharpening-notes'
+alias completion='vim ~/Dropbox/notes/completion-list'
 
 # Projects
 alias projects='cd ~/code/projects'
+alias dot='cd ~/code/projects/dotfiles'
 alias perks='cd ~/code/work/src/campusperks'
 alias work='cd ~/code/work'
 alias learn='cd ~/code/learning-area'
-alias dot='cd ~/code/projects/dotfiles'
+alias current='cd ~/code/learning-area/languages-frameworks/elixir/introducing-elixir/physics'
 
 # Heroku staging
 alias staging-console='heroku run console --app campusperks-staging'

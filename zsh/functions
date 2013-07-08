@@ -53,3 +53,13 @@ function take {
 function gc {
   git commit -m "$*"
 }
+
+# Search google for a term
+function google() {
+  open /Applications/Google\ Chrome.app/ "http://www.google.com/search?q= $1";
+}
+
+# Open a file in chrome
+function chrome () {
+  open -a /Applications/Google\ Chrome.app/ "$1"
+}
