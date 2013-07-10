@@ -26,7 +26,7 @@ function git-nuke {
 
 function git-on-master {
   branch=`git_branch_name`
-  git checkout master && git pull --rebase 
+  git checkout master && git pull --rebase
   git checkout $branch
   git rebase master
   }
@@ -63,3 +63,9 @@ function google() {
 function chrome () {
   open -a /Applications/Google\ Chrome.app/ "$1"
 }
+
+# See top 10 bash commands
+function hist() {
+   cat ~/.history|cut -d ';' -f 2- 2>/dev/null| awk '{a[$1]++ } END{for(i in a){print a[i] " " i}}'|sort -rn|head
+}
+

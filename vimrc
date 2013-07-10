@@ -20,6 +20,7 @@ map <leader>fl :CtrlP lib<cr>
 map <leader>fp :CtrlP vendor/plugins<cr>
 map <leader>fs :CtrlP spec<cr>
 map <leader>ft :CtrlP test<cr>
+nnoremap <silent> <leader>fr :ClearCtrlPCache<cr>\|:CtrlP<cr>
 
 " # gist-vim
 let g:gist_detect_filetype = 1
@@ -84,6 +85,10 @@ set list listchars=tab:»·,trail:·
 " Adding this since the esc remap on the 'i' key had a long delay when pressed
 set timeoutlen=300 ttimeoutlen=0
 
+" When loading text files, wrap them and don't split up words.
+au BufNewFile,BufRead *.txt setlocal wrap
+au BufNewFile,BufRead *.txt setlocal lbr
+
 " Fix vim's background colour erase - http://snk.tuxfamily.org/log/vim-256color-bce.html
 if &term =~ '256color'
   " Disable Background Color Erase (BCE) so that color schemes
@@ -91,6 +96,18 @@ if &term =~ '256color'
   " See also http://snk.tuxfamily.org/log/vim-256color-bce.html
   set t_ut=
 endif
+
+" Notes and other helpers
+map <Leader>bb :!bundle install<cr>
+map <leader>gs :Gstatus<CR>
+map <leader>gw :!git add . && git commit -m 'WIP' && git push<cr>
+map <leader>nn :sp ~/Dropbox/notes/programming-notes<cr>
+map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
+map <leader>pn :sp ~/Dropbox/work/redwood/notes/project-notes<cr>
+map <leader>rf :CommandTFlush<cr>
+
+" Remove trailing whitespace on save all files.
+au BufWritePre * :%s/\s\+$//e
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -106,7 +123,7 @@ augroup vimrcEx
   autocmd FileType python set sw=2 sts=2 et
 
   " Indent p tags
-  autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif 
+  autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -120,7 +137,7 @@ augroup END
 " insert an end tag with <c-e>
 imap <c-e> end
 
-" insert a hash rocket with <c-l> 
+" insert a hash rocket with <c-l>
 imap <c-l> <space>=><space>
 
 " Mapping ESC in insert mode and command mode to double i
@@ -131,7 +148,7 @@ cmap ii <C-[>
 nmap <leader>z <c-z>
 
 " Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<cr>
+nmap <silent> <leader>ev :vsp $MYVIMRC<cr>
 nmap <silent> <leader>rv :so $MYVIMRC<cr>
 
 " remap saving and quiting :P
@@ -143,6 +160,11 @@ nmap <leader>x :x<cr>
 :ca Wq wq
 :ca W w
 :ca Q q
+
+command! Q q " Bind :Q to :q
+command! Qall qall
+" Disable Ex mode
+map Q <Nop>
 
 " Map ctrl-movement keys to window switching
 map <c-k> <c-w><Up>
@@ -219,7 +241,7 @@ function! PromoteToLet()
   :normal ==
 endfunction
 :command! PromoteToLet :call PromoteToLet()
-:map <leader>p :PromoteToLet<cr>
+:map <leader>pp :PromoteToLet<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPS TO JUMP TO SPECIFIC COMMAND-T TARGETS AND FILES
