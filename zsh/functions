@@ -69,3 +69,7 @@ function hist() {
    cat ~/.history|cut -d ';' -f 2- 2>/dev/null| awk '{a[$1]++ } END{for(i in a){print a[i] " " i}}'|sort -rn|head
 }
 
+function run_quirk() {
+  quirk
+}
+
