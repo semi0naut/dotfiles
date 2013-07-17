@@ -179,6 +179,7 @@ map <leader>mm :split<cr>
 
 map <leader>gg :topleft 100 :split Gemfile<cr>
 map <leader>gr :topleft 100 :split config/routes.rb<cr>
+map <leader>sd :topleft 100 :split app/models/contests/seed_data.rb<cr>
 
 " Clear the search buffer (highlighting) when hitting return
 function! MapCR()
