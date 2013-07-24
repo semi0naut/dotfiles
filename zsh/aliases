@@ -112,8 +112,9 @@ alias wtodo='vim ~/Dropbox/work/redwood/notes/work-todo'
 alias sharp='vim ~/Dropbox/notes/sharpening-notes'
 alias completion='vim ~/Dropbox/notes/completion-list'
 alias powerup='vim ~/code/learning-area/notes/powerup'
-alias pnotes='vim ~/Dropbox/notes/programming-notes'
-alias wnotes='vim ~/Dropbox/work/redwood/notes/project-notes'
+alias notes='cd ~/Dropbox/notes'
+alias cnotes='vim ~/Dropbox/notes/programming-notes'
+alias pnotes='vim ~/Dropbox/notes/project-notes'
 
 # Projects
 alias projects='cd ~/code/projects'
@@ -123,6 +124,9 @@ alias work='cd ~/code/work/redwood'
 alias learn='cd ~/code/learning-area'
 alias current='cd ~/code/learning-area/languages-frameworks/elixir/introducing-elixir/physics'
 
+# Open Source
+alias ssh-discourse='ssh -F ~/code/projects/discourse/.project/vagrant.ssh.conf default'
+
 # Heroku staging
 alias staging-console='heroku run console --app campusperks-staging'
 alias staging-tail='heroku logs --tail --app campusperks-staging'
@@ -130,3 +134,6 @@ alias staging-tail='heroku logs --tail --app campusperks-staging'
 # Heroku production
 alias production-console='heroku run console --app campusperks'
 alias production-tail='heroku logs --tail --app campusperks'
+
+# DB
+alias start-postgres='pg_ctl -D /usr/local/var/postgres -l logfile start'

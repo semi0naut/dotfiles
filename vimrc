@@ -103,7 +103,7 @@ map <leader>gs :Gstatus<CR>
 map <leader>gw :!git add . && git commit -m 'WIP' && git push<cr>
 map <leader>nn :sp ~/Dropbox/notes/programming-notes<cr>
 map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
-map <leader>pn :sp ~/Dropbox/work/redwood/notes/project-notes<cr>
+map <leader>pn :sp ~/Dropbox/notes/project-notes<cr>
 map <leader>rf :CommandTFlush<cr>
 
 " Remove trailing whitespace on save all files.
