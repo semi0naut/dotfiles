@@ -27,7 +27,7 @@ export TERM=xterm-256color
 export EDITOR=vi
 
 # Grep tweaks
-export GREP_OPTIONS="-nRi --color --exclude-dir=tmp" # --exclude-dir=public --exclude-dir=log --exclude-dir=vendor/assets --exclude-dir=fonts --exclude-dir=images --exclude-dir=coverage --exclude-dir=rdoc"
+export GREP_OPTIONS="-nRi --color --exclude-dir=tmp --exclude-dir=public --exclude-dir=log" # --exclude-dir=vendor/assets --exclude-dir=fonts --exclude-dir=images --exclude-dir=coverage --exclude-dir=rdoc"
 
 # Save a ton of history
 export HISTSIZE=20000
