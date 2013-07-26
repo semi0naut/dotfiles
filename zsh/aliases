@@ -108,13 +108,15 @@ alias gsp='git stash pop'
 alias gx='git reset --hard'
 
 # Notes
-alias todo='vim ~/Dropbox/notes/life-todo'
 alias wtodo='vim ~/Dropbox/work/redwood/notes/work-todo'
+alias todo='vim ~/Dropbox/notes/daily/todo'
 alias sharp='vim ~/Dropbox/notes/sharpening-notes'
-alias completion='vim ~/Dropbox/notes/completion-list'
+alias completion='cd ~/Dropbox/notes/daily/daily-log/completion-list'
+alias log='cd ~/Dropbox/notes/daily/daily-log'
 alias powerup='vim ~/code/learning-area/notes/powerup'
 alias notes='cd ~/Dropbox/notes'
-alias cnotes='vim ~/Dropbox/notes/programming-notes'
+alias daily='cd ~/Dropbox/notes/daily'
+alias guide='vim ~/Dropbox/notes/daily/DAILY_GUIDE'
 alias pnotes='vim ~/Dropbox/notes/project-notes'
 
 # Projects
