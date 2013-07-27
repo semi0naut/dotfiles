@@ -20,6 +20,8 @@ map <leader>fl :CtrlP lib<cr>
 map <leader>fp :CtrlP vendor/plugins<cr>
 map <leader>fs :CtrlP spec<cr>
 map <leader>ft :CtrlP test<cr>
+map <leader>fa :CtrlP app/assets<cr>
+map <leader>fj :CtrlP app/assets/javascripts<cr>
 nnoremap <silent> <leader>fr :ClearCtrlPCache<cr>\|:CtrlP<cr>
 
 " # gist-vim

@@ -117,7 +117,7 @@ alias powerup='vim ~/code/learning-area/notes/powerup'
 alias notes='cd ~/Dropbox/notes'
 alias daily='cd ~/Dropbox/notes/daily'
 alias guide='vim ~/Dropbox/notes/daily/DAILY_GUIDE'
-alias pnotes='vim ~/Dropbox/notes/project-notes'
+alias pn='vim ~/Dropbox/notes/project-notes'
 
 # Projects
 alias projects='cd ~/code/projects'
@@ -125,7 +125,7 @@ alias dot='cd ~/code/projects/dotfiles'
 alias p='cd ~/code/work/redwood/campusperks'
 alias work='cd ~/code/work/redwood'
 alias learn='cd ~/code/learning-area'
-alias current='cd ~/code/learning-area/languages-frameworks/elixir/introducing-elixir/physics'
+alias current='cd ~/code/projects/discourse'
 
 # Open Source
 alias ssh-discourse='ssh -F ~/code/projects/discourse/.project/vagrant.ssh.conf default'
