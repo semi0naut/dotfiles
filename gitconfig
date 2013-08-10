@@ -7,7 +7,7 @@
 [core]
 	editor = /usr/bin/vim
 [push]
-	default = tracking
+	default = upstream
 [github]
 	user = mikecampo
 [diff]
