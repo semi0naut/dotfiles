@@ -106,7 +106,6 @@ map <leader>gw :!git add . && git commit -m 'WIP' && git push<cr>
 map <leader>nn :sp ~/Dropbox/notes/programming-notes<cr>
 map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 map <leader>pn :sp ~/Dropbox/notes/project-notes<cr>
-map <leader>rf :CommandTFlush<cr>
 
 " Remove trailing whitespace on save all files.
 au BufWritePre * :%s/\s\+$//e
@@ -143,8 +142,8 @@ imap <c-e> end
 imap <c-l> <space>=><space>
 
 " Mapping ESC in insert mode and command mode to double i
-imap ii <C-[>
-cmap ii <C-[>
+" imap ii <C-[>
+"" cmap ii <C-[>
 
 " suspend process
 nmap <leader>z <c-z>
@@ -158,6 +157,8 @@ nmap <leader>w :w<cr>
 nmap <leader>q :q<cr>
 nmap <leader>Q :q!<cr>
 nmap <leader>x :x<cr>
+:ca Wa wa
+:ca WA wa
 :ca WQ wq
 :ca Wq wq
 :ca W w
@@ -181,7 +182,6 @@ map <leader>mm :split<cr>
 
 map <leader>gg :topleft 100 :split Gemfile<cr>
 map <leader>gr :topleft 100 :split config/routes.rb<cr>
-map <leader>sd :topleft 100 :split app/models/contests/seed_data.rb<cr>
 
 " Clear the search buffer (highlighting) when hitting return
 function! MapCR()
