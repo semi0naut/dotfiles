@@ -87,6 +87,11 @@ set list listchars=tab:»·,trail:·
 " Adding this since the esc remap on the 'i' key had a long delay when pressed
 set timeoutlen=300 ttimeoutlen=0
 
+" Allow undo when doing back into a closed file
+set undodir=$HOME/.vim/undo
+set undolevels=1000
+set undoreload=10000
+
 " When loading text files, wrap them and don't split up words.
 au BufNewFile,BufRead *.txt setlocal wrap
 au BufNewFile,BufRead *.txt setlocal lbr
@@ -99,12 +104,21 @@ if &term =~ '256color'
   set t_ut=
 endif
 
+" Disable arrow keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+
 " Notes and other helpers
 map <Leader>bb :!bundle install<cr>
 map <leader>gs :Gstatus<CR>
 map <leader>gw :!git add . && git commit -m 'WIP' && git push<cr>
 map <leader>nn :sp ~/Dropbox/notes/programming-notes<cr>
-map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 map <leader>pn :sp ~/Dropbox/notes/project-notes<cr>
 
 " Remove trailing whitespace on save all files.
@@ -142,8 +156,8 @@ imap <c-e> end
 imap <c-l> <space>=><space>
 
 " Mapping ESC in insert mode and command mode to double i
-" imap ii <C-[>
-"" cmap ii <C-[>
+imap kj <C-[>
+cmap kj <C-[>
 
 " suspend process
 nmap <leader>z <c-z>
@@ -333,4 +347,7 @@ function! RunTests(filename)
         end
     end
 endfunction
+
+" Use Marked.app to preview Markdown files...
+nnoremap <leader>p :silent !open -a Marked.app '%:p'<cr>
 
