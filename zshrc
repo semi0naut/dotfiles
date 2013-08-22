@@ -50,9 +50,7 @@ export SAVEHIST=$HISTSIZE
 # COMPLETION_WAITING_DOTS="true"
 
 # Load all of the config files in ~/.zsh that end in .zsh
-for config_file ($ZSH/lib/*.zsh); do
-  source $config_file
-done
+source $ZSH/lib/*.zsh
 
 # Source my custom files after oh-my-zsh so I can override things.
 source $HOME/.dotfiles/zsh/aliases

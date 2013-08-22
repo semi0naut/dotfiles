@@ -129,7 +129,7 @@ alias dot='cd ~/code/projects/dotfiles'
 alias p='cd ~/code/work/redwood/campusperks'
 alias work='cd ~/code/work/redwood'
 alias learn='cd ~/code/learning-area'
-alias current='cd ~/code/projects/discourse'
+alias current='cd ~/code/projects/robocoin'
 
 # Open Source
 alias ssh-discourse='ssh -F ~/code/projects/discourse/.project/vagrant.ssh.conf default'
