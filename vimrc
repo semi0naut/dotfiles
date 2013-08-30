@@ -24,6 +24,10 @@ map <leader>fa :CtrlP app/assets<cr>
 map <leader>fj :CtrlP app/assets/javascripts<cr>
 nnoremap <silent> <leader>fr :ClearCtrlPCache<cr>\|:CtrlP<cr>
 
+" # NERDtree
+nmap <leader>d :NERDTreeToggle<CR>
+nmap <leader>f :NERDTreeFind<CR>
+
 " # gist-vim
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
