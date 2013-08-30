@@ -63,8 +63,8 @@ alias zsh='vim ~/.zshrc'
 # Git
 alias ammend='amend'
 alias amend='git commit --amend'
-alias gaa='echo "Use ga!" && git add --all'
-alias ga='git add --all'
+alias gaa='echo "Use ga!" && git add -A :/'
+alias ga='git add -A :/'
 alias gae='echo "Use amend!" && git commit --amend' # Remove when not needed
 alias gau='git add --update'
 alias gb='git branch'

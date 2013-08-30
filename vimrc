@@ -46,6 +46,7 @@ set laststatus=2
 set showmatch
 set incsearch
 set dictionary+=/usr/share/dict/words
+set clipboard=unnamed " yank and paste with the system clipboard
 set number
 set hlsearch
 " make searches case-sensitive only if they contain upper-case characters
@@ -78,7 +79,8 @@ syntax on
 " Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
 " use emacs-style tab completion when selecting files, etc
-set wildmode=longest,list
+set wildmenu
+set wildmode=longest,list,full
 colorscheme Monokai
 set wildignore+=*/tmp/*,*/log/*,*.so,*.swp,*.zip,*/rdoc/*
 set colorcolumn=90
