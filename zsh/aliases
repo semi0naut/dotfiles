@@ -26,6 +26,7 @@ alias be='bundle exec'
 alias bi='bundle install'
 alias be='bundle exec'
 alias beg='bundle exec guard'
+alias bower='noglob bower'
 alias bu='bundle update'
 alias cls=clear
 alias code='cd ~/code'
@@ -111,7 +112,6 @@ alias gsp='git stash pop'
 alias gx='git reset --hard'
 
 # Notes
-alias wtodo='vim ~/Dropbox/work/redwood/notes/work-todo'
 alias todo='vim ~/Dropbox/notes/daily/todo'
 alias sharp='vim ~/Dropbox/notes/sharpening-notes'
 alias completion='cd ~/Dropbox/notes/daily/daily-log/completion-list'
@@ -126,8 +126,7 @@ alias bucket='cd ~/Dropbox/notes/buckets'
 # Projects
 alias projects='cd ~/code/projects'
 alias dot='cd ~/code/projects/dotfiles'
-alias p='cd ~/code/work/redwood/campusperks'
-alias work='cd ~/code/work/redwood'
+alias work='cd ~/code/work'
 alias learn='cd ~/code/learning-area'
 alias current='cd ~/code/projects/robocoin'
 
