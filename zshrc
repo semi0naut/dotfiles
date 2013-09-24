@@ -61,6 +61,7 @@ export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
 PATH=$PATH:$HOME/bin
 
 # Start rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 export RUBY_HEAP_MIN_SLOTS=1000000
