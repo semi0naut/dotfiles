@@ -10,7 +10,7 @@ call pathogen#helptags()
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_map = '<leader>ff'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = 'public\|node_modules\|DS_Store\|lightscampusaction\|git|*.pyc'
 map <leader>fr :call ShowRoutes()<cr>
 map <leader>fv :CtrlP app/views<cr>
 map <leader>fc :CtrlP app/controllers<cr>
