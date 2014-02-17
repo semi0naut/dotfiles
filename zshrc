@@ -27,7 +27,7 @@ export TERM=xterm-256color
 export EDITOR=vi
 
 # Grep tweaks
-export GREP_OPTIONS="-nRi --color --exclude-dir=.git --exclude-dir=vendor --exclude-dir=tmp --exclude-dir=public --exclude-dir=log --exclude-dir=node_modules --exclude-dir=bower_components" # --exclude-dir=vendor/assets --exclude-dir=fonts --exclude-dir=images --exclude-dir=coverage --exclude-dir=rdoc"
+export GREP_OPTIONS="-nRi --color --exclude-dir=.git --exclude-dir=vendor --exclude-dir=tmp --exclude-dir=public --exclude-dir=log --exclude-dir=node_modules --exclude-dir=bower_components --exclude-dir=coverage" # --exclude-dir=vendor/assets --exclude-dir=fonts --exclude-dir=images --exclude-dir=coverage --exclude-dir=rdoc"
 
 # Save a ton of history
 export HISTSIZE=20000
@@ -61,7 +61,8 @@ export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
 PATH=$PATH:$HOME/bin
 
 # Start rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
+export RBENV_PATH="$HOME/.rbenv"
+export PATH="$RBENV_PATH/bin:$PATH"
 eval "$(rbenv init -)"
 
 export RUBY_HEAP_MIN_SLOTS=1000000
@@ -76,3 +77,6 @@ export PYTHONPATH=/Users/pulsar/Code/open-source/ansible/lib:${PYTHONPATH}
 export ANSIBLE_LIBRARY=/Users/pulsar/Code/open-source/ansible/library
 export MANPATH=/Users/pulsar/Code/open-source/ansible/docs/man:${MANPATH}
 export ANSIBLE_HOSTS=~/.ansible_hosts
+
+# Setup Dart
+export PATH=/Applications/Dart/dart-sdk/bin:${PATH}

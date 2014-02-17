@@ -124,7 +124,6 @@ imap <right> <nop>
 map <Leader>bb :!bundle install<cr>
 map <leader>gs :Gstatus<CR>
 map <leader>gw :!git add . && git commit -m 'WIP' && git push<cr>
-map <leader>nn :sp ~/Dropbox/notes/programming-notes<cr>
 map <leader>pn :sp ~/Dropbox/notes/project-notes<cr>
 
 " Remove trailing whitespace on save all files.
@@ -203,6 +202,10 @@ map <leader>mm :split<cr>
 map <leader>gg :topleft 100 :split Gemfile<cr>
 map <leader>gr :topleft 100 :split config/routes.rb<cr>
 
+" Map paste and nonumber
+map <leader>p :set paste! paste?<cr>
+map <leader>o :set number! number?<cr>
+
 " Clear the search buffer (highlighting) when hitting return
 function! MapCR()
   nnoremap <cr> :nohlsearch<cr>
@@ -268,36 +271,6 @@ endfunction
 :map <leader>pp :PromoteToLet<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SWITCH BETWEEN TEST AND PRODUCTION CODE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! OpenTestAlternate()
-  let new_file = AlternateForCurrentFile()
-  exec ':e ' . new_file
-endfunction
-function! AlternateForCurrentFile()
-  let current_file = expand("%")
-  let new_file = current_file
-  let in_spec = match(current_file, '^spec/') != -1
-  let going_to_spec = !in_spec
-  let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') != -1 || match(current_file, '\<helpers\>') != -1
-  if going_to_spec
-    if in_app
-      let new_file = substitute(new_file, '^app/', '', '')
-    end
-    let new_file = substitute(new_file, '\.rb$', '_spec.rb', '')
-    let new_file = 'spec/' . new_file
-  else
-    let new_file = substitute(new_file, '_spec\.rb$', '.rb', '')
-    let new_file = substitute(new_file, '^spec/', '', '')
-    if in_app
-      let new_file = 'app/' . new_file
-    end
-  endif
-  return new_file
-endfunction
-nnoremap <leader>o :call OpenTestAlternate()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>t :call RunTestFile()<cr>
@@ -355,5 +328,5 @@ function! RunTests(filename)
 endfunction
 
 " Use Marked.app to preview Markdown files...
-nnoremap <leader>p :silent !open -a Marked.app '%:p'<cr>
+nnoremap <leader>pp :silent !open -a Marked.app '%:p'<cr>
 
