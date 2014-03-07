@@ -27,7 +27,7 @@ export TERM=xterm-256color
 export EDITOR=vi
 
 # Grep tweaks
-export GREP_OPTIONS="-nRi --color --exclude-dir=.git --exclude-dir=vendor --exclude-dir=tmp --exclude-dir=public --exclude-dir=log --exclude-dir=node_modules --exclude-dir=bower_components --exclude-dir=coverage" # --exclude-dir=vendor/assets --exclude-dir=fonts --exclude-dir=images --exclude-dir=coverage --exclude-dir=rdoc"
+export GREP_OPTIONS="-nRi --color --exclude-dir=.git  --exclude-dir=tmp --exclude-dir=public --exclude-dir=log --exclude-dir=node_modules --exclude-dir=bower_components --exclude-dir=coverage --exclude-dir=.bundle" # --exclude-dir=vendor/assets --exclude-dir=fonts --exclude-dir=images --exclude-dir=coverage --exclude-dir=rdoc"
 
 # Save a ton of history
 export HISTSIZE=20000
@@ -65,7 +65,9 @@ export RBENV_PATH="$HOME/.rbenv"
 export PATH="$RBENV_PATH/bin:$PATH"
 eval "$(rbenv init -)"
 
-export RUBY_HEAP_MIN_SLOTS=1000000
+export RUBY_HEAP_MIN_SLOTS=1000000 # for < 2.1.1, will raise warning when using 2.1.1
+export RUBY_GC_HEAP_INIT_SLOTS=1000000 # for 2.1.1
+
 export RUBY_HEAP_SLOTS_INCREMENT=1000000
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 export RUBY_GC_MALLOC_LIMIT=1000000000
