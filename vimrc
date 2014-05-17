@@ -6,23 +6,24 @@ let mapleader=","
 call pathogen#infect()
 call pathogen#helptags()
 
-" ctrlp.vim Config
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-let g:ctrlp_map = '<leader>ff'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = 'public\|node_modules\|DS_Store\|lightscampusaction\|git|*.pyc'
-map <leader>fr :call ShowRoutes()<cr>
-map <leader>fv :CtrlP app/views<cr>
-map <leader>fc :CtrlP app/controllers<cr>
-map <leader>fm :CtrlP app/models<cr>
-map <leader>fh :CtrlP app/helpers<cr>
-map <leader>fl :CtrlP lib<cr>
-map <leader>fp :CtrlP vendor/plugins<cr>
-map <leader>fs :CtrlP spec<cr>
-map <leader>ft :CtrlP test<cr>
-map <leader>fa :CtrlP app/assets<cr>
-map <leader>fj :CtrlP app/assets/javascripts<cr>
-nnoremap <silent> <leader>fr :ClearCtrlPCache<cr>\|:CtrlP<cr>
+" Run a given vim command on the results of fuzzy selecting from a given shell
+" command. See usage below.
+function! SelectaCommand(choice_command, selecta_args, vim_command)
+  try
+    silent let selection = system(a:choice_command . " | selecta " . a:selecta_args)
+  catch /Vim:Interrupt/
+    " Swallow the ^C so that the redraw below happens; otherwise there will be
+    " leftovers from selecta on the screen
+    redraw!
+    return
+  endtry
+  redraw!
+  exec a:vim_command . " " . selection
+endfunction
+
+" Find all files in all non-dot directories starting in the working directory.
+" Fuzzy select one of those. Open the selected file with :e.
+nnoremap <leader>ff :call SelectaCommand("find * -type f", "", ":e")<cr>
 
 " # NERDtree
 nmap <leader>d :NERDTreeToggle<CR>
@@ -268,7 +269,7 @@ function! PromoteToLet()
   :normal ==
 endfunction
 :command! PromoteToLet :call PromoteToLet()
-:map <leader>pp :PromoteToLet<cr>
+:map <leader>pl :PromoteToLet<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS

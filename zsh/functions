@@ -73,3 +73,15 @@ function run_quirk() {
   quirk
 }
 
+function bump_gem_version {
+  if [[ $# -eq 0 ]]; then
+    echo "usage: $0 <version>"
+  else
+    echo "Committing version bump"
+    git add . && git commit -m "Version ${1}"
+    echo "Creating tag v$1"
+    git tag -a v${1} -m "Tagging v${1}"
+    git push origin && git push origin --tags
+  fi
+}
+

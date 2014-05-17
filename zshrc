@@ -27,7 +27,7 @@ export TERM=xterm-256color
 export EDITOR=vi
 
 # Grep tweaks
-export GREP_OPTIONS="-nRi --color --exclude-dir=.git  --exclude-dir=tmp --exclude-dir=public --exclude-dir=log --exclude-dir=node_modules --exclude-dir=bower_components --exclude-dir=coverage --exclude-dir=.bundle" # --exclude-dir=vendor/assets --exclude-dir=fonts --exclude-dir=images --exclude-dir=coverage --exclude-dir=rdoc"
+export GREP_OPTIONS="-nRi --color --exclude-dir=.git  --exclude-dir=tmp --exclude-dir=public --exclude-dir=log --exclude-dir=node_modules --exclude-dir=bower_components --exclude-dir=coverage --exclude-dir=.bundle --exclude=*.csv --exclude=*.pdf --exclude-dir=vendor --exclude-dir=rdoc --exclude-dir=personal" # --exclude-dir=images --exclude-dir=coverage
 
 # Save a ton of history
 export HISTSIZE=20000
@@ -74,10 +74,11 @@ export RUBY_GC_MALLOC_LIMIT=1000000000
 export RUBY_HEAP_FREE_MIN=500000
 
 # Setup Ansible
-export PATH=/Users/pulsar/Code/open-source/ansible/bin:${PATH}
-export PYTHONPATH=/Users/pulsar/Code/open-source/ansible/lib:${PYTHONPATH}
-export ANSIBLE_LIBRARY=/Users/pulsar/Code/open-source/ansible/library
-export MANPATH=/Users/pulsar/Code/open-source/ansible/docs/man:${MANPATH}
+ANSIBLE_DIR=/Users/pulsar/Code/open-source/python/ansible
+export PATH=${ANSIBLE_DIR}/bin:${PATH}
+export PYTHONPATH=${ANSIBLE_DIR}/lib:${PYTHONPATH}
+export ANSIBLE_LIBRARY=${ANSIBLE_DIR}/library
+export MANPATH=${ANSIBLE_DIR}/docs/man:${MANPATH}
 export ANSIBLE_HOSTS=~/.ansible_hosts
 
 # Setup Dart
