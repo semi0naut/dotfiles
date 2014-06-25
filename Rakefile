@@ -35,12 +35,12 @@ task :install do
 end
 
 def create_dotfile_link
-  system %Q{rm "$HOME/.dotfiles"}
+  system %Q{rm -f "$HOME/.dotfiles"}
   system %Q{ln -s $PWD "$HOME/.dotfiles"}
 end
 
 def replace_file(file)
-  system %Q{rm "$HOME/.#{file}"}
+  system %Q{rm -r "$HOME/.#{file}"}
   link_file(file)
 end
 
