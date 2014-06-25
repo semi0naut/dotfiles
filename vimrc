@@ -6,6 +6,7 @@ let mapleader=","
 call pathogen#infect()
 call pathogen#helptags()
 
+" # selecta
 " Run a given vim command on the results of fuzzy selecting from a given shell
 " command. See usage below.
 function! SelectaCommand(choice_command, selecta_args, vim_command)
@@ -34,6 +35,9 @@ let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
 let g:gist_show_privates = 1
 let g:gist_post_private = 1
+
+" # c-tags
+set tags+=tags;$HOME
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
@@ -124,7 +128,7 @@ imap <right> <nop>
 " Notes and other helpers
 map <Leader>bb :!bundle install<cr>
 map <leader>gs :Gstatus<CR>
-map <leader>gw :!git add . && git commit -m 'WIP' && git push<cr>
+map <leader>gw :!git add . && git commit -m 'WIP'<cr>
 map <leader>pn :sp ~/Dropbox/notes/project-notes<cr>
 
 " Remove trailing whitespace on save all files.
@@ -162,8 +166,8 @@ imap <c-e> end
 imap <c-l> <space>=><space>
 
 " Mapping ESC in insert mode and command mode to double i
-imap kj <C-[>
-cmap kj <C-[>
+imap ii <C-[>
+cmap ii <C-[>
 
 " suspend process
 nmap <leader>z <c-z>
@@ -218,6 +222,8 @@ nnoremap <leader><leader> <c-^>
 " ABBREVIATIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 :ab teh the
+:ab kewyord keyword
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
