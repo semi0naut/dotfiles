@@ -1,6 +1,7 @@
 [user]
   name = Michael Campagnaro
   email = mikecampo@gmail.com
+	signingkey = 83286E7B
 [merge]
   summary = true
   tool = vimdiff
