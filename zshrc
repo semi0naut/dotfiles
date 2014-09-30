@@ -1,3 +1,5 @@
+platform=`uname`
+
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.zsh
 
@@ -17,7 +19,11 @@ bindkey "^N" insert-last-word
 
 # Show contents of directory after cd-ing into it
 chpwd() {
-  ls -lrthG
+  if [[ $platform == 'Linux' ]]; then
+    ls -lrthG --color
+  elif [[ $platform == 'Darwin' ]]; then
+    ls -lrthG
+  fi
 }
 
 # Unbreak broken, non-colored terminal
