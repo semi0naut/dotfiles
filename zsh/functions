@@ -69,10 +69,6 @@ function hist() {
    cat ~/.history|cut -d ';' -f 2- 2>/dev/null| awk '{a[$1]++ } END{for(i in a){print a[i] " " i}}'|sort -rn|head
 }
 
-function run_quirk() {
-  quirk
-}
-
 function bump_gem_version {
   if [[ $# -eq 0 ]]; then
     echo "usage: $0 <version>"

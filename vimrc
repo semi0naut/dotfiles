@@ -107,6 +107,9 @@ set undoreload=10000
 au BufNewFile,BufRead *.txt setlocal wrap
 au BufNewFile,BufRead *.txt setlocal lbr
 
+" Clojurescript syntax highlighting
+au BufNewFile,BufRead *.cljs set filetype=clojure
+
 " Fix vim's background colour erase - http://snk.tuxfamily.org/log/vim-256color-bce.html
 if &term =~ '256color'
   " Disable Background Color Erase (BCE) so that color schemes
@@ -166,8 +169,8 @@ imap <c-e> end
 imap <c-l> <space>=><space>
 
 " Mapping ESC in insert mode and command mode to double i
-imap ii <C-[>
-cmap ii <C-[>
+"imap ii <C-[>
+"cmap ii <C-[>
 
 " suspend process
 nmap <leader>z <c-z>
