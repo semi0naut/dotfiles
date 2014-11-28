@@ -1,4 +1,4 @@
-platform=`uname`
+platform='uname'
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.zsh
