@@ -89,7 +89,6 @@ filetype plugin indent on
 " use emacs-style tab completion when selecting files, etc
 set wildmenu
 set wildmode=longest,list,full
-colorscheme Monokai
 set wildignore+=*/tmp/*,*/log/*,*.so,*.swp,*.zip,*/rdoc/*
 set colorcolumn=90
 " Show trailing whitespace
@@ -131,10 +130,23 @@ imap <right> <nop>
 map <Leader>bb :!bundle install<cr>
 map <leader>gs :Gstatus<CR>
 map <leader>gw :!git add . && git commit -m 'WIP'<cr>
-map <leader>pn :sp ~/Dropbox/notes/project-notes<cr>
+map <leader>pn :sp ~/jelly/documents/Notes/stack.txt<cr>
+map <leader>sn :sp ~/jelly/documents/software-notes/pcg-dive.md<cr>
+map <leader>rn :sp ~/work/pcg/files/notes/refactoring-notes.md<cr>
 
 " Remove trailing whitespace on save all files.
 au BufWritePre * :%s/\s\+$//e
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COLORS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+colorscheme pencil
+set background=light
+let g:airline_theme = 'pencil'
+
+" Switch between light and dark
+map <leader>l :set background=dark<cr>
+map <leader>ll :set background=light<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -164,8 +176,8 @@ augroup END
 " insert an end tag with <c-e>
 imap <c-e> end
 
-" insert a hash rocket with <c-l>
-imap <c-l> <space>=><space>
+" insert a clojure lambda <c-l>
+imap <c-l> (fn [x]<space>
 
 " Mapping ESC in insert mode and command mode to double i
 "imap ii <C-[>
