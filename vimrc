@@ -104,9 +104,11 @@ set undoreload=10000
 " When loading text files, wrap them and don't split up words.
 au BufNewFile,BufRead *.txt setlocal wrap
 au BufNewFile,BufRead *.txt setlocal lbr
-
 " Clojurescript syntax highlighting
 au BufNewFile,BufRead *.cljs set filetype=clojure
+
+" Remove trailing whitespace on save all files.
+au BufWritePre * :%s/\s\+$//e
 
 " Fix vim's background colour erase - http://snk.tuxfamily.org/log/vim-256color-bce.html
 if &term =~ '256color'
@@ -134,8 +136,15 @@ map <leader>pn :sp ~/jelly/documents/Notes/stack.txt<cr>
 map <leader>sn :sp ~/jelly/documents/software-notes/pcg-dive.md<cr>
 map <leader>rn :sp ~/work/pcg/files/notes/refactoring-notes.md<cr>
 
-" Remove trailing whitespace on save all files.
-au BufWritePre * :%s/\s\+$//e
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CLOJURE AND CLOJURESCRIPT
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Rainbow parens ala rainbow_parentheses.vim
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLORS
@@ -145,8 +154,15 @@ set background=light
 let g:airline_theme = 'pencil'
 
 " Switch between light and dark
-map <leader>l :set background=dark<cr>
-map <leader>ll :set background=light<cr>
+map <leader>l :call ChangeBgTheme("dark")<cr>
+map <leader>ll :call ChangeBgTheme("light")<cr>
+
+function! ChangeBgTheme(theme)
+  exec ":set background=" . a:theme
+  " Have to run this twice to get the plugin to set the colors
+  exec ":RainbowParenthesesToggle"
+  exec ":RainbowParenthesesToggle"
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
