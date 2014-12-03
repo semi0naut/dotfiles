@@ -22,7 +22,7 @@ chpwd() {
   if [[ $platform == 'Linux' ]]; then
     ls -lrthG --color
   elif [[ $platform == 'Darwin' ]]; then
-    ls -lrthG
+    ls -lG
   fi
 }
 

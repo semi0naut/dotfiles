@@ -6,7 +6,6 @@ if [[ $platform == 'Linux' ]]; then
 elif [[ $platform == 'Darwin' ]]; then
   alias l='ls -laG'
   alias ll='ls -lG'
-  alias lll='ls -lrath'
 fi
 
 alias c='cd'
@@ -17,7 +16,6 @@ alias cd..='cd ..'
 alias cd...='cd ../..'
 alias cd....='cd ../../..'
 alias cd.....='cd ../../../..'
-alias ls='ls -lG --color'
 
 alias aliases='vim ~/.dotfiles/zsh/aliases'
 alias al='aliases'
