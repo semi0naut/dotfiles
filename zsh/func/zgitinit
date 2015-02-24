@@ -243,6 +243,8 @@ zgitinit() {
 }
 
 zgitinit
-zgit_info_update
+# Temporarily disabling as this is slowing down new term tabs, especially when opening a
+# work git directory
+# zgit_info_update
 
 # vim:set ft=zsh:

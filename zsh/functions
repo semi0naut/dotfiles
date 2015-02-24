@@ -21,7 +21,7 @@ function git-done {
 }
 
 function git-nuke {
-  git branch -D $1 && git push origin :$1
+  git checkout master && git branch -D $1 && git push origin :$1
 }
 
 function git-on-master {
@@ -64,12 +64,6 @@ function chrome () {
   open -a /Applications/Google\ Chrome.app/ "$1"
 }
 
-# Open a file in chrome
-function chrome-kiosk () {
-  open -a /Applications/Google\ Chrome.app/ --args --kiosk --no-first-run  --no-default-browser-check --noerrdialogs --no-message-box --disable-desktop-notifications --allow-running-insecure-content --always-authorize-plugins --allow-outdated-plugins "$1"
-}
-
-
 # See top 10 bash commands
 function hist() {
    cat ~/.history|cut -d ';' -f 2- 2>/dev/null| awk '{a[$1]++ } END{for(i in a){print a[i] " " i}}'|sort -rn|head
@@ -86,4 +80,3 @@ function bump_gem_version {
     git push origin && git push origin --tags
   fi
 }
-

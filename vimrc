@@ -1,8 +1,21 @@
 let mapleader=","
 
+set nocompatible
+filetype off
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Plugins go here
+Plugin 'gmarik/Vundle.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()
+
 call pathogen#infect()
 call pathogen#helptags()
 
@@ -23,11 +36,11 @@ endfunction
 
 " Find all files in all non-dot directories starting in the working directory.
 " Fuzzy select one of those. Open the selected file with :e.
-nnoremap <leader>ff :call SelectaCommand("find * -type f", "", ":e")<cr>
+nnoremap <leader>f :call SelectaCommand("find * -type f ! -path 'resources/public/js/*' ! -path 'resources/.sass-cache/*' ! -path 'target/*'", "", ":e")<cr>
 
 " # NERDtree
-nmap <leader>d :NERDTreeToggle<CR>
-nmap <leader>f :NERDTreeFind<CR>
+"nmap <leader>d :NERDTreeToggle<CR>
+"nmap <leader>ff :NERDTreeFind<CR>
 
 " # gist-vim
 let g:gist_detect_filetype = 1
@@ -35,13 +48,19 @@ let g:gist_open_browser_after_post = 1
 let g:gist_show_privates = 1
 let g:gist_post_private = 1
 
+" vim-clojure-static
+let g:clojure_align_multiline_strings = 1
+" Default
+ let g:clojure_fuzzy_indent = 1
+ let g:clojure_fuzzy_indent_patterns = ['^match', '^with', '^def', '^let']
+ let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
+
 " # c-tags
 set tags+=tags;$HOME
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 set history=10000
@@ -133,8 +152,8 @@ map <Leader>bb :!bundle install<cr>
 map <leader>gs :Gstatus<CR>
 map <leader>gw :!git add . && git commit -m 'WIP'<cr>
 map <leader>pn :sp ~/jelly/documents/Notes/stack.txt<cr>
-map <leader>sn :sp ~/jelly/documents/software-notes/pcg-dive.md<cr>
-map <leader>rn :sp ~/work/pcg/files/notes/refactoring-notes.md<cr>
+map <leader>sn :sp ~/jelly/documents/software-notes/clojure.md<cr>
+map <leader>rn :sp ~/work/dive-networks/files/notes/refactoring-notes.md<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CLOJURE AND CLOJURESCRIPT
