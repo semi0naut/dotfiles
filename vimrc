@@ -98,6 +98,8 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backspace=indent,eol,start
 " display incomplete commands
 set showcmd
+" Spell checking autocomplete
+set complete+=kspell
 " Enable highlighting for syntax
 syntax on
 " Enable file type detection.
@@ -198,6 +200,9 @@ augroup vimrcEx
 
   " Indent p tags
   autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
+
+  " Spell check
+  autocmd BufRead,BufNewFile *.md setlocal spell
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -259,6 +264,9 @@ map <leader>gr :topleft 100 :split config/routes.rb<cr>
 " Map paste and nonumber
 map <leader>p :set paste! paste?<cr>
 map <leader>o :set number! number?<cr>
+
+" Spell checking
+map <leader>d :set spell! spell?<cr>
 
 " Clear the search buffer (highlighting) when hitting return
 function! MapCR()
