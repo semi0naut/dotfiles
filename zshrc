@@ -86,3 +86,4 @@ export PYTHONPATH=${ANSIBLE_DIR}/lib:${PYTHONPATH}
 export ANSIBLE_LIBRARY=${ANSIBLE_DIR}/library
 export MANPATH=${ANSIBLE_DIR}/docs/man:${MANPATH}
 export ANSIBLE_HOSTS=~/.ansible_hosts
+export LEIN_FAST_TRAMPOLINE=y
