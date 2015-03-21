@@ -3,6 +3,7 @@ let mapleader=","
 set nocompatible
 filetype off
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -10,8 +11,11 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" Plugins go here
+" Let Vundle manage itself.
 Plugin 'gmarik/Vundle.vim'
+
+" Plugins
+Plugin 'jpalardy/vim-slime'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -19,44 +23,8 @@ call vundle#end()
 call pathogen#infect()
 call pathogen#helptags()
 
-" Run a given vim command on the results of fuzzy selecting from a given shell
-" command. See usage below.
-function! SelectaCommand(choice_command, selecta_args, vim_command)
-  try
-    let selection = system(a:choice_command . " | selecta " . a:selecta_args)
-  catch /Vim:Interrupt/
-    " Swallow the ^C so that the redraw below happens; otherwise there will be
-    " leftovers from selecta on the screen
-    redraw!
-    return
-  endtry
-  redraw!
-  exec a:vim_command . " " . selection
-endfunction
+filetype plugin indent on
 
-" Find all files in all non-dot directories starting in the working directory.
-" Fuzzy select one of those. Open the selected file with :e.
-nnoremap <leader>f :call SelectaCommand("find * -type f ! -path 'resources/public/js/*' ! -path 'resources/.sass-cache/*' ! -path 'target/*'", "", ":e")<cr>
-
-" # NERDtree
-"nmap <leader>d :NERDTreeToggle<CR>
-"nmap <leader>ff :NERDTreeFind<CR>
-
-" # gist-vim
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-let g:gist_show_privates = 1
-let g:gist_post_private = 1
-
-" vim-clojure-static
-let g:clojure_align_multiline_strings = 1
-" Default
- let g:clojure_fuzzy_indent = 1
- let g:clojure_fuzzy_indent_patterns = ['^match', '^with', '^def', '^let']
- let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
-
-" # c-tags
-set tags+=tags;$HOME
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
@@ -106,7 +74,6 @@ syntax on
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
 " 'cindent' is on in C files, etc.
 " Also load indent files, to automatically do language-dependent indenting.
-filetype plugin indent on
 " use emacs-style tab completion when selecting files, etc
 set wildmenu
 set wildmode=longest,list,full
@@ -157,15 +124,16 @@ map <leader>pn :sp ~/jelly/documents/Notes/stack.txt<cr>
 map <leader>sn :sp ~/jelly/documents/software-notes/clojure.md<cr>
 map <leader>rn :sp ~/work/dive-networks/files/notes/refactoring-notes.md<cr>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CLOJURE AND CLOJURESCRIPT
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CLOJURE AND CLOJURESCRIPT SYNTAX
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Rainbow parens ala rainbow_parentheses.vim
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLORS
@@ -185,6 +153,7 @@ function! ChangeBgTheme(theme)
   exec ":RainbowParenthesesToggle"
 endfunction
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -202,13 +171,15 @@ augroup vimrcEx
   autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
 
   " Spell check
-  autocmd BufRead,BufNewFile *.md setlocal spell
+  autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_us
 augroup END
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
@@ -266,7 +237,7 @@ map <leader>p :set paste! paste?<cr>
 map <leader>o :set number! number?<cr>
 
 " Spell checking
-map <leader>d :set spell! spell?<cr>
+map <leader>d :exec &spell==&spell? "se spell! spelllang=en_us" : "se spell!"<cr>
 
 " Clear the search buffer (highlighting) when hitting return
 function! MapCR()
@@ -274,6 +245,7 @@ function! MapCR()
 endfunction
 call MapCR()
 nnoremap <leader><leader> <c-^>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ABBREVIATIONS
@@ -296,6 +268,7 @@ endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -310,6 +283,7 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GREP SEARCH
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -320,6 +294,7 @@ function! Search()
   endif
 endfunction
 map <leader>s :call Search()<cr>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PROMOTE VARIABLE TO RSPEC LET
@@ -333,6 +308,7 @@ function! PromoteToLet()
 endfunction
 :command! PromoteToLet :call PromoteToLet()
 :map <leader>pl :PromoteToLet<cr>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS
@@ -391,6 +367,64 @@ function! RunTests(filename)
     end
 endfunction
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MARKDOWN
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use Marked.app to preview Markdown files...
 nnoremap <leader>pp :silent !open -a Marked.app '%:p'<cr>
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SELECTA -- find files with fuzzy-search
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run a given vim command on the results of fuzzy selecting from a given shell
+" command. See usage below.
+function! SelectaCommand(choice_command, selecta_args, vim_command)
+  try
+    let selection = system(a:choice_command . " | selecta " . a:selecta_args)
+  catch /Vim:Interrupt/
+    " Swallow the ^C so that the redraw below happens; otherwise there will be
+    " leftovers from selecta on the screen
+    redraw!
+    return
+  endtry
+  redraw!
+  exec a:vim_command . " " . selection
+endfunction
+
+" Find all files in all non-dot directories starting in the working directory.
+" Fuzzy select one of those. Open the selected file with :e.
+nnoremap <leader>f :call SelectaCommand("find * -type f ! -path 'resources/public/js/*' ! -path 'resources/.sass-cache/*' ! -path 'target/*'", "", ":e")<cr>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDTREE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"nmap <leader>d :NERDTreeToggle<CR>
+"nmap <leader>ff :NERDTreeFind<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GIST VIM
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+let g:gist_show_privates = 1
+let g:gist_post_private = 1
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM-CLOJURE-STATIC
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:clojure_align_multiline_strings = 1
+" Default
+ let g:clojure_fuzzy_indent = 1
+ let g:clojure_fuzzy_indent_patterns = ['^match', '^with', '^def', '^let']
+ let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" C-TAGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set tags+=tags;$HOME
