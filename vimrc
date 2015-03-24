@@ -11,8 +11,37 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" Let Vundle manage itself.
+" Plugins go here
+"
+" Let Vundle manage itself
 Plugin 'gmarik/Vundle.vim'
+
+Plugin 'mattn/webapi-vim' " Required by gist-vim
+Plugin 'mattn/gist-vim'
+Plugin 'bling/vim-airline'
+Plugin 'tpope/vim-obsession'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-classpath'
+Plugin 'rking/ag.vim'
+Plugin 'christoomey/vim-tmux-navigator'
+
+" Colors
+Plugin 'reedes/vim-colors-pencil'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'sickill/vim-monokai'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'chmllr/elrodeo-colorscheme'
+Plugin 'altercation/vim-colors-solarized'
+
+" CoffeeScript
+Plugin 'kchmck/vim-coffee-script'
+
+" Clojure
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'guns/vim-clojure-highlight'
+Plugin 'guns/vim-clojure-static'
+Plugin 'tpope/vim-fireplace'
+
 
 " Plugins
 Plugin 'jpalardy/vim-slime'
