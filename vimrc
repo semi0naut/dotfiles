@@ -11,10 +11,8 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" Plugins go here
-"
-" Let Vundle manage itself
-Plugin 'gmarik/Vundle.vim'
+" Let Vundle manage itself.
+Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'mattn/webapi-vim' " Required by gist-vim
 Plugin 'mattn/gist-vim'
@@ -41,10 +39,6 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'guns/vim-clojure-highlight'
 Plugin 'guns/vim-clojure-static'
 Plugin 'tpope/vim-fireplace'
-
-
-" Plugins
-Plugin 'jpalardy/vim-slime'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -149,9 +143,9 @@ imap <right> <nop>
 map <Leader>bb :!bundle install<cr>
 map <leader>gs :Gstatus<CR>
 map <leader>gw :!git add . && git commit -m 'WIP'<cr>
-map <leader>pn :sp ~/jelly/documents/Notes/stack.txt<cr>
-map <leader>sn :sp ~/jelly/documents/software-notes/clojure.md<cr>
-map <leader>rn :sp ~/work/dive-networks/files/notes/refactoring-notes.md<cr>
+map <leader>pn :sp ~/.personal-files/brain/writing/stack.txt<cr>
+map <leader>sn :sp ~/.personal-files/documents/software-notes/clojure.md<cr>
+map <leader>rn :sp ~/.personal-files/work/dive-networks/files/notes/refactoring-notes.md<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -168,7 +162,8 @@ au Syntax * RainbowParenthesesLoadBraces
 " COLORS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 colorscheme pencil
-set background=light
+" default to dark, can also use 'light'
+set background=dark
 let g:airline_theme = 'pencil'
 
 " Switch between light and dark
@@ -230,10 +225,10 @@ nmap <leader>z <c-z>
 nmap <silent> <leader>ev :vsp $MYVIMRC<cr>
 nmap <silent> <leader>rv :so $MYVIMRC<cr>
 
-" remap saving and quiting :P
+" remap saving and quiting
 nmap <leader>w :w<cr>
 nmap <leader>q :q<cr>
-nmap <leader>Q :q!<cr>
+nmap <leader>qq :q!<cr>
 nmap <leader>x :x<cr>
 :ca Wa wa
 :ca WA wa
@@ -267,6 +262,7 @@ map <leader>o :set number! number?<cr>
 
 " Spell checking
 map <leader>d :exec &spell==&spell? "se spell! spelllang=en_us" : "se spell!"<cr>
+map <leader>= z=
 
 " Clear the search buffer (highlighting) when hitting return
 function! MapCR()
@@ -446,9 +442,9 @@ let g:gist_post_private = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM-CLOJURE-STATIC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:clojure_align_multiline_strings = 1
 " Default
  let g:clojure_fuzzy_indent = 1
+ let g:clojure_align_multiline_strings = 1
  let g:clojure_fuzzy_indent_patterns = ['^match', '^with', '^def', '^let']
  let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
 
