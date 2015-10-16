@@ -27,11 +27,12 @@ task :install do
         end
       end
     else
-      link_file(file)
+      link_to_dotfile file
     end
   end
 
-  system %Q{mkdir -p ~/.tmp}
+  setup_personal_folder
+  setup_temp_folder
 end
 
 def create_dotfile_link
@@ -41,10 +42,24 @@ end
 
 def replace_file(file)
   system %Q{rm -r "$HOME/.#{file}"}
-  link_file(file)
+  link_to_dotfile file
 end
 
-def link_file(file)
-  puts "linking ~/.#{file}"
-  system %Q{ln -s "$HOME/.dotfiles/#{file}" "$HOME/.#{file}"}
+def link_to_dotfile(file)
+  link_file "$HOME/.dotfiles/#{file}", "$HOME/.#{file}"
+end
+
+def link_file(source, dest)
+  puts "linking #{source} to #{dest}"
+  system %Q{ln -s #{source} #{dest}}
+end
+
+def setup_personal_folder
+  puts "Where are your personal files?"
+  dir = $stdin.gets.chomp
+  link_file dir, "~/.personal-files"
+end
+
+def setup_temp_folder
+  system %Q{mkdir -p ~/.tmp}
 end

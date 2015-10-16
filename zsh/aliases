@@ -34,17 +34,14 @@ alias cls=clear
 alias code='cd ~/code'
 alias cpr='cp -r'
 alias cw='compass watch'
-alias d='cd ~/work/dive-networks/dive'
 alias da='dartanalyzer'
 alias dc='dart --checked'
 alias dd='dartdoc'
-alias dot='cd ~/.'
 alias dr='cd ~/Dropbox'
 alias duh='du -csh'
 alias functions='vim ~/.dotfiles/zsh/functions'
 alias f='fg'
 alias gib='gem install bundler'
-alias gems='cd ~/dive-networks/gems'
 alias history='fc -l 1'
 alias histroy='history'
 alias h='heroku'
@@ -69,7 +66,7 @@ alias mi='mvn install'
 alias mci='mvn clean install'
 alias mp='mvn package'
 alias mcp='mvn clean package'
-alias opensource='cd ~/jelly/open-source'
+alias opensource='cd ~/.personal-files/open-source'
 alias patch='git format-patch HEAD^ --stdout > patch.diff'
 alias reguard='killall -9 ruby ; guard'
 alias r='rails'
@@ -211,20 +208,19 @@ alias gxx='git reset --hard HEAD~1 && git pull --ff-only'
 alias gstats="echo 'Total commits: $(git rev-list HEAD --count)'; echo '\nAuthor breakdown:'; git shortlog | grep -E '^[^ ]'"
 
 # Notes
-alias notes='cd ~/jelly/documents'
-alias pn='vim ~/jelly/documents/Notes/stack.txt'
-alias writing='cd ~/brain/writing'
+alias notes='cd ~/.personal-files/documents'
+alias pn='vim ~/.personal-files/documents/Notes/stack.txt'
+alias writing='cd ~/.personal-files/brain/writing'
 
 # Projects
-alias projects='cd ~/jelly/projects'
-alias dot='cd ~/jelly/projects/dotfiles'
-alias work='cd ~/work'
-alias brain='cd ~/brain'
-alias school='cd ~/brain/school'
-alias pcg='cd ~/work/dive-networks'
-alias dive='cd ~/work/dive-networks/dive/dive-web-app'
-alias di='cd ~/work/dive-networks/dive/dive-web-app/src/cljs/dive'
+alias projects='cd ~/.personal-files/projects'
+alias dot='cd ~/.dotfiles'
+alias work='cd ~/.personal-files/work'
+alias brain='cd ~/.personal-files/brain'
+
 
 # Work
-source ~/work/dive-networks/aliases
 alias dh='git push heroku-staging master -f'
+
+# Other aliases
+source ~/.work-aliases
