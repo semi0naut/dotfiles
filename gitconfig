@@ -1,18 +1,15 @@
 [user]
   name = Michael Campagnaro
   email = mikecampo@gmail.com
-	signingkey = 83286E7B
 [merge]
   summary = true
   tool = vimdiff
 [core]
-	editor = /usr/bin/vim
+  editor = /usr/bin/vim
 [push]
-	default = upstream
-[github]
-	user = mikecampo
+  default = upstream
 [diff]
-	algorithm = patience
+  algorithm = patience
 [color]
   diff = auto
   status = auto
@@ -29,3 +26,14 @@
   frag = magenta
   old  = red
   new  = green
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
+[gc]
+  reflogExpire = 120
+  reflogExpireUnreachable = 90
+[alias]
+  lg = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an%d%Creset %s %Cgreen(%cr)%Creset' --date=relative
+[rerere]
+  enabled = true
