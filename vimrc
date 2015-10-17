@@ -271,6 +271,10 @@ endfunction
 call MapCR()
 nnoremap <leader><leader> <c-^>
 
+" Make it easier to jump around the command line. The default behaviour is
+" using the arrow keys with or without shift
+:cnoremap <C-j> <S-Left>
+:cnoremap <C-k> <S-Right>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ABBREVIATIONS
