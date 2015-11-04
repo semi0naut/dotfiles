@@ -31,9 +31,6 @@ Plugin 'elixir-lang/vim-elixir'
 Plugin 'chmllr/elrodeo-colorscheme'
 Plugin 'altercation/vim-colors-solarized'
 
-" CoffeeScript
-Plugin 'kchmck/vim-coffee-script'
-
 " Clojure
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'guns/vim-clojure-highlight'
