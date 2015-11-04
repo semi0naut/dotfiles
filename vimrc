@@ -43,9 +43,6 @@ Plugin 'tpope/vim-fireplace'
 " All of your Plugins must be added before the following line
 call vundle#end()
 
-call pathogen#infect()
-call pathogen#helptags()
-
 filetype plugin indent on
 
 
