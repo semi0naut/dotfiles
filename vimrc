@@ -116,7 +116,8 @@ set undoreload=10000
 au BufNewFile,BufRead *.txt setlocal wrap
 au BufNewFile,BufRead *.txt setlocal lbr
 " Clojurescript syntax highlighting
-au BufNewFile,BufRead *.cljs set filetype=clojure
+" au BufNewFile,BufRead *.cljs set filetype=clojure
+" au BufNewFile,BufRead *.cljc set filetype=clojure
 
 " Remove trailing whitespace on save all files.
 au BufWritePre * :%s/\s\+$//e
@@ -273,8 +274,8 @@ nnoremap <leader><leader> <c-^>
 
 " Make it easier to jump around the command line. The default behaviour is
 " using the arrow keys with or without shift
-:cnoremap <C-j> <S-Left>
-:cnoremap <C-k> <S-Right>
+:cnoremap <C-J> <S-Left>
+:cnoremap <C-K> <S-Right>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ABBREVIATIONS

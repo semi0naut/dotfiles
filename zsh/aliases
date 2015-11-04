@@ -96,9 +96,10 @@ alias zsh='vim ~/.zshrc'
 
 
 # Git
-alias ammend='amend'
-alias amend='git commit --amend'
-alias amends='git commit -S --amend'
+alias am='git commit --amend'
+alias ams='git commit -S --amend' # signed
+alias ammend='echo "use am instead"'
+alias amend='echo "use am instead"'
 alias g='gst'
 alias ga='git add -A :/'
 alias gaa='git add -A'
@@ -107,6 +108,8 @@ alias gb='git branch'
 alias gbd='git branch -D'
 alias gbl='git branch --all'
 alias gbm='git branch -m'
+alias gbr='git branch -rv'
+alias gbv='git branch -v'
 alias gc='git commit'
 alias gcs='git commit -S'
 alias gcl='git clone'
@@ -131,6 +134,7 @@ alias gfixs="git commit -S -a --amend -C HEAD" # signed
 alias gfo='git fetch origin'
 alias gfm='git fetch origin master'
 alias gfup='git fetch upstream'
+alias ggrep='git log --all --oneline | grep '
 alias gh="source ~/.githelpers && show_git_head"
 alias gla='git lg --all'
 alias gl='git lg -30'
@@ -138,7 +142,7 @@ alias gll='git lg'
 alias gli='git show --pretty="format:" --name-only'
 alias glog='git log'
 alias gm='git merge'
-alias gmnoff='git merge --no-ff'
+alias gmnff='git merge --no-ff'
 alias gmff='git merge --ff-only'
 alias gmffm='git merge --ff-only master'
 alias gmffs='git merge --ff-only --squash'
@@ -199,7 +203,7 @@ alias gta='git tag -a'
 alias gtd='git tag -d'
 alias gtl='git tag -l'
 alias gx='git reset --hard'
-alias gxx='git reset --hard HEAD~1 && git pull --ff-only'
+alias gxx='git reset --hard HEAD~1'
 # git stats
 alias gstats="echo 'Total commits: $(git rev-list HEAD --count)'; echo '\nAuthor breakdown:'; git shortlog | grep -E '^[^ ]'"
 alias gwip="git add . && git commit -m \"WIP\""
