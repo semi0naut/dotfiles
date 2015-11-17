@@ -8,7 +8,11 @@ autoload -U promptinit
 promptinit
 prompt grb
 
-autoload -U compinit
+if [[ $platform == 'Linux' ]]; then
+  zstyle :compinstall filename `$HOME/.zshrc`
+fi
+
+autoload -Uz compinit
 compinit
 
 # Never know when you're gonna need to popd!
@@ -39,6 +43,8 @@ export GREP_OPTIONS="-nRi --color --exclude-dir=.git  --exclude-dir=tmp --exclud
 export HISTSIZE=20000
 export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
+setopt appendhistory autocd
+bindkey -e
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
