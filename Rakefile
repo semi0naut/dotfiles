@@ -33,6 +33,9 @@ task :install do
 
   setup_personal_folder
   setup_temp_folder
+  setup_work_aliases
+
+  puts "Setup is nearly complete. The last step is to run `git submodule update --init`"
 end
 
 def create_dotfile_link
@@ -62,4 +65,8 @@ end
 
 def setup_temp_folder
   system %Q{mkdir -p ~/.tmp}
+end
+
+def setup_work_aliases
+  system %Q{touch ~/.work-aliases}
 end
