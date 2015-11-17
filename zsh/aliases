@@ -36,7 +36,6 @@ alias code='cd ~/code'
 alias cpr='cp -r'
 alias cw='compass watch'
 alias dot='cd ~/.'
-alias dr='cd ~/Dropbox'
 alias duh='du -csh'
 alias functions='vim ~/.dotfiles/zsh/functions'
 alias f='fg'
@@ -204,8 +203,7 @@ alias gtd='git tag -d'
 alias gtl='git tag -l'
 alias gx='git reset --hard'
 alias gxx='git reset --hard HEAD~1'
-# git stats
-alias gstats="echo 'Total commits: $(git rev-list HEAD --count)'; echo '\nAuthor breakdown:'; git shortlog | grep -E '^[^ ]'"
+alias gstats='echo "Total commits: $(git rev-list HEAD --count)"; echo "\nAuthor breakdown:"; git shortlog | grep -E "^[^ ]"'
 alias gwip="git add . && git commit -m \"WIP\""
 
 # Notes
