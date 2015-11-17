@@ -34,7 +34,7 @@ chpwd() {
 export TERM=xterm-256color
 
 # Use vim as the editor
-export EDITOR=vi
+export EDITOR=vim
 
 # Grep tweaks
 export GREP_OPTIONS="-nRi --color --exclude-dir=.git  --exclude-dir=tmp --exclude-dir=log --exclude-dir=node_modules --exclude-dir=bower_components --exclude-dir=coverage --exclude-dir=.bundle --exclude=*.csv --exclude=*.pdf --exclude-dir=vendor --exclude-dir=rdoc --exclude-dir=target --exclude-dir=personal" # --exclude-dir=images --exclude-dir=coverage
