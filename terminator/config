@@ -1,0 +1,134 @@
+[global_config]
+  title_hide_sizetext = True
+  window_state = maximise
+[keybindings]
+  close_term = <Primary>w
+  insert_number = None
+  new_tab = <Primary>t
+  rotate_cw = <Primary><Shift>r
+  split_horiz = <Primary><Shift>d
+  split_vert = <Primary>d
+  switch_to_tab_1 = <Super>1
+  switch_to_tab_2 = <Super>2
+  switch_to_tab_3 = <Super>3
+  switch_to_tab_4 = <Super>4
+  switch_to_tab_5 = <Super>5
+  switch_to_tab_6 = <Super>6
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+  [[dive]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_term = d64ba4f9-edb7-4ced-942e-49a69033480f
+      last_active_window = True
+      maximised = True
+      order = 0
+      parent = ""
+      position = 0:0
+      size = 1920, 1031
+      title = /bin/zsh
+      type = Window
+    [[[child1]]]
+      order = 0
+      parent = child0
+      position = 959
+      ratio = 0.499739583333
+      type = HPaned
+    [[[child2]]]
+      order = 0
+      parent = child1
+      position = 515
+      ratio = 0.5
+      type = VPaned
+    [[[child5]]]
+      order = 1
+      parent = child1
+      position = 515
+      ratio = 0.5
+      type = VPaned
+    [[[child6]]]
+      order = 0
+      parent = child5
+      position = 257
+      ratio = 0.5
+      type = VPaned
+    [[[terminal3]]]
+      command = ""
+      directory = ~/jelly/work/dive-web-app
+      order = 0
+      parent = child2
+      profile = default
+      type = Terminal
+      uuid = d64ba4f9-edb7-4ced-942e-49a69033480f
+    [[[terminal4]]]
+      command = ""
+      directory = ~/jelly/work/dive-web-app
+      order = 1
+      parent = child2
+      profile = default
+      type = Terminal
+      uuid = 41f364c3-36b4-4af5-b999-2b2141b85319
+    [[[terminal7]]]
+      directory = ~/jelly/work/dive-web-app
+      order = 0
+      parent = child6
+      profile = default
+      type = Terminal
+      uuid = 5e14119d-8778-4226-a424-b9c5eca80292
+    [[[terminal8]]]
+      directory = ~/jelly/work/dive-web-app
+      order = 1
+      parent = child6
+      profile = default
+      type = Terminal
+      uuid = 8eec6a48-cbfb-449c-b49e-704da6e5996d
+    [[[terminal9]]]
+      directory = ~/jelly/work/dive-web-app
+      order = 1
+      parent = child5
+      profile = default
+      type = Terminal
+      uuid = a51152d4-6cb9-4d72-97fc-39bdf1376818
+[plugins]
+[profiles]
+  [[default]]
+    background_color = "#060505"
+    background_darkness = 0.81
+    background_image = None
+    copy_on_selection = True
+    cursor_color = "#bbbbbb"
+    cursor_shape = underline
+    font = DejaVu Sans Mono 12
+    foreground_color = "#d1c6ca"
+    palette = "#0a1b26:#bb0000:#7c00ff:#bbbb00:#00ff08:#00cdd7:#10bba2:#c8cac8:#545c7a:#ff5555:#ceef00:#ffe5f5:#5555ff:#ff6ddd:#2eb0ff:#f7fbff"
+    scrollback_lines = 20000
+    use_system_font = False
+  [[iterm-mike]]
+    background_color = "#060505"
+    background_darkness = 0.81
+    background_image = None
+    copy_on_selection = True
+    cursor_color = "#bbbbbb"
+    cursor_shape = underline
+    font = DejaVu Sans Mono 12
+    foreground_color = "#d1c6ca"
+    palette = "#141414:#bb0000:#7c00ff:#bbbb00:#00ff08:#00cdd7:#10bba2:#cacaca:#555555:#ff5555:#ceef00:#ffe5f5:#5555ff:#ff6ddd:#2eb0ff:#f7fbff"
+    scrollback_lines = 20000
+    use_system_font = False
+  [[original]]
+    background_darkness = 0.81
+    background_image = None
+    background_type = transparent
+    copy_on_selection = True
+    cursor_color = "#cdcfbd"
+    cursor_shape = underline
+    font = DejaVu Sans Mono 12
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    scrollback_lines = 20000
+    use_system_font = False
