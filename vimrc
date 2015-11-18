@@ -21,7 +21,7 @@ Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-classpath'
 Plugin 'rking/ag.vim'
-Plugin 'christoomey/vim-tmux-navigator'
+"Plugin 'christoomey/vim-tmux-navigator'
 
 " Colors
 Plugin 'reedes/vim-colors-pencil'

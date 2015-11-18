@@ -34,6 +34,6 @@
   reflogExpire = 120
   reflogExpireUnreachable = 90
 [alias]
-  lg = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an%d%Creset %s %Cgreen(%cr)%Creset' --date=relative
+  lg = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an [%cn]%d%Creset %s %Cgreen(%cr)%Creset' --date=relative
 [rerere]
   enabled = true
