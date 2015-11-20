@@ -2,7 +2,7 @@
   title_hide_sizetext = True
   window_state = maximise
 [keybindings]
-  close_term = <Primary>w
+  close_term = <Super>w
   insert_number = None
   new_tab = <Primary>t
   rotate_cw = <Primary><Shift>r
