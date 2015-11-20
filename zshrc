@@ -10,7 +10,6 @@ prompt grb
 
 # Linux specific config
 if [[ $platform == 'Linux' ]]; then
-  zstyle :compinstall filename `$HOME/.zshrc`
   # Set caps to ctrl
   setxkbmap -option 'caps:ctrl_modifier'
   # Make caps act as Esc when tapped. Require `xcape` package.
