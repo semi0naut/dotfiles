@@ -1,4 +1,5 @@
 [global_config]
+  enabled_plugins = LaunchpadCodeURLHandler, SearchGoogle, APTURLHandler, GrepEditor, LaunchpadBugURLHandler
   title_hide_sizetext = True
   window_state = maximise
 [keybindings]
@@ -117,6 +118,10 @@
       type = Terminal
       uuid = 8eec6a48-cbfb-449c-b49e-704da6e5996d
 [plugins]
+  [[GrepEditor]]
+    command = vim +{line} {filepath}
+    groups = file line
+    match = ([^ \t\n\r\f\v:]+?):([0-9]+)
 [profiles]
   [[default]]
     background_color = "#060505"
