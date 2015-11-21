@@ -1,0 +1,9 @@
+<keybind key="W-x">
+ <action name="Execute">
+  <startupnotify>
+   <enabled>true</enabled>
+    <name>oblogut</name>
+  </startupnotify>
+  <command>oblogout</command>
+ </action>
+</keybind>

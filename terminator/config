@@ -103,8 +103,7 @@
     background_image = None
     copy_on_selection = True
     cursor_color = "#bbbbbb"
-    cursor_shape = underline
-    font = DejaVu Sans Mono 12
+    font = DejaVu Sans Mono 14
     foreground_color = "#d1c6ca"
     palette = "#0a1b26:#bb0000:#7c00ff:#bbbb00:#00ff08:#00cdd7:#10bba2:#c8cac8:#545c7a:#ff5555:#ceef00:#ffe5f5:#5555ff:#ff6ddd:#2eb0ff:#f7fbff"
     scrollback_lines = 20000
