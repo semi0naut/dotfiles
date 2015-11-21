@@ -4,7 +4,7 @@ platform=`uname`
 ZSH=$HOME/.zsh
 
 # Plugins to enable - they are found in .zsh/plugins
-PLUGINS=()
+PLUGINS=(safe-paste)
 
 fpath=($fpath $ZSH/func)
 typeset -U fpath
