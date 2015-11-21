@@ -1,6 +1,3 @@
-fpath=($fpath $HOME/.zsh/func)
-typeset -U fpath
-
 # Unbreak broken, non-colored terminal
 export TERM=xterm-256color
 

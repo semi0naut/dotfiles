@@ -3,6 +3,35 @@ platform=`uname`
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.zsh
 
+# Plugins to enable - they are found in .zsh/plugins
+PLUGINS=()
+
+fpath=($fpath $ZSH/func)
+typeset -U fpath
+
+is_plugin() {
+  local base_dir=$1
+  local name=$2
+  test -f $base_dir/plugins/$name/$name.plugin.zsh \
+    || test -f $base_dir/plugins/$name/_$name
+}
+
+# Add all defined plugins to fpath. This must be done
+# before running compinit.
+for plugin ($PLUGINS); do
+  if is_plugin $ZSH $plugin; then
+    fpath=($ZSH/plugins/$plugin $fpath)
+  fi
+done
+
+# Load all of the plugins that were defined in ~/.zshrc
+for plugin ($PLUGINS); do
+  if [ -f $ZSH/plugins/$plugin/$plugin.plugin.zsh ]; then
+    source $ZSH/plugins/$plugin/$plugin.plugin.zsh
+  fi
+done
+
+# Setup the custom prompt
 setopt promptsubst
 autoload -U promptinit
 promptinit
@@ -16,6 +45,7 @@ if [[ $platform == 'Linux' ]]; then
   xcape -e 'Caps_Lock=Escape'
 fi
 
+# Autoload things before calling compinit
 autoload -Uz compinit
 compinit
 
