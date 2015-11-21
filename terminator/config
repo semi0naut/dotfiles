@@ -59,37 +59,40 @@
       ratio = 0.5
       type = VPaned
     [[[terminal3]]]
-      command = ""
-      directory = ~/jelly/work/dive-web-app
+      command = "lein dev-server; zsh"
+      directory = /home/michael/.personal-files/work/dive-networks/dive-web-app/
       order = 0
       parent = child2
       profile = default
       type = Terminal
       uuid = d64ba4f9-edb7-4ced-942e-49a69033480f
     [[[terminal4]]]
-      command = ""
-      directory = ~/jelly/work/dive-web-app
+      command = "tail -f figwheel_server.log; zsh"
+      directory = /home/michael/.personal-files/work/dive-networks/dive-web-app/
       order = 1
       parent = child2
       profile = default
       type = Terminal
       uuid = 41f364c3-36b4-4af5-b999-2b2141b85319
     [[[terminal7]]]
-      directory = ~/jelly/work/dive-web-app
+      command = "lein dev-css; zsh"
+      directory = /home/michael/.personal-files/work/dive-networks/dive-web-app/
       order = 0
       parent = child6
       profile = default
       type = Terminal
       uuid = 5e14119d-8778-4226-a424-b9c5eca80292
     [[[terminal8]]]
-      directory = ~/jelly/work/dive-web-app
+      command = "lein auto-test; zsh"
+      directory = /home/michael/.personal-files/work/dive-networks/dive-web-app/
       order = 1
       parent = child6
       profile = default
       type = Terminal
       uuid = 8eec6a48-cbfb-449c-b49e-704da6e5996d
     [[[terminal9]]]
-      directory = ~/jelly/work/dive-web-app
+      command = "lein repl; zsh"
+      directory = /home/michael/
       order = 1
       parent = child5
       profile = default

@@ -94,8 +94,6 @@ alias vh='vagrant halt'
 alias vs='vagrant ssh'
 alias vu='vagrant up'
 alias vimrc='vim ~/.vimrc'
-alias zsh='vim ~/.zshrc'
-
 
 # Git
 alias am='git commit --amend'
