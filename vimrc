@@ -7,38 +7,33 @@ filetype off
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-" Let Vundle manage itself.
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'mattn/webapi-vim' " Required by gist-vim
-Plugin 'mattn/gist-vim'
-Plugin 'bling/vim-airline'
-Plugin 'tpope/vim-obsession'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-classpath'
-Plugin 'rking/ag.vim'
-"Plugin 'christoomey/vim-tmux-navigator'
+Plug 'mattn/webapi-vim' " Required by gist-vim
+Plug 'mattn/gist-vim'
+Plug 'bling/vim-airline'
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-classpath'
+Plug 'rking/ag.vim'
+"Plug 'christoomey/vim-tmux-navigator'
 
 " Colors
-Plugin 'reedes/vim-colors-pencil'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'sickill/vim-monokai'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'chmllr/elrodeo-colorscheme'
-Plugin 'altercation/vim-colors-solarized'
+Plug 'reedes/vim-colors-pencil'
+Plug 'nanotech/jellybeans.vim'
+Plug 'sickill/vim-monokai'
+Plug 'elixir-lang/vim-elixir'
+Plug 'chmllr/elrodeo-colorscheme'
+Plug 'altercation/vim-colors-solarized'
 
 " Clojure
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'guns/vim-clojure-highlight'
-Plugin 'guns/vim-clojure-static'
-Plugin 'tpope/vim-fireplace'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'guns/vim-clojure-highlight'
+Plug 'guns/vim-clojure-static'
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
-" All of your Plugins must be added before the following line
-call vundle#end()
+call plug#end()
+
 filetype plugin indent on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
