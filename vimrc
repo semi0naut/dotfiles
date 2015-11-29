@@ -17,6 +17,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-classpath'
 Plug 'Valloric/YouCompleteMe'
 Plug 'rking/ag.vim'
+Plug 'scrooloose/syntastic'
 
 " Colors
 Plug 'reedes/vim-colors-pencil'
@@ -102,9 +103,6 @@ set undoreload=10000
 " When loading text files, wrap them and don't split up words.
 au BufNewFile,BufRead *.txt setlocal wrap
 au BufNewFile,BufRead *.txt setlocal lbr
-" Clojurescript syntax highlighting
-" au BufNewFile,BufRead *.cljs set filetype=clojure
-" au BufNewFile,BufRead *.cljc set filetype=clojure
 
 " Remove trailing whitespace on save all files.
 au BufWritePre * :%s/\s\+$//e
@@ -230,23 +228,28 @@ command! Qall qall
 " Disable Ex mode
 map Q <Nop>
 
+" Terminal mapping
+map <leader>t :terminal<cr>
+tnoremap <leader>e <C-\><C-n>
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
 " Map ctrl-movement keys to window switching
 map <c-k> <c-w><Up>
 map <c-j> <c-w><Down>
 map <c-l> <c-w><Right>
 map <c-h> <c-w><Left>
 
-" Terminal mapping
-map <leader>t :terminal<cr>
-"tnoremap <leader>e <C-\><C-n>
-"tnoremap <A-h> <C-\><C-n><C-w>h
-"tnoremap <A-j> <C-\><C-n><C-w>j
-"tnoremap <A-k> <C-\><C-n><C-w>k
-"tnoremap <A-l> <C-\><C-n><C-w>l
-"nnoremap <A-h> <C-w>h
-"nnoremap <A-j> <C-w>j
-"nnoremap <A-k> <C-w>k
-"nnoremap <A-l> <C-w>l
+" Make it easier to jump around the command line. The default behaviour is
+" using the arrow keys with or without shift
+:cnoremap <C-J> <S-Left>
+:cnoremap <C-K> <S-Right>
 
 " Window splitting - couldn't figure out how to remap <c-w>v & <c-w>n to <c-m>
 " & <c-n>
@@ -271,10 +274,6 @@ endfunction
 call MapCR()
 nnoremap <leader><leader> <c-^>
 
-" Make it easier to jump around the command line. The default behaviour is
-" using the arrow keys with or without shift
-:cnoremap <C-J> <S-Left>
-:cnoremap <C-K> <S-Right>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ABBREVIATIONS
@@ -296,7 +295,6 @@ function! InsertTabWrapper()
 endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
