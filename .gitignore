@@ -2,3 +2,4 @@ vim/.netrwhist
 vim/bundle/*
 !vim/bundle/Vundle.vim
 *.pyc
+config/openbox/lxde-rc.xml
