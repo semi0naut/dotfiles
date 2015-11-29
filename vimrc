@@ -51,7 +51,7 @@ set laststatus=2
 set showmatch
 set incsearch
 set dictionary+=/usr/share/dict/words
-set clipboard=unnamed " yank and paste with the system clipboard
+"set clipboard=unnamed " yank and paste with the system clipboard
 set number
 set hlsearch
 " make searches case-sensitive only if they contain upper-case characters
