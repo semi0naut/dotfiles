@@ -62,7 +62,7 @@ set switchbuf=useopen
 set numberwidth=5
 set showtabline=2
 set winwidth=79
-set shell=bash
+set shell=zsh
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
@@ -235,6 +235,18 @@ map <c-k> <c-w><Up>
 map <c-j> <c-w><Down>
 map <c-l> <c-w><Right>
 map <c-h> <c-w><Left>
+
+" Terminal mapping
+map <leader>t :terminal<cr>
+"tnoremap <leader>e <C-\><C-n>
+"tnoremap <A-h> <C-\><C-n><C-w>h
+"tnoremap <A-j> <C-\><C-n><C-w>j
+"tnoremap <A-k> <C-\><C-n><C-w>k
+"tnoremap <A-l> <C-\><C-n><C-w>l
+"nnoremap <A-h> <C-w>h
+"nnoremap <A-j> <C-w>j
+"nnoremap <A-k> <C-w>k
+"nnoremap <A-l> <C-w>l
 
 " Window splitting - couldn't figure out how to remap <c-w>v & <c-w>n to <c-m>
 " & <c-n>
