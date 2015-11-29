@@ -15,8 +15,8 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-classpath'
+Plug 'Valloric/YouCompleteMe'
 Plug 'rking/ag.vim'
-"Plug 'christoomey/vim-tmux-navigator'
 
 " Colors
 Plug 'reedes/vim-colors-pencil'
