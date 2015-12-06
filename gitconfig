@@ -30,9 +30,6 @@
   clean = git-lfs clean %f
   smudge = git-lfs smudge %f
   required = true
-[gc]
-  reflogExpire = 300
-  reflogExpireUnreachable = 120
 [alias]
   lg = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an [%cn]%d%Creset %s %Cgreen(%cr)%Creset' --date=relative
 [rerere]
