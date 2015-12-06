@@ -1,8 +1,8 @@
 # Handle the fact that this file will be used with multiple OSs
 platform=`uname`
 if [[ $platform == 'Linux' ]]; then
-  alias l='ls -l --color'
-  alias ll='ls -lrth --color'
+  alias l='ls -lhg --color'
+  alias ll='ls -lahg --color'
 elif [[ $platform == 'Darwin' ]]; then
   alias l='ls -laG'
   alias ls='ls -laG'
