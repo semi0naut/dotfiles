@@ -135,7 +135,7 @@ map <leader>rn :sp ~/.personal-files/work/dive-networks/files/notes/refactoring-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CLOJURE AND CLOJURESCRIPT SYNTAX
+" Lisp
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Rainbow parens ala rainbow_parentheses.vim
 au VimEnter * RainbowParenthesesToggle
@@ -143,6 +143,11 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Schemes
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" properly indent schemes (scheme, racket, etc)
+autocmd bufread,bufnewfile *.lisp,*.scm,*.rkt setlocal equalprg=scmindent.rkt
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLORS

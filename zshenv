@@ -5,7 +5,7 @@ export TERM=xterm-256color
 export EDITOR=vim
 
 # Grep tweaks
-export GREP_OPTIONS="-nRi --color --exclude-dir=.git  --exclude-dir=tmp --exclude-dir=log --exclude-dir=node_modules --exclude-dir=bower_components --exclude-dir=coverage --exclude-dir=.bundle --exclude=*.csv --exclude=*.pdf --exclude-dir=vendor --exclude-dir=rdoc --exclude-dir=target --exclude-dir=personal" # --exclude-dir=images --exclude-dir=coverage
+export GREP_OPTIONS="-nRi --color --exclude-dir=.git  --exclude-dir=tmp --exclude-dir=log --exclude-dir=node_modules --exclude-dir=bower_components --exclude-dir=coverage --exclude-dir=.bundle --exclude=*.csv --exclude=*.pdf --exclude-dir=vendor --exclude-dir=rdoc --exclude-dir=target --exclude-dir=personal --exclude-dir=resources/public/js/*.*" # --exclude-dir=images --exclude-dir=coverage
 
 export RBENV_PATH="$HOME/.rbenv"
 
@@ -25,7 +25,7 @@ export LEIN_FAST_TRAMPOLINE=y
 export ANDROID_HOME=/usr/local/opt/android-sdk
 
 #export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
-path=($HOME/bin ${ANSIBLE_DIR}/bin ${RBENV_PATH}/bin $path)
+path=($HOME/bin ${ANSIBLE_DIR}/bin ${RBENV_PATH}/bin $HOME/.vim/scripts $path)
 
 # Start rbenv
 eval "$(rbenv init -)"
