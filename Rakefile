@@ -31,7 +31,8 @@ task :install do
     end
   end
 
-  setup_personal_folder
+  setup_some_folder "Where are your personal files?", "~/.personal-files"
+  setup_some_folder "Where are your work files?", "~/.work-files"
   setup_temp_folder
   setup_work_aliases
 
@@ -57,10 +58,10 @@ def link_file(source, dest)
   system %Q{ln -s #{source} #{dest}}
 end
 
-def setup_personal_folder
-  puts "Where are your personal files?"
+def setup_some_folder(msg, file_name)
+  puts msg
   dir = $stdin.gets.chomp
-  link_file dir, "~/.personal-files"
+  link_file dir, file_name
 end
 
 def setup_temp_folder
