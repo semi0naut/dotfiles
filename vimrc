@@ -19,6 +19,7 @@ Plug 'tpope/vim-classpath'
 " Plug 'Valloric/YouCompleteMe'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/syntastic'
+Plug 'nelstrom/vim-qargs'
 
 " Colors
 Plug 'reedes/vim-colors-pencil'
@@ -128,11 +129,9 @@ imap <right> <nop>
 
 " Notes and other helpers
 map <Leader>bb :!bundle install<cr>
-map <leader>gs :Gstatus<CR>
-map <leader>gw :!git add . && git commit -m 'WIP'<cr>
 map <leader>pn :sp ~/.personal-files/brain/writing/stack.txt<cr>
 map <leader>sn :sp ~/.personal-files/documents/software-notes/clojure.md<cr>
-map <leader>rn :sp ~/.personal-files/work/dive-networks/files/notes/refactoring-notes.md<cr>
+map <leader>rn :sp ~/.work-files/dive-networks/files/notes/refactoring-notes.md<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -196,6 +195,51 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GIT
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>gb :Gblame<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SEARCHING
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>gs :let @/ = ""<CR>
+
+" Replace the selected text in all files within the repo
+function! GlobalReplaceIt(confirm_replacement)
+  if exists(':Ggrep')
+   " let term = @/
+   " if empty(term)
+      call inputsave()
+      let term = input('Enter search term: ')
+      call inputrestore()
+   " else
+   "   echo '\nReplacing '.term
+   " endif
+    call inputsave()
+    let replacement = input('Enter replacement: ')
+    call inputrestore()
+    if a:confirm_replacement
+      let confirm_opt = 'c'
+    else
+      let confirm_opt = 'e'
+    endif
+    execute 'Ggrep '.term
+    execute 'Qargs | argdo %s/'.term.'/'.replacement.'/g'.confirm_opt.' | update'
+  else
+    echo "Unable to search since you're not in a git repo"
+  endif
+endfunction
+map <leader>gg :call GlobalReplaceIt(0)<cr>
+map <leader>gr :call GlobalReplaceIt(1)<cr>
+
+function! Search()
+  let term = input('Grep search term: ')
+  if term != ''
+    exec 'Ag "' . term . '"'
+  endif
+endfunction
+map <leader>s :call Search()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
@@ -264,9 +308,6 @@ map <c-h> <c-w><Left>
 map <leader>m :vsplit<cr>
 map <leader>mm :split<cr>
 
-map <leader>gg :topleft 100 :split Gemfile<cr>
-map <leader>gr :topleft 100 :split config/routes.rb<cr>
-
 " Map paste and nonumber
 map <leader>p :set paste! paste?<cr>
 map <leader>o :set number! number?<cr>
@@ -317,19 +358,6 @@ function! RenameFile()
     endif
 endfunction
 map <leader>n :call RenameFile()<cr>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GREP SEARCH
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! Search()
-  let term = input('Grep search term: ')
-  if term != ''
-    exec 'Ag "' . term . '"'
-  endif
-endfunction
-map <leader>s :call Search()<cr>
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PROMOTE VARIABLE TO RSPEC LET
