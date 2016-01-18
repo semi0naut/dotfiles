@@ -79,7 +79,7 @@
       type = Terminal
       uuid = a51152d4-6cb9-4d72-97fc-39bdf1376818
     [[[terminal11]]]
-      directory = /home/michael/.personal-files/work/dive-networks/dive-web-app/
+      directory = /home/michael/.work-files/dive-networks/dive-web-app/
       order = 1
       parent = child1
       profile = default
@@ -87,7 +87,7 @@
       uuid = 4f4cffb2-74fa-4d07-a7b4-c5f30ece39b2
     [[[terminal4]]]
       command = ""
-      directory = /home/michael/.personal-files/work/dive-networks/dive-web-app/
+      directory = /home/michael/.work-files/dive-networks/dive-web-app/
       order = 0
       parent = child3
       profile = default
@@ -95,7 +95,7 @@
       uuid = d64ba4f9-edb7-4ced-942e-49a69033480f
     [[[terminal5]]]
       command = tail -f figwheel_server.log; zsh
-      directory = /home/michael/.personal-files/work/dive-networks/dive-web-app/
+      directory = /home/michael/.work-files/dive-networks/dive-web-app/
       order = 1
       parent = child3
       profile = default
@@ -103,7 +103,7 @@
       uuid = 41f364c3-36b4-4af5-b999-2b2141b85319
     [[[terminal8]]]
       command = lein dev-css; zsh
-      directory = /home/michael/.personal-files/work/dive-networks/dive-web-app/
+      directory = /home/michael/.work-files/dive-networks/dive-web-app/
       order = 0
       parent = child7
       profile = default
@@ -111,7 +111,7 @@
       uuid = 5e14119d-8778-4226-a424-b9c5eca80292
     [[[terminal9]]]
       command = lein auto-test; zsh
-      directory = /home/michael/.personal-files/work/dive-networks/dive-web-app/
+      directory = /home/michael/.work-files/dive-networks/dive-web-app/
       order = 1
       parent = child7
       profile = default
