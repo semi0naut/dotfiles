@@ -9,5 +9,10 @@ Installing
 Installation is done via Rake. Just run
 
     rake install
-    
+
 This will create symlinks in your home folder to the various dotfiles in this repo.
+
+Note to self
+============
+
+The bashrc file is meant for Windows.
