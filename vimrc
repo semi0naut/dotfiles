@@ -1,10 +1,21 @@
 scriptencoding utf-8
 set encoding=utf-8
+
+" Store the current system name so that we can conditionally set configs for
+" different platforms
+let s:uname = system("echo -n \"$(uname)\"")
+
+function! IsWindows()
+  if s:uname =~ "mingw"
+    return 1
+  endif
+  return 0
+endfunction
+
 let mapleader=","
 
 set nocompatible
 filetype off
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS
@@ -67,7 +78,14 @@ set switchbuf=useopen
 set numberwidth=5
 set showtabline=2
 set winwidth=79
-set shell=zsh
+
+if IsWindows()
+  " Just assume we don't have a zsh shell
+  set shell=bash
+else
+  set shell=zsh
+endif
+
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
