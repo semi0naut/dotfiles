@@ -58,3 +58,14 @@ Vim might not work properly when writing commit messages. To fix, run:
    </match>
   </fontconfig>
   ```
+
+* map caps key to left-ctrl (see https://wiki.archlinux.org/index.php/Map_scancodes_to_keycodes for details)
+  * edit `/etc/udev/hwdb.d/10-my-modifiers.hwdb`
+  * add:
+
+  ```
+  evdev:atkbd:dmi:*            # built-in keyboard: match all AT keyboards for now
+   KEYBOARD_KEY_3a=leftctrl     # bind capslock to leftctrl
+  ```
+
+  * run `udevadm hwdb --update` then reboot
