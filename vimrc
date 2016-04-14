@@ -200,7 +200,7 @@ augroup vimrcEx
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
-  autocmd FileType python set sw=2 sts=2 et
+  autocmd FileType python set sw=4 sts=4 et
 
   " Indent p tags
   autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
@@ -214,6 +214,16 @@ augroup END
 " STATUS LINE
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" HIGHLIGHT TODO, NOTE, FIXME, etc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup vimrc_todo
+    au!
+    au Syntax * syn match MyTodo /\v<(WARNING|FIXME|NOTE|TODO|OPTIMIZE|QUESTION):/
+          \ containedin=.*Comment,vimCommentTitle
+augroup END
+hi def link MyTodo Todo
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GIT

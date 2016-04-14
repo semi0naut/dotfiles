@@ -83,9 +83,6 @@ Plugin {
       id=/usr/share/applications/slack.desktop
     }
     Button {
-      id=/usr/share/applications/telegramdesktop.desktop
-    }
-    Button {
       id=menu://applications/chrome-apps/chrome-hmjkmjkepdijhoojdojkdfohbdgmmhki-Default.desktop
     }
     Button {

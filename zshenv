@@ -1,3 +1,5 @@
+platform=`uname`
+
 # Unbreak broken, non-colored terminal
 export TERM=xterm-256color
 
@@ -23,6 +25,10 @@ export ANSIBLE_LIBRARY=${ANSIBLE_DIR}/library
 export ANSIBLE_HOSTS=~/.ansible_hosts
 export LEIN_FAST_TRAMPOLINE=y
 export ANDROID_HOME=/usr/local/opt/android-sdk
+
+if [[ $platform == 'Linux' ]]; then
+  export LD_LIBRARY_PATH="/usr/lib/jvm/java-8-openjdk/jre/lib/amd64"
+fi
 
 #export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
 path=($HOME/bin ${ANSIBLE_DIR}/bin ${RBENV_PATH}/bin $HOME/.vim/scripts $path)
