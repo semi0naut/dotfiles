@@ -1,25 +1,9 @@
-# Setting up Ruby
+# Setup Windows
 
-* Install rvm
-* Install bundler
-* Install Ruby Docs
-  gem install rdoc-data
-  rdoc-data --install
-  # to regenerate all gem docs
-  gem rdoc --all --overwrite
-
-
-# Setup Vim
-
-Map <CapsLock> to <Ctrl> in System Preferences -> Keyboard -> Modifier Keys. Now <caps-c> can leave insert mode.
-
-
-# Setup Git
-
-Vim might not work properly when writing commit messages. To fix, run:
-
-    $ git config --global core.editor /usr/bin/vim
-
+* map caps to left-ctrl
+* install git for windows
+* edit ~/.profile and add `source ~/.bashrc`
+* after installing dotfiles, edit ~/.gitconfig and change the editor to be `vim` instead of `/usr/bin/vim`
 
 # Setup Arch
 
@@ -69,3 +53,28 @@ Vim might not work properly when writing commit messages. To fix, run:
   ```
 
   * run `udevadm hwdb --update` then reboot
+
+# Setting up Ruby
+
+* Install rvm
+* Install bundler
+* Install Ruby Docs
+  gem install rdoc-data
+  rdoc-data --install
+  # to regenerate all gem docs
+  gem rdoc --all --overwrite
+
+
+# Setup Vim
+
+Map <CapsLock> to <Ctrl> in System Preferences -> Keyboard -> Modifier Keys. Now <caps-c> can leave insert mode.
+
+
+# Setup Git
+
+Vim might not work properly when writing commit messages. To fix, run:
+
+    $ git config --global core.editor /usr/bin/vim
+
+
+
