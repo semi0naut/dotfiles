@@ -218,12 +218,19 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " HIGHLIGHT TODO, NOTE, FIXME, etc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup vimrc_todo
+augroup vimrc_bugs
     au!
-    au Syntax * syn match MyTodo /\v<(WARNING|FIXME|NOTE|TODO|OPTIMIZE|QUESTION):/
+    au Syntax * syn match MyBugs /\v<(FIXME|BUG|OPTIMIZE):/
           \ containedin=.*Comment,vimCommentTitle
 augroup END
-hi def link MyTodo Todo
+hi def link MyBugs Todo
+
+augroup vimrc_notes
+    au!
+    au Syntax * syn match MyNotes /\v<(NOTE|QUESTION|WARNING):/
+          \ containedin=.*Comment,vimCommentTitle
+augroup END
+hi def link MyNotes WildMenu
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GIT
