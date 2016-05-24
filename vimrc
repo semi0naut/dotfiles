@@ -172,17 +172,33 @@ autocmd bufread,bufnewfile *.lisp,*.scm,*.rkt setlocal equalprg=scmindent.rkt
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLORS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme pencil
-" default to dark, can also use 'light'
-set background=dark
+let s:default_bg = 'dark'
+let s:dark_theme = 'monokai'
+let s:light_theme = 'pencil'
 let g:airline_theme = 'pencil'
 
-" Switch between light and dark
-map <leader>l :call ChangeBgTheme("dark")<cr>
-map <leader>ll :call ChangeBgTheme("light")<cr>
+if s:default_bg =~ 'light'
+  " The order that these are set matters for some themes
+  exe 'colorscheme ' . s:light_theme
+  set background=light
+else
+  exe 'colorscheme ' . s:dark_theme
+  set background=dark
+endif
 
-function! ChangeBgTheme(theme)
-  exec ":set background=" . a:theme
+" Switch between light and dark
+map <leader>l :call ChangeBgTheme('dark')<cr>
+map <leader>ll :call ChangeBgTheme('light')<cr>
+
+function! ChangeBgTheme(bg)
+  if a:bg =~ 'light'
+    let s:theme = s:light_theme
+  else
+    let s:theme = s:dark_theme
+  endif
+
+  exe 'colorscheme ' . s:theme
+  exe 'set background=' . a:bg
   " Have to run this twice to get the plugin to set the colors
   exec ":RainbowParenthesesToggle"
   exec ":RainbowParenthesesToggle"
