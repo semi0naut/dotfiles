@@ -50,6 +50,7 @@ alias hca='heroku config:add'
 alias hcu='heroku config:unset'
 alias hcr='heroku config:unset'
 alias hl='heroku logs -t -n 5000'
+alias hr='heroku restart'
 alias irb='irb --readline -r irb/completion'
 alias lcc='lein clean'
 alias lca='lein cljsbuild auto dev'
@@ -238,4 +239,5 @@ alias brain='cd ~/.personal-files/brain'
 alias dh='git push heroku-staging master -f'
 
 # Other aliases
+alias wl='vim ~/.work-aliases'
 source ~/.work-aliases
