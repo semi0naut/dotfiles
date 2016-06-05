@@ -243,7 +243,7 @@ hi def link MyBugs Todo
 
 augroup vimrc_notes
     au!
-    au Syntax * syn match MyNotes /\v<(NOTE|QUESTION|WARNING):/
+    au Syntax * syn match MyNotes /\v<(NOTE|QUESTION|WARNING|IMPORTANT):/
           \ containedin=.*Comment,vimCommentTitle
 augroup END
 hi def link MyNotes WildMenu
