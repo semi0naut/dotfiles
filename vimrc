@@ -152,6 +152,40 @@ map <leader>pn :sp ~/.personal-files/brain/writing/stack.txt<cr>
 map <leader>sn :sp ~/.personal-files/documents/software-notes/clojure.md<cr>
 map <leader>rn :sp ~/.work-files/dive-networks/files/notes/refactoring-notes.md<cr>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run build script
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RunBuildScript()
+  let l:existing_buf = bufwinnr("__build_output_log__")
+  let l:current_buf = bufnr("%")
+
+  " Save current buffer in case there are unsaved changes
+  write
+
+  if l:existing_buf > 0
+    exe l:existing_buf . "wincmd w"
+    "execute 'botright sb' l:existing_buf
+  else
+    botright sp __build_output_log__
+    resize 10
+    " NOTE: this would throw an error if running the build in the output
+    " buffer, even though a check is done here to find an existing buffer
+    " before making a new one. Strange.
+    "setlocal buftype=nofile
+  endif
+
+  " Clear the buffer
+  normal! ggdG
+
+  " Output compile log into buffer
+  let l:output = system("./build")
+  call append(0, split(l:output, '\v\n'))
+
+  exe l:current_buf . "wincmd w"
+endfunction
+
+nnoremap <leader>b :call RunBuildScript()<cr>
+nnoremap <leader>bb :bw!<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lisp
