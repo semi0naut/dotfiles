@@ -148,7 +148,6 @@ imap <left> <nop>
 imap <right> <nop>
 
 " Notes and other helpers
-map <Leader>bb :!bundle install<cr>
 map <leader>pn :sp ~/.personal-files/brain/writing/stack.txt<cr>
 map <leader>sn :sp ~/.personal-files/documents/software-notes/clojure.md<cr>
 map <leader>rn :sp ~/.work-files/dive-networks/files/notes/refactoring-notes.md<cr>
