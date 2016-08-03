@@ -28,6 +28,7 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-classpath'
+Plug 'tpope/vim-dispatch'
 " DISABLED since it requires vim 7.3.598+ and I don't have that on my macbook
 " Plug 'Valloric/YouCompleteMe'
 Plug 'rking/ag.vim'
