@@ -263,21 +263,21 @@ function! GlobalReplaceIt(confirm_replacement)
    " let term = @/
    " if empty(term)
       call inputsave()
-      let term = input('Enter search term: ')
+      let l:term = input('Enter search term: ')
       call inputrestore()
    " else
    "   echo '\nReplacing '.term
    " endif
     call inputsave()
-    let replacement = input('Enter replacement: ')
+    let l:replacement = input('Enter replacement: ')
     call inputrestore()
     if a:confirm_replacement
-      let confirm_opt = 'c'
+      let l:confirm_opt = 'c'
     else
-      let confirm_opt = 'e'
+      let l:confirm_opt = 'e'
     endif
-    execute 'Ggrep '.term
-    execute 'Qargs | argdo %s/'.term.'/'.replacement.'/g'.confirm_opt.' | update'
+    execute 'Ggrep '.l:term
+    execute 'Qargs | argdo %s/'.l:term.'/'.l:replacement.'/g'.l:confirm_opt.' | update'
   else
     echo "Unable to search since you're not in a git repo"
   endif
@@ -286,9 +286,9 @@ map <leader>gg :call GlobalReplaceIt(0)<cr>
 map <leader>gr :call GlobalReplaceIt(1)<cr>
 
 function! Search()
-  let term = input('Grep search term: ')
-  if term != ''
-    exec 'Ag "' . term . '"'
+  let l:term = input('Grep search term: ')
+  if l:term != ''
+    exec 'Ag "' . l:term . '"'
   endif
 endfunction
 map <leader>s :call Search()<cr>
@@ -387,8 +387,8 @@ nnoremap <leader><leader> <c-^>
 " MULTIPURPOSE TAB KEY
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
+    let l:col = col('.') - 1
+    if !l:col || getline('.')[l:col - 1] !~ '\k'
         return "\<tab>"
     else
         return "\<c-p>"
@@ -401,11 +401,11 @@ inoremap <s-tab> <c-n>
 " RENAME CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
+    let l:old_name = expand('%')
+    let l:new_name = input('New file name: ', expand('%'), 'file')
+    if l:new_name != '' && l:new_name != l:old_name
+        exec ':saveas ' . l:new_name
+        exec ':silent !rm ' . l:old_name
         redraw!
     endif
 endfunction
@@ -438,7 +438,7 @@ nnoremap <leader>pp :silent !open -a Marked.app '%:p'<cr>
 " command. See usage below.
 function! SelectaCommand(choice_command, selecta_args, vim_command)
   try
-    let selection = system(a:choice_command . " | selecta " . a:selecta_args)
+    let l:selection = system(a:choice_command . " | selecta " . a:selecta_args)
   catch /Vim:Interrupt/
     " Swallow the ^C so that the redraw below happens; otherwise there will be
     " leftovers from selecta on the screen
@@ -446,7 +446,7 @@ function! SelectaCommand(choice_command, selecta_args, vim_command)
     return
   endtry
   redraw!
-  exec a:vim_command . " " . selection
+  exec a:vim_command . " " . l:selection
 endfunction
 
 " Find all files in all non-dot directories starting in the working directory.
