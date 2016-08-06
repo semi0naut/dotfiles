@@ -164,15 +164,12 @@ function! RunBuildScript()
   write
 
   if l:existing_buf > 0
-    exe l:existing_buf . "wincmd w"
+    silent! exe l:existing_buf . " wincmd w"
     "execute 'botright sb' l:existing_buf
   else
     botright sp __build_output_log__
+    setlocal buftype=nofile
     resize 10
-    " NOTE: this would throw an error if running the build in the output
-    " buffer, even though a check is done here to find an existing buffer
-    " before making a new one. Strange.
-    "setlocal buftype=nofile
   endif
 
   " Clear the buffer
@@ -182,7 +179,7 @@ function! RunBuildScript()
   let l:output = system("./build")
   call append(0, split(l:output, '\v\n'))
 
-  exe l:current_buf . "wincmd w"
+  silent! exe l:existing_buf. " wincmd w"
 endfunction
 
 nnoremap <leader>b :call RunBuildScript()<cr>
@@ -290,6 +287,7 @@ map <leader>gb :Gblame<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SEARCHING
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TODO: Not sure if I still need this
 map <leader>gs :let @/ = ""<CR>
 
 " Replace the selected text in all files within the repo
