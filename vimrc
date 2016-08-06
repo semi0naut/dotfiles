@@ -393,12 +393,16 @@ map <c-h> <c-w><Left>
 map <leader>m :vsplit<cr>
 map <leader>mm :split<cr>
 
+" Delete a word forward and backward
+map <leader>a daw
+map <leader>d ciw
+
 " Map paste and nonumber
 map <leader>p :set paste! paste?<cr>
 map <leader>o :set number! number?<cr>
 
 " Spell checking
-map <leader>d :exec &spell==&spell? "se spell! spelllang=en_us" : "se spell!"<cr>
+map <leader>j :exec &spell==&spell? "se spell! spelllang=en_us" : "se spell!"<cr>
 map <leader>= z=
 
 " Clear the search buffer (highlighting) when hitting return
@@ -407,6 +411,9 @@ function! MapCR()
 endfunction
 call MapCR()
 nnoremap <leader><leader> <c-^>
+
+" Replace currently selected text with default register without yanking it
+vnoremap p "_dP
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
