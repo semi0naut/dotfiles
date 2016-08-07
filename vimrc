@@ -161,7 +161,7 @@ function! RunBuildScript()
   let l:current_buf = bufnr("%")
 
   " Save current buffer in case there are unsaved changes
-  write
+  silent! wall
 
   if l:existing_buf > 0
     silent! exe l:existing_buf . " wincmd w"
@@ -178,6 +178,7 @@ function! RunBuildScript()
   " Output compile log into buffer
   let l:output = system("./build")
   call append(0, split(l:output, '\v\n'))
+  go
 
   silent! exe l:existing_buf. " wincmd w"
 endfunction
