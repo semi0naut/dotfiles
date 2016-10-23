@@ -92,6 +92,9 @@ Plugin {
       id=menu://applications/chrome-apps/chrome-hmjkmjkepdijhoojdojkdfohbdgmmhki-Default.desktop
     }
     Button {
+      id=/usr/share/applications/synergy.desktop
+    }
+    Button {
       id=menu://applications/System/lxtask.desktop
     }
   }

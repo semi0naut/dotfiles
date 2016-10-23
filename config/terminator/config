@@ -1,5 +1,6 @@
 [global_config]
   enabled_plugins = LaunchpadCodeURLHandler, SearchGoogle, APTURLHandler, LaunchpadBugURLHandler
+  inactive_color_offset = 0.79
   suppress_multiple_term_dialog = True
   title_hide_sizetext = True
   window_state = maximise
@@ -112,7 +113,7 @@
       type = Terminal
       uuid = 5e14119d-8778-4226-a424-b9c5eca80292
     [[[terminal9]]]
-      command = lein auto-test; zsh
+      command = watch free -h; zsh
       directory = /home/michael/.work-files/dive-networks/dive-web-app/
       order = 1
       parent = child7
