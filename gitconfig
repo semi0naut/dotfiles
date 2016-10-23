@@ -6,6 +6,7 @@
   tool = vimdiff
 [core]
   editor = /usr/bin/vim
+  excludesfile = ~/.gitignore
 [push]
   default = upstream
 [diff]
