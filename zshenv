@@ -28,6 +28,9 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 
 if [[ $platform == 'Linux' ]]; then
   export LD_LIBRARY_PATH="/usr/lib/jvm/java-8-openjdk/jre/lib/amd64"
+  export LOLCOMMITS_ANIMATE=4
+  export LOLCOMMITS_FORK=true
+  export LOLCOMMITS_STEALTH=true
 fi
 
 #export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
