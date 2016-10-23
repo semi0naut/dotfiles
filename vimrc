@@ -29,6 +29,8 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-classpath'
 Plug 'tpope/vim-dispatch'
+Plug 'craigemery/vim-autotag'
+
 " DISABLED since it requires vim 7.3.598+ and I don't have that on my macbook
 " Plug 'Valloric/YouCompleteMe'
 Plug 'rking/ag.vim'
@@ -205,7 +207,7 @@ autocmd bufread,bufnewfile *.lisp,*.scm,*.rkt setlocal equalprg=scmindent.rkt
 " COLORS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:default_bg = 'dark'
-let s:dark_theme = 'monokai'
+let s:dark_theme = 'pencil'
 let s:light_theme = 'pencil'
 let g:airline_theme = 'pencil'
 
@@ -275,7 +277,7 @@ hi def link MyBugs Todo
 
 augroup vimrc_notes
     au!
-    au Syntax * syn match MyNotes /\v<(NOTE|QUESTION|WARNING|IMPORTANT):/
+    au Syntax * syn match MyNotes /\v<(IDEA|NOTE|QUESTION|WARNING|IMPORTANT):/
           \ containedin=.*Comment,vimCommentTitle
 augroup END
 hi def link MyNotes WildMenu
@@ -421,7 +423,10 @@ vnoremap p "_dP
 " ABBREVIATIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 :ab teh the
+:ab taht that
 :ab kewyord keyword
+:ab indentity identity
+:ab indetity identity
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
