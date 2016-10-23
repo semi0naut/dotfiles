@@ -35,3 +35,6 @@ path=($HOME/bin ${ANSIBLE_DIR}/bin ${RBENV_PATH}/bin $HOME/.vim/scripts $path)
 
 # Start rbenv
 eval "$(rbenv init -)"
+
+# Star the SSH agent
+eval "$(ssh-agent -s)" > /dev/null
