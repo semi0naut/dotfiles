@@ -43,7 +43,15 @@
   </fontconfig>
   ```
 
-* map caps key to left-ctrl (see https://wiki.archlinux.org/index.php/Map_scancodes_to_keycodes for details)
+## Map caps to left-ctrl
+
+* Most promising method
+
+  * Install `xorg-xmodmap`
+  * Map `linux/home/Xmodmap` to ~/
+  * The above taken from https://wiki.archlinux.org/index.php/xmodmap
+
+* Second method: map caps key to left-ctrl (see https://wiki.archlinux.org/index.php/Map_scancodes_to_keycodes for details)
   * edit `/etc/udev/hwdb.d/10-my-modifiers.hwdb`
   * add:
 
@@ -53,6 +61,7 @@
   ```
 
   * run `udevadm hwdb --update` then reboot
+
 
 # Setting up Ruby
 
