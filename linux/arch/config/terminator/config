@@ -120,6 +120,109 @@
       profile = default
       type = Terminal
       uuid = 8eec6a48-cbfb-449c-b49e-704da6e5996d
+  [[nightdive]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_window = True
+      maximised = True
+      order = 0
+      parent = ""
+      position = 0:0
+      size = 1920, 1032
+      title = /bin/zsh
+      type = Window
+    [[[child1]]]
+      active_page = 1
+      labels = None, None
+      last_active_term = d64ba4f9-edb7-4ced-942e-49a69033480f, 4f4cffb2-74fa-4d07-a7b4-c5f30ece39b2
+      order = 0
+      parent = child0
+      type = Notebook
+    [[[child12]]]
+      order = 1
+      parent = child6
+      position = 534
+      ratio = 0.508079847909
+      type = HPaned
+    [[[child2]]]
+      order = 0
+      parent = child1
+      position = 867
+      ratio = 0.451822916667
+      type = HPaned
+    [[[child3]]]
+      order = 0
+      parent = child2
+      position = 502
+      ratio = 0.499502982107
+      type = VPaned
+    [[[child6]]]
+      order = 1
+      parent = child2
+      position = 502
+      ratio = 0.499502982107
+      type = VPaned
+    [[[child7]]]
+      order = 0
+      parent = child6
+      position = 250
+      ratio = 0.499003984064
+      type = VPaned
+    [[[child9]]]
+      order = 1
+      parent = child7
+      position = 534
+      ratio = 0.508079847909
+      type = HPaned
+    [[[terminal10]]]
+      order = 0
+      parent = child9
+      profile = default
+      type = Terminal
+      uuid = 8eec6a48-cbfb-449c-b49e-704da6e5996d
+    [[[terminal11]]]
+      order = 1
+      parent = child9
+      profile = default
+      type = Terminal
+      uuid = 4d558fe8-344a-47dd-8ccf-c17d1d796de4
+    [[[terminal13]]]
+      order = 0
+      parent = child12
+      profile = default
+      type = Terminal
+      uuid = a51152d4-6cb9-4d72-97fc-39bdf1376818
+    [[[terminal14]]]
+      order = 1
+      parent = child12
+      profile = default
+      type = Terminal
+      uuid = c1af7bb4-a6b9-4839-bf52-ed97a91a91c5
+    [[[terminal15]]]
+      directory = /home/michael/
+      order = 1
+      parent = child1
+      profile = default
+      type = Terminal
+      uuid = 4f4cffb2-74fa-4d07-a7b4-c5f30ece39b2
+    [[[terminal4]]]
+      order = 0
+      parent = child3
+      profile = default
+      type = Terminal
+      uuid = d64ba4f9-edb7-4ced-942e-49a69033480f
+    [[[terminal5]]]
+      order = 1
+      parent = child3
+      profile = default
+      type = Terminal
+      uuid = 41f364c3-36b4-4af5-b999-2b2141b85319
+    [[[terminal8]]]
+      order = 0
+      parent = child7
+      profile = default
+      type = Terminal
+      uuid = 5e14119d-8778-4226-a424-b9c5eca80292
 [plugins]
   [[GrepEditor]]
     command = vim +{line} {filepath}
