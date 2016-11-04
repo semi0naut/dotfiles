@@ -121,9 +121,23 @@ set list listchars=tab:»·,trail:·
 set timeoutlen=300 ttimeoutlen=0
 
 " Allow undo when doing back into a closed file
-set undodir=$HOME/.vim/undo
 set undolevels=1000
 set undoreload=10000
+" Keep undo history across sessions by storing it in a file
+if has('persistent_undo')
+    let undo_dir = expand(s:vim_dir . '/undo')
+    " Create dirs
+    if IsWindows()
+      let mkdir = 'mkdir '
+    else
+      let mkdir = 'mkdir -p '
+    endif
+    :silent call system(mkdir . s:vim_dir)
+    :silent call system(mkdir . undo_dir)
+    let &undodir = undo_dir
+    " Persist undo
+    set undofile
+endif
 
 " When loading text files, wrap them and don't split up words.
 au BufNewFile,BufRead *.txt setlocal wrap
