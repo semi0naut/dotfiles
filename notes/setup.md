@@ -62,6 +62,11 @@
 
   * run `udevadm hwdb --update` then reboot
 
+## Install clipboard getter
+
+* `pi xsel`
+* Now we can grab clipboard content in vim using `:read !xsel --clipboard --output`
+
 
 # Setting up Ruby
 
