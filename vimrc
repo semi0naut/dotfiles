@@ -4,6 +4,7 @@ set encoding=utf-8
 " Store the current system name so that we can conditionally set configs for
 " different platforms
 let s:uname = system("echo -n \"$(uname)\"")
+let s:vim_dir = $HOME . "/.vim"
 
 function! IsWindows()
   if s:uname =~ "mingw"
