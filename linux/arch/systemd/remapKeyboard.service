@@ -1,0 +1,8 @@
+[Unit]
+Description=Remaps the keyboard using xmodmap
+
+[Service]
+ExecStart=/home/michael/bin/remap-keyboard.sh
+
+[Install]
+WantedBy=multi-user.target

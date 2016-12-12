@@ -105,7 +105,7 @@
       type = Terminal
       uuid = 41f364c3-36b4-4af5-b999-2b2141b85319
     [[[terminal8]]]
-      command = lein dev-css; zsh
+      command = htop; zsh
       directory = /home/michael/.work-files/dive-networks/dive-web-app/
       order = 0
       parent = child7
@@ -113,7 +113,7 @@
       type = Terminal
       uuid = 5e14119d-8778-4226-a424-b9c5eca80292
     [[[terminal9]]]
-      command = watch free -h; zsh
+      command = lein dev-css; zsh
       directory = /home/michael/.work-files/dive-networks/dive-web-app/
       order = 1
       parent = child7

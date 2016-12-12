@@ -7,7 +7,12 @@
 
 # Setup Arch
 
-* Lots to do but unfortunately I didn't write it all down!
+* Full disk encryption with Veracrypt
+
+* Store /tmp in RAM
+
+* Move browser cache directories to /tmp as a means of reducing file writes on SSD
+
 * Fix fonts by placing the following XML into `/etc/fonts/conf.avail/29-prettify.conf`
   and then symlinking: `ln -s /etc/fonts/conf.avail/29-prettify.conf /etc/fonts/conf.d/29-prettify.conf`
 
@@ -89,6 +94,4 @@ Map <CapsLock> to <Ctrl> in System Preferences -> Keyboard -> Modifier Keys. Now
 Vim might not work properly when writing commit messages. To fix, run:
 
     $ git config --global core.editor /usr/bin/vim
-
-
 
