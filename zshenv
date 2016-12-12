@@ -1,4 +1,5 @@
-platform=`uname`
+platform=`uname -s`
+kernel_release=`uname -r`
 
 # Unbreak broken, non-colored terminal
 export TERM=xterm-256color
@@ -31,6 +32,7 @@ if [[ $platform == 'Linux' ]]; then
   export LOLCOMMITS_ANIMATE=4
   export LOLCOMMITS_FORK=true
   export LOLCOMMITS_STEALTH=true
+  export LOLCOMMITS_DIR="/shared/Dev/lolcommits"
 fi
 
 #export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
@@ -39,5 +41,5 @@ path=($HOME/bin ${ANSIBLE_DIR}/bin ${RBENV_PATH}/bin $HOME/.vim/scripts $path)
 # Start rbenv
 eval "$(rbenv init -)"
 
-# Star the SSH agent
+# Start the SSH agent
 eval "$(ssh-agent -s)" > /dev/null
