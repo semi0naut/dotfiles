@@ -284,7 +284,7 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup vimrc_bugs
     au!
-    au Syntax * syn match MyBugs /\v<(FIXME|BUG|OPTIMIZE):/
+    au Syntax * syn match MyBugs /\v<(FIXME|BUG|DEPRECATED|OPTIMIZE):/
           \ containedin=.*Comment,vimCommentTitle
 augroup END
 hi def link MyBugs Todo
