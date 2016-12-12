@@ -32,6 +32,8 @@ alias bld='brew link --overwrite --dry-run'
 alias bower='noglob bower'
 alias bu='bundle update'
 alias bo='bundle open'
+alias chrome='google-chrome-stable'
+alias clipboard='xclip -selection c'
 alias cl='cloc --no3 --by-file-by-lang .'
 alias cls=clear
 alias code='cd ~/code'
@@ -97,6 +99,7 @@ alias reload='source ~/.zshrc'
 alias restart='sudo shutdown now -r'
 alias s='cd ~/.ssh'
 alias sc='vim ~/.ssh/config'
+alias stream='streamlink --player mpv'
 alias shutdown='sudo shutdown now'
 alias t='tree'
 alias u='cd ..'
@@ -107,6 +110,7 @@ alias vh='vagrant halt'
 alias vs='vagrant ssh'
 alias vu='vagrant up'
 alias vimrc='vim ~/.vimrc'
+alias weather='curl wttr.in/toronto'
 
 # Git
 alias am='git commit --amend'
@@ -227,6 +231,10 @@ alias gx='git reset --hard'
 alias gxx='git reset --hard HEAD~1'
 alias gstats='echo "Total commits: $(git rev-list HEAD --count)"; echo "\nAuthor breakdown:"; git shortlog | grep -E "^[^ ]"'
 alias gwip="git add . && git commit -m \"WIP\""
+
+# Arch
+alias ipconfig='ip addr'
+alias ifconfig='ip addr'
 
 # Python
 alias pys="venv/bin/python manage.py runserver"
