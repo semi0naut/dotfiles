@@ -35,8 +35,10 @@ if [[ $platform == 'Linux' ]]; then
   export LOLCOMMITS_DIR="/shared/Dev/lolcommits"
 fi
 
+# TODO setup a .personal-files bin directory and soft link contents to /usr/bin during setup
+
 #export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
-path=($HOME/bin ${ANSIBLE_DIR}/bin ${RBENV_PATH}/bin $HOME/.vim/scripts $path)
+path=($HOME/bin ${ANSIBLE_DIR}/bin ${RBENV_PATH}/bin $HOME/.vim/scripts $HOME/.personal-files/oss/by-lang/elixir/elixir/bin $path)
 
 # Start rbenv
 eval "$(rbenv init -)"
