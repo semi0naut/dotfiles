@@ -8,6 +8,8 @@ elif [[ $platform == 'Darwin' ]]; then
   alias l='ls -laG'
   alias ls='ls -laG'
   alias ll='ls -lG'
+else
+  alias python='winpty python.exe'
 fi
 
 alias c='cd'
