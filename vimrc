@@ -193,7 +193,7 @@ function! RunBuildScript()
   normal! ggdG
 
   " Output compile log into buffer
-  let l:output = system("./build")
+  let l:output = system("./build.sh")
   call append(0, split(l:output, '\v\n'))
   go
 
