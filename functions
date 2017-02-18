@@ -59,18 +59,9 @@ function git-on-master {
   git rebase master
   }
 
-function rrg {
-  rake routes | grep $1
-}
-
 function take {
   mkdir $1
   cd $1
-}
-
-# Allows commit message without typing quotes (can't have quotes in the commit msg though).
-function gc {
-  git commit -m "$*"
 }
 
 # Search google for a term
@@ -78,7 +69,7 @@ function google() {
   if [[ $platform == 'Darwin' ]]; then
     open /Applications/Google\ Chrome.app/ "http://www.google.com/search?q= $1";
   else
-    crome "http://www.google.com/search?q= $1";
+    chrome "http://www.google.com/search?q= $1";
   fi
 }
 
@@ -94,16 +85,4 @@ function chrome () {
 # See top 10 bash commands
 function hist() {
    cat ~/.history|cut -d ';' -f 2- 2>/dev/null| awk '{a[$1]++ } END{for(i in a){print a[i] " " i}}'|sort -rn|head
-}
-
-function bump_gem_version {
-  if [[ $# -eq 0 ]]; then
-    echo "usage: $0 <version>"
-  else
-    echo "Committing version bump"
-    git add . && git commit -m "Version ${1}"
-    echo "Creating tag v$1"
-    git tag -a v${1} -m "Tagging v${1}"
-    git push origin && git push origin --tags
-  fi
 }

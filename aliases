@@ -35,7 +35,6 @@ alias bld='brew link --overwrite --dry-run'
 alias bower='noglob bower'
 alias bu='bundle update'
 alias bo='bundle open'
-alias chrome='google-chrome-stable'
 alias clipboard='xclip -selection c'
 alias cloc='cloc --no3 --by-file-by-lang .'
 alias cls=clear
