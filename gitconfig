@@ -1,3 +1,5 @@
+[include]
+  path = ~/.gitconfig.platform
 [user]
   name = Michael Campagnaro
   email = mikecampo@gmail.com
@@ -5,7 +7,6 @@
   summary = true
   tool = vimdiff
 [core]
-  editor = /usr/bin/vim
   excludesfile = ~/.gitignore
 [push]
   default = upstream

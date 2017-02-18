@@ -23,7 +23,7 @@ alias cd...='cd ../..'
 alias cd....='cd ../../..'
 alias cd.....='cd ../../../..'
 
-alias aliases='vim ~/.dotfiles/zsh/aliases'
+alias aliases='vim ~/.dotfiles/aliases'
 alias al='aliases'
 alias b='bundle'
 alias be='bundle exec'
@@ -95,11 +95,19 @@ alias rbg='rbenv gemset active'
 alias rbp='cd $RBENV_PATH/versions/$(rbenv version | sed -e "s/ (set.*$//")'
 alias rbl='cd $RBENV_PATH/versions/$(rbenv version | sed -e "s/ (set.*$//")/lib/ruby'
 alias rg='rails generate'
+
+function reload {
+  if [[ $platform == 'Linux' || $platform == 'Darwin' ]]; then
+    source ~/.zshrc
+  else
+    source ~/.bash_profile
+  fi
+}
+
 alias rl='reload'
 alias rmr='rm -rf'
 alias rc='rails console'
 alias rs='rails server'
-alias reload='source ~/.zshrc'
 alias restart='sudo shutdown now -r'
 alias s='cd ~/.ssh'
 alias sc='vim ~/.ssh/config'
@@ -117,12 +125,22 @@ alias vimrc='vim ~/.vimrc'
 alias weather='curl wttr.in/toronto'
 
 # Git
+
+function gitCmdWrapper {
+  # If no args are provided then run `git status`
+  if [[ $# > 0 ]]; then
+    git $@
+  else
+    git status
+  fi
+}
+
 alias am='git commit --amend'
 alias ama='git commit --amend -C head --author'
 alias ams='git commit -S --amend' # signed
 alias ammend='echo "use am instead"'
 alias amend='echo "use am instead"'
-alias g='gst'
+alias g='gitCmdWrapper'
 alias ga='git add -A :/'
 alias gaa='git add -A'
 alias gaap='git add -Ap'
@@ -212,7 +230,6 @@ alias grmr='git rm -r'
 alias grp='git reset -p'
 alias gsnapshot='git stash save "snapshot: $(date)" && git stash apply "stash@{0}"'
 alias gsh='git show'
-alias gst='git status'
 alias gs='git stash'
 alias gsk='git stash -k -u'
 alias gss='git stash save'
@@ -250,6 +267,7 @@ alias writing='cd ~/.personal-files/brain/writing'
 
 # Projects
 alias dev='cd ~/.personal-files/dev'
+alias games='cd ~/.personal-files/dev/games'
 alias projects='cd ~/.personal-files/dev/projects'
 alias dot='cd ~/.dotfiles'
 alias work='cd ~/.work-files'

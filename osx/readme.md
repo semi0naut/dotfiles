@@ -14,10 +14,3 @@
 ## Setup Keyboard
 
 Map <CapsLock> to <Ctrl> in System Preferences -> Keyboard -> Modifier Keys. Now <caps-c> can leave insert mode.
-
-
-## Setup Git
-
-Vim might not work properly when writing commit messages. To fix, run:
-
-    $ git config --global core.editor /usr/bin/vim

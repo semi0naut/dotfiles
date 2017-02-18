@@ -1,18 +1,11 @@
 dotfiles
 ========
 
-My vim and git config files. Some of it is customized around my system setup (like aliases pointing to paths) but you should be able to easily remove that stuff.
+Various dotfiles and misc configs. Some of it is customized around my system setup
+(like aliases pointing to paths) but you should be able to easily remove that stuff.
 
 Installing
 ==========
 
-Installation is done via Rake. Just run
+Symlink files in the root directory. OS specific configs are in their respective folders.
 
-    rake install
-
-This will create symlinks in your home folder to the various dotfiles in this repo.
-
-Note to self
-============
-
-The bashrc file is meant for Windows.

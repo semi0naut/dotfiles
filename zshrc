@@ -90,8 +90,8 @@ bindkey -e
 source $ZSH/lib/*.zsh
 
 # Source my custom files after oh-my-zsh so I can override things.
-source $HOME/.dotfiles/zsh/aliases
-source $HOME/.dotfiles/zsh/functions
+source $HOME/.dotfiles/functions
+source $HOME/.dotfiles/aliases
 
 # Fix <c-h> in neovim
 infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $HOME/.$TERM.ti
