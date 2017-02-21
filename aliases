@@ -3,11 +3,23 @@ platform=`uname`
 if [[ $platform == 'Linux' ]]; then
   alias l='ls -lhg --color'
   alias ll='ls -lahg --color'
+
+  # Arch
   alias flux='redshift'
+  alias ipconfig='ip addr'
+  alias ifconfig='ip addr'
+  alias pi='yaourt -S' # wrapper around Arch Pacman
+  alias po='pacman -Qdt' # see orphaned packages
+  alias pr='yaourt -R' # giving me trouble now
+  alias prr='pacman -Rdd'
+  alias pss='sudo pacman -Syu'
+  alias pu='yaourt -U'
+
 elif [[ $platform == 'Darwin' ]]; then
   alias l='ls -laG'
   alias ls='ls -laG'
   alias ll='ls -lG'
+
 else
   alias python='winpty python.exe'
   alias python3='winpty python.exe'
@@ -42,9 +54,9 @@ alias code='cd ~/code'
 alias cpr='cp -r'
 alias cw='compass watch'
 alias dc='gdc'
-alias dot='cd ~/.'
+alias dot='cd ~/.dotfiles'
 alias duh='du -csh'
-alias functions='vim ~/.dotfiles/zsh/functions'
+alias functions='vim ~/.dotfiles/functions'
 alias f='fg'
 alias gib='gem install bundler'
 alias history='fc -l 1'
@@ -78,14 +90,7 @@ alias mi='mvn install'
 alias mci='mvn clean install'
 alias mp='mvn package'
 alias mcp='mvn clean package'
-alias opensource='cd ~/.personal-files/dev/open-source'
 alias patch='git format-patch HEAD^ --stdout > patch.diff'
-alias pi='yaourt -S' # wrapper around Arch Pacman
-alias po='pacman -Qdt' # see orphaned packages
-alias pr='yaourt -R' # giving me trouble now
-alias prr='pacman -Rdd'
-alias pss='sudo pacman -Syu'
-alias pu='yaourt -U'
 alias reguard='killall -9 ruby ; guard'
 alias r='rails'
 alias rr='bundle exec rake release'
@@ -252,29 +257,8 @@ alias gxx='git reset --hard HEAD~1'
 alias gstats='echo "Total commits: $(git rev-list HEAD --count)"; echo "\nAuthor breakdown:"; git shortlog | grep -E "^[^ ]"'
 alias gwip="git add . && git commit -m \"WIP\""
 
-# Arch
-alias ipconfig='ip addr'
-alias ifconfig='ip addr'
-
-# Python
-alias pys="venv/bin/python manage.py runserver"
-
-# Notes
-alias notes='cd ~/.personal-files/documents'
-alias pn='vim ~/.personal-files/documents/Notes/stack.txt'
-alias writing='cd ~/.personal-files/brain/writing'
-
-# Projects
-alias dev='cd ~/.personal-files/dev'
-alias games='cd ~/.personal-files/dev/games'
-alias projects='cd ~/.personal-files/dev/projects'
-alias dot='cd ~/.dotfiles'
-alias work='cd ~/.work-files'
-alias brain='cd ~/.personal-files/brain'
-
-# Work
-alias dh='git push heroku-staging master -f'
-
 # Other aliases
-alias wl='vim ~/.work-aliases'
-source ~/.work-aliases
+alias wal='vim ~/.work-aliases'
+alias pal='vim ~/.personal-aliases'
+test -f ~/.work-aliases && . ~/.work-aliases
+test -f ~/.personal-aliases && . ~/.personal-aliases
