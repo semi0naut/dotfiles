@@ -31,6 +31,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-classpath'
 Plug 'tpope/vim-dispatch'
 Plug 'craigemery/vim-autotag'
+Plug 'jeetsukumaran/vim-filesearch'
 
 " DISABLED since it requires vim 7.3.598+ and I don't have that on my macbook
 " Plug 'Valloric/YouCompleteMe'
@@ -339,10 +340,16 @@ map <leader>gr :call GlobalReplaceIt(1)<cr>
 function! Search()
   let l:term = input('Grep search term: ')
   if l:term != ''
-    exec 'Ag "' . l:term . '"'
+    if IsWindows()
+      exec 'Fsgrep "' . l:term . '"'
+    else
+      exec 'Ag "' . l:term . '"'
+    endif
   endif
 endfunction
 map <leader>s :call Search()<cr>
+
+command! -nargs=+ MyGrep execute 'silent grep! <args>' | copen 33
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
@@ -498,28 +505,26 @@ nnoremap <leader>pp :silent !open -a Marked.app '%:p'<cr>
 " Run a given vim command on the results of fuzzy selecting from a given shell
 " command. See usage below.
 function! SelectaCommand(choice_command, selecta_args, vim_command)
-  try
-    let l:selection = system(a:choice_command . " | selecta " . a:selecta_args)
-  catch /Vim:Interrupt/
-    " Swallow the ^C so that the redraw below happens; otherwise there will be
-    " leftovers from selecta on the screen
+  if IsWindows()
+    let l:term = input('File name: ')
+    exec 'Fsfind "' . l:term . '"'
+  else
+    try
+      let l:selection = system(a:choice_command . " | selecta " . a:selecta_args)
+    catch /Vim:Interrupt/
+      " Swallow the ^C so that the redraw below happens; otherwise there will be
+      " leftovers from selecta on the screen
+      redraw!
+      return
+    endtry
     redraw!
-    return
-  endtry
-  redraw!
-  exec a:vim_command . " " . l:selection
+    exec a:vim_command . " " . l:selection
+  endif
 endfunction
 
 " Find all files in all non-dot directories starting in the working directory.
 " Fuzzy select one of those. Open the selected file with :e.
 nnoremap <leader>f :call SelectaCommand("find * -type f ! -path 'resources/public/js/*' ! -path 'resources/.sass-cache/*' ! -path 'target/*'", "", ":e")<cr>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NERDTREE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"nmap <leader>d :NERDTreeToggle<CR>
-"nmap <leader>ff :NERDTreeFind<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -540,6 +545,12 @@ let g:gist_post_private = 1
  let g:clojure_fuzzy_indent_patterns = ['^match', '^with', '^def', '^let']
  let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FILESEARCH
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ let g:filesearch_viewport_split_policy = "B"
+ let g:filesearch_split_size = 10
+ let g:filesearch_autodismiss_on_select = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " C-TAGS
