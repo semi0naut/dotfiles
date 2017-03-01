@@ -541,10 +541,10 @@ let g:gist_post_private = 1
 " VIM-CLOJURE-STATIC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Default
- let g:clojure_fuzzy_indent = 1
- let g:clojure_align_multiline_strings = 1
- let g:clojure_fuzzy_indent_patterns = ['^match', '^with', '^def', '^let']
- let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
+let g:clojure_fuzzy_indent = 1
+let g:clojure_align_multiline_strings = 1
+let g:clojure_fuzzy_indent_patterns = ['^match', '^with', '^def', '^let']
+let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FILESEARCH
