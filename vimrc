@@ -32,6 +32,7 @@ Plug 'tpope/vim-classpath'
 Plug 'tpope/vim-dispatch'
 Plug 'craigemery/vim-autotag'
 Plug 'jeetsukumaran/vim-filesearch'
+Plug 'embear/vim-localvimrc'
 
 " DISABLED since it requires vim 7.3.598+ and I don't have that on my macbook
 " Plug 'Valloric/YouCompleteMe'
@@ -551,6 +552,12 @@ let g:gist_post_private = 1
  let g:filesearch_viewport_split_policy = "B"
  let g:filesearch_split_size = 10
  let g:filesearch_autodismiss_on_select = 0
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LOCAL VIMRC
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:localvimrc_sandbox = 0
+let g:localvimrc_ask = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " C-TAGS
