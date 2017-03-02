@@ -54,6 +54,9 @@ Plug 'guns/vim-clojure-highlight'
 Plug 'guns/vim-clojure-static'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
+" Rust
+Plug 'rust-lang/rust.vim'
+
 call plug#end()
 
 filetype plugin indent on
@@ -545,6 +548,11 @@ let g:clojure_fuzzy_indent = 1
 let g:clojure_align_multiline_strings = 1
 let g:clojure_fuzzy_indent_patterns = ['^match', '^with', '^def', '^let']
 let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RUST.VIM
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:rustfmt_autosave = 1 " auto run rust formatter when saving
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FILESEARCH
