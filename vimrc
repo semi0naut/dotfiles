@@ -581,6 +581,14 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
+" Customize Rust
+" https://github.com/rust-lang/rust.vim/issues/130
+" Can remove once this Syntastic PR is merged https://github.com/rust-lang/rust.vim/pull/132
+let g:syntastic_rust_rustc_exe = 'cargo check'
+let g:syntastic_rust_rustc_fname = ''
+let g:syntastic_rust_checkers = ['rustc']
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " C-TAGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
