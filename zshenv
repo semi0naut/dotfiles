@@ -40,6 +40,10 @@ fi
 #export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
 path=($HOME/bin ${ANSIBLE_DIR}/bin ${RBENV_PATH}/bin $HOME/.vim/scripts $HOME/.personal-files/oss/by-lang/elixir/elixir/bin $path)
 
+if [[ $platform == 'Darwin' ]]; then
+  source $HOME/.cargo/env
+fi
+
 # Start rbenv
 eval "$(rbenv init -)"
 
