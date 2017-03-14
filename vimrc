@@ -458,6 +458,7 @@ vnoremap p "_dP
 :ab kewyord keyword
 :ab indentity identity
 :ab indetity identity
+:ab constnat constant
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
