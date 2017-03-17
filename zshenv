@@ -38,10 +38,11 @@ fi
 # TODO setup a .personal-files bin directory and soft link contents to /usr/bin during setup
 
 #export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
-path=($HOME/bin ${ANSIBLE_DIR}/bin ${RBENV_PATH}/bin $HOME/.vim/scripts $HOME/.personal-files/oss/by-lang/elixir/elixir/bin $path)
+path=($HOME/bin ${ANSIBLE_DIR}/bin ${RBENV_PATH}/bin $HOME/.vim/scripts $path)
 
 if [[ $platform == 'Darwin' ]]; then
   source $HOME/.cargo/env
+  path=($HOME/Qt/5.8/clang_64/bin $path)
 fi
 
 # Start rbenv
