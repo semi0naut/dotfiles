@@ -60,6 +60,9 @@ Plug 'rust-lang/rust.vim'
 " QML
 Plug 'peterhoeg/vim-qml'
 
+" Markdown
+Plug 'tpope/vim-markdown'
+
 call plug#end()
 
 filetype plugin indent on
@@ -277,9 +280,6 @@ augroup vimrcEx
 
   " Indent p tags
   autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
-
-  " Spell check
-  autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_us
 augroup END
 
 
