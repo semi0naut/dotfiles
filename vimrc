@@ -182,9 +182,10 @@ map <leader>sn :sp ~/.personal-files/documents/software-notes/clojure.md<cr>
 map <leader>rn :sp ~/.work-files/dive-networks/files/notes/refactoring-notes.md<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Run build script
+" Build commands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! RunBuildScript()
+
+function! RunBuildCommand(command)
   let l:existing_buf = bufwinnr("__build_output_log__")
   let l:current_buf = bufnr("%")
 
@@ -204,14 +205,16 @@ function! RunBuildScript()
   normal! ggdG
 
   " Output compile log into buffer
-  let l:output = system("./build.sh")
+  let l:output = system(a:command)
   call append(0, split(l:output, '\v\n'))
   go
 
   silent! exe l:existing_buf. " wincmd w"
 endfunction
 
-nnoremap <leader>b :call RunBuildScript()<cr>
+nnoremap <leader>b :call RunBuildCommand("./build.sh")<cr>
+nnoremap <leader>cb :call RunBuildCommand("cargo build")<cr>
+nnoremap <leader>cr :call RunBuildCommand("cargo run")<cr>
 nnoremap <leader>bb :bw!<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -561,7 +564,7 @@ let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUST.VIM
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:rustfmt_autosave = 1 " auto run rust formatter when saving
+"let g:rustfmt_autosave = 1 " auto run rust formatter when saving
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FILESEARCH
@@ -588,9 +591,9 @@ let g:syntastic_check_on_wq = 0
 " Customize Rust
 " https://github.com/rust-lang/rust.vim/issues/130
 " Can remove once this Syntastic PR is merged https://github.com/rust-lang/rust.vim/pull/132
-let g:syntastic_rust_rustc_exe = 'cargo check'
-let g:syntastic_rust_rustc_fname = ''
-let g:syntastic_rust_checkers = ['rustc']
+"let g:syntastic_rust_rustc_exe = 'cargo check'
+"let g:syntastic_rust_rustc_fname = ''
+"let g:syntastic_rust_checkers = ['rustc']
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
