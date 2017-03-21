@@ -57,6 +57,9 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 " Rust
 Plug 'rust-lang/rust.vim'
 
+" QML
+Plug 'peterhoeg/vim-qml'
+
 call plug#end()
 
 filetype plugin indent on
@@ -270,7 +273,7 @@ augroup vimrcEx
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
-  autocmd FileType python set sw=4 sts=4 et
+  autocmd FileType python,qml set sw=4 sts=4 et
 
   " Indent p tags
   autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
