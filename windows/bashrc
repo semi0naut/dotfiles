@@ -1,6 +1,7 @@
 # For Windows setup
-source ~/.functions
-source ~/.aliases
+test -f ~/.aliases && . ~/.functions
+test -f ~/.aliases && . ~/.aliases
 # Unbreak broken, non-colored terminal
 export TERM=xterm-256color
+export PATH=$HOME/bin/:$PATH
 cd ~
