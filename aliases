@@ -20,9 +20,12 @@ elif [[ $platform == 'Darwin' ]]; then
   alias ls='ls -laG'
   alias ll='ls -lG'
 
-else
+elif [[ "${platform,,}" == *'ming'* ]]; then # convert to lowercase then compare with wildcard
   alias python='winpty python.exe'
   alias python3='winpty python.exe'
+
+  alias l='ls -ahg --color'
+  alias ls='ls -ahg --color'
 fi
 
 alias c='cd'
