@@ -1,5 +1,5 @@
 scriptencoding utf-8
-set encoding=utf-8
+set encoding=utf-8 fileencoding=utf-8 fileencodings=ucs-bom,utf8,prc
 
 " Store the current system name so that we can conditionally set configs for
 " different platforms
@@ -39,6 +39,7 @@ Plug 'embear/vim-localvimrc'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/syntastic'
 Plug 'nelstrom/vim-qargs'
+"Plug 'shougo/unite.vim' # Create user interfaces
 
 " Colors
 Plug 'reedes/vim-colors-pencil'
@@ -358,7 +359,9 @@ function! Search()
     if IsWindows()
       exec 'Fsgrep "' . l:term . '"'
     else
-      exec 'Ag "' . l:term . '"'
+      " is pt faster than ag? I forget now and didn't document it
+      exec 'pt "' . l:term . '"'
+      "exec 'Ag "' . l:term . '"'
     endif
   endif
 endfunction
