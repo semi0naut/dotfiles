@@ -35,8 +35,6 @@ if [[ $platform == 'Linux' ]]; then
   export LOLCOMMITS_DIR="/shared/Dev/lolcommits"
 fi
 
-# TODO setup a .personal-files bin directory and soft link contents to /usr/bin during setup
-
 #export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
 path=($HOME/bin $HOME/.dotfiles/bin ${ANSIBLE_DIR}/bin ${RBENV_PATH}/bin $HOME/.vim/scripts $path)
 

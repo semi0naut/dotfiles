@@ -1,8 +1,11 @@
 # For Windows setup
 test -f ~/.aliases && . ~/.functions
 test -f ~/.aliases && . ~/.aliases
+
 # Unbreak broken, non-colored terminal
 export TERM=xterm-256color
+
 # Needed for mingw32
 export PATH=$HOME/bin/:$HOME/.dotfiles/bin:$PATH
+
 cd ~
