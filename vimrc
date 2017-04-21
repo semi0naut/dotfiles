@@ -84,7 +84,7 @@ set showmatch
 set incsearch
 set dictionary+=/usr/share/dict/words
 "set clipboard=unnamed " yank and paste with the system clipboard
-set number
+set nonumber
 set hlsearch
 " make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
@@ -237,7 +237,7 @@ autocmd bufread,bufnewfile *.lisp,*.scm,*.rkt setlocal equalprg=scmindent.rkt
 " COLORS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:default_bg = 'dark'
-let s:dark_theme = 'pencil'
+let s:dark_theme = 'jellybeans'
 let s:light_theme = 'pencil'
 let g:airline_theme = 'pencil'
 
@@ -281,7 +281,7 @@ augroup vimrcEx
   " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
+  autocmd FileType ruby,haml,eruby,yaml,html,javascript,rust set ai sw=2 sts=2 et
   autocmd FileType python,qml set sw=4 sts=4 et
 
   " Indent p tags
