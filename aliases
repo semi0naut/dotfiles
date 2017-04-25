@@ -266,7 +266,5 @@ alias gstats='echo "Total commits: $(git rev-list HEAD --count)"; echo "\nAuthor
 alias gwip="git add . && git commit -m \"WIP\""
 
 # Other aliases
-alias wal='vim ~/.work-aliases'
-alias pal='vim ~/.personal-aliases'
-test -f ~/.work-aliases && . ~/.work-aliases
-test -f ~/.personal-aliases && . ~/.personal-aliases
+alias pal='vim ~/.private-dotfiles/aliases'
+test -f ~/.private-dotfiles/aliases && . ~/.private-dotfiles/aliases
