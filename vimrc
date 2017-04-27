@@ -241,32 +241,36 @@ let s:dark_theme = 'jellybeans'
 let s:light_theme = 'pencil'
 let g:airline_theme = 'pencil'
 
-if s:default_bg =~ 'light'
-  " The order that these are set matters for some themes
-  exe 'colorscheme ' . s:light_theme
-  set background=light
-else
-  exe 'colorscheme ' . s:dark_theme
-  set background=dark
-endif
-
 " Switch between light and dark
-map <leader>l :call ChangeBgTheme('dark')<cr>
-map <leader>ll :call ChangeBgTheme('light')<cr>
+map <leader>l :call ChangeBgTheme('light', 1)<cr>
+map <leader>ll :call ChangeBgTheme('dark', 1)<cr>
 
-function! ChangeBgTheme(bg)
+function! ChangeBgTheme(bg, toggleRainbow)
   if a:bg =~ 'light'
     let s:theme = s:light_theme
+    exe 'colorscheme ' . s:theme
+    set background=light
   else
     let s:theme = s:dark_theme
+    " We have to set the theme twice in order to get its correct dark-theme
+    " colors. Weird stuff.
+    exe 'colorscheme ' . s:theme
+    set background=dark
+    exe 'colorscheme ' . s:theme
   endif
 
-  exe 'colorscheme ' . s:theme
-  exe 'set background=' . a:bg
-  " Have to run this twice to get the plugin to set the colors
-  exec ":RainbowParenthesesToggle"
-  exec ":RainbowParenthesesToggle"
+  if a:toggleRainbow == 1
+    " Have to run this twice to get the plugin to set the colors
+    exec ":RainbowParenthesesToggle"
+    exec ":RainbowParenthesesToggle"
+  endif
 endfunction
+
+if s:default_bg =~ 'light'
+  call ChangeBgTheme('light', 0)
+else
+  call ChangeBgTheme('dark', 0)
+endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
