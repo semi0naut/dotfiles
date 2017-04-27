@@ -46,8 +46,8 @@ Plug 'reedes/vim-colors-pencil'
 Plug 'nanotech/jellybeans.vim'
 Plug 'sickill/vim-monokai'
 Plug 'elixir-lang/vim-elixir'
-Plug 'chmllr/elrodeo-colorscheme'
-Plug 'altercation/vim-colors-solarized'
+Plug 'chmllr/elrodeo-vim-colorscheme'
+Plug 'vim-airline/vim-airline-themes'
 
 " Clojure
 Plug 'kien/rainbow_parentheses.vim'
