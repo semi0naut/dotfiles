@@ -1,3 +1,7 @@
+"Remove Menubar and Toolbar from gvim
+"set guioptions -=m
+"set guioptions -=T
+
 scriptencoding utf-8
 set encoding=utf-8 fileencoding=utf-8 fileencodings=ucs-bom,utf8,prc
 
