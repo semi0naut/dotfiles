@@ -62,6 +62,9 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 " Rust
 Plug 'rust-lang/rust.vim'
 
+" Go
+Plug 'fatih/vim-go'
+
 " QML
 Plug 'peterhoeg/vim-qml'
 
@@ -289,7 +292,7 @@ augroup vimrcEx
   " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-  autocmd FileType ruby,haml,eruby,yaml,html,javascript,rust set ai sw=2 sts=2 et
+  autocmd FileType ruby,haml,eruby,yaml,html,javascript,rust,go set ai sw=2 sts=2 et
   autocmd FileType python,qml set sw=4 sts=4 et
 
   " Indent p tags
