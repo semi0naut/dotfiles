@@ -27,6 +27,10 @@ filetype off
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
+" /////////////////////////////////////////////////////////////////////
+" Misc
+" /////////////////////////////////////////////////////////////////////
+
 Plug 'mattn/webapi-vim' " Required by gist-vim
 Plug 'mattn/gist-vim'
 Plug 'bling/vim-airline'
@@ -37,23 +41,47 @@ Plug 'tpope/vim-dispatch'
 Plug 'craigemery/vim-autotag'
 Plug 'jeetsukumaran/vim-filesearch'
 Plug 'embear/vim-localvimrc'
-
-" DISABLED since it requires vim 7.3.598+ and I don't have that on my macbook
-" Plug 'Valloric/YouCompleteMe'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/syntastic'
 Plug 'nelstrom/vim-qargs'
-"Plug 'shougo/unite.vim' # Create user interfaces
+" Plug 'shougo/unite.vim' # Create user interfaces. Not currently needed.
+" DISABLED since it requires vim 7.3.598+ and I don't have that on my macbook
+" Plug 'Valloric/YouCompleteMe'
 
+" /////////////////////////////////////////////////////////////////////
 " Colors
-Plug 'reedes/vim-colors-pencil'
-Plug 'nanotech/jellybeans.vim'
-Plug 'sickill/vim-monokai'
+" /////////////////////////////////////////////////////////////////////
+
+Plug 'godlygeek/csapprox' " Try to make gvim themes look decent in Windows
+
+" WARNING: Has a lot of themes, but they break the other themes listed below
+"Plug 'flazz/vim-colorschemes'
 Plug 'elixir-lang/vim-elixir'
-Plug 'chmllr/elrodeo-vim-colorscheme'
 Plug 'vim-airline/vim-airline-themes'
 
+" Light Themes
+Plug 'raggi/vim-color-raggi' " No Win support, unless using gvim
+Plug 'LanFly/vim-colors'     " No Win support, unless using gvim
+
+" Dark Themes
+Plug 'rhysd/vim-color-spring-night' " No Win support, unless using gvim
+Plug 'nanotech/jellybeans.vim'
+Plug 'zcodes/vim-colors-basic'
+
+" Hybrid Themes
+
+" Seabird themes
+" High contrast: seagull  (light),  petrel      (dark)
+" Low contrast:  greygull (light),  stormpetrel (dark)
+Plug 'nightsense/seabird' " No Win support, unless using gvim
+Plug 'sickill/vim-monokai'
+Plug 'chmllr/elrodeo-vim-colorscheme' " A little dark on Windows, term
+Plug 'reedes/vim-colors-pencil' " High-contrast
+
+
+" /////////////////////////////////////////////////////////////////////
 " Clojure
+" /////////////////////////////////////////////////////////////////////
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'guns/vim-clojure-highlight'
 Plug 'guns/vim-clojure-static'
@@ -61,6 +89,9 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 " Rust
 Plug 'rust-lang/rust.vim'
+
+" Ruby
+Plug 'vim-ruby/vim-ruby'
 
 " Go
 Plug 'fatih/vim-go'
@@ -244,9 +275,8 @@ autocmd bufread,bufnewfile *.lisp,*.scm,*.rkt setlocal equalprg=scmindent.rkt
 " COLORS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:default_bg = 'dark'
-let s:dark_theme = 'jellybeans'
-let s:light_theme = 'pencil'
-let g:airline_theme = 'pencil'
+let s:dark_theme = 'campo-dark'
+let s:light_theme = 'basic-light'
 
 " Switch between light and dark
 map <leader>l :call ChangeBgTheme('light', 1)<cr>
@@ -257,6 +287,7 @@ function! ChangeBgTheme(bg, toggleRainbow)
     let s:theme = s:light_theme
     exe 'colorscheme ' . s:theme
     set background=light
+    let g:airline_theme = 'light'
   else
     let s:theme = s:dark_theme
     " We have to set the theme twice in order to get its correct dark-theme
@@ -264,6 +295,7 @@ function! ChangeBgTheme(bg, toggleRainbow)
     exe 'colorscheme ' . s:theme
     set background=dark
     exe 'colorscheme ' . s:theme
+    let g:airline_theme = 'dark'
   endif
 
   if a:toggleRainbow == 1
