@@ -1,7 +1,7 @@
-vim/undo
 vim/.netrwhist
 vim/bundle/*
 vim/plugged/*
+vim/undo
 vim/undo/*
 config/openbox/lxde-rc.xml
 *.pyc
