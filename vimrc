@@ -279,36 +279,35 @@ let s:dark_theme = 'campo-dark'
 let s:light_theme = 'basic-light'
 
 " Switch between light and dark
-map <leader>l :call ChangeBgTheme('light', 1)<cr>
-map <leader>ll :call ChangeBgTheme('dark', 1)<cr>
+map <leader>l :call ChangeBgTheme('light', 0)<cr>
+map <leader>ll :call ChangeBgTheme('dark', 0)<cr>
 
-function! ChangeBgTheme(bg, toggleRainbow)
+function! ChangeBgTheme(bg, onlySetTheme)
   if a:bg =~ 'light'
     let s:theme = s:light_theme
     exe 'colorscheme ' . s:theme
     set background=light
-    let g:airline_theme = 'light'
   else
     let s:theme = s:dark_theme
-    " We have to set the theme twice in order to get its correct dark-theme
-    " colors. Weird stuff.
+    " We have to set the theme twice in order to get its correct dark-theme colors.
+    " Weird stuff.
     exe 'colorscheme ' . s:theme
     set background=dark
     exe 'colorscheme ' . s:theme
-    let g:airline_theme = 'dark'
   endif
 
-  if a:toggleRainbow == 1
+  if !a:onlySetTheme
+    exec ':AirlineTheme ' . a:bg
     " Have to run this twice to get the plugin to set the colors
-    exec ":RainbowParenthesesToggle"
-    exec ":RainbowParenthesesToggle"
+    exec ':RainbowParenthesesToggle'
+    exec ':RainbowParenthesesToggle'
   endif
 endfunction
 
 if s:default_bg =~ 'light'
-  call ChangeBgTheme('light', 0)
+  call ChangeBgTheme('light', 1)
 else
-  call ChangeBgTheme('dark', 0)
+  call ChangeBgTheme('dark', 1)
 endif
 
 
