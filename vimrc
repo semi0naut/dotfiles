@@ -54,6 +54,8 @@ Plug 'nelstrom/vim-qargs'
 
 Plug 'godlygeek/csapprox' " Try to make gvim themes look decent in Windows
 
+Plug 'eapache/rainbow_parentheses.vim'
+
 " WARNING: Has a lot of themes, but they break the other themes listed below
 "Plug 'flazz/vim-colorschemes'
 Plug 'elixir-lang/vim-elixir'
@@ -82,7 +84,6 @@ Plug 'reedes/vim-colors-pencil' " High-contrast
 " /////////////////////////////////////////////////////////////////////
 " Clojure
 " /////////////////////////////////////////////////////////////////////
-Plug 'kien/rainbow_parentheses.vim'
 Plug 'guns/vim-clojure-highlight'
 Plug 'guns/vim-clojure-static'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
@@ -264,6 +265,7 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+au Syntax * RainbowParenthesesLoadChevrons
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Schemes
