@@ -39,12 +39,15 @@ fi
 path=($HOME/bin $HOME/.dotfiles/bin ${ANSIBLE_DIR}/bin ${RBENV_PATH}/bin $HOME/.vim/scripts $path)
 
 if [[ $platform == 'Darwin' ]]; then
-  source $HOME/.cargo/env
+  test -f $HOME/.cargo && source $HOME/.cargo/env
+  # TODO: test for qt
   path=($HOME/Qt/5.8/clang_64/bin $path)
 fi
 
-# Start rbenv
-eval "$(rbenv init -)"
+if [ -d "$HOME/.rbenv" ]; then
+  # Start rbenv
+  eval "$(rbenv init -)"
+fi
 
 # Start the SSH agent
 eval "$(ssh-agent -s)" > /dev/null
