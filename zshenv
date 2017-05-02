@@ -1,6 +1,9 @@
 platform=`uname -s`
 kernel_release=`uname -r`
 
+test -f ~/.private-dotfiles/env && . ~/.private-dotfiles/env
+test -f ~/.env.platform && . ~/.env.platform
+
 # Unbreak broken, non-colored terminal
 export TERM=xterm-256color
 
@@ -12,20 +15,7 @@ export GREP_OPTIONS="-nRi --color --exclude-dir=.git  --exclude-dir=tmp --exclud
 
 export RBENV_PATH="$HOME/.rbenv"
 
-export RUBY_HEAP_MIN_SLOTS=1000000 # for < 2.1.1, will raise warning when using 2.1.1
-export RUBY_GC_HEAP_INIT_SLOTS=1000000 # for 2.1.1
-export RUBY_HEAP_SLOTS_INCREMENT=1000000
-export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
-export RUBY_GC_MALLOC_LIMIT=1000000000
-export RUBY_HEAP_FREE_MIN=500000
-
-# Setup Ansible
-ANSIBLE_DIR=$HOME/.personal-files/open-source/ansible
-export PYTHONPATH=${ANSIBLE_DIR}/lib:${PYTHONPATH}
-export ANSIBLE_LIBRARY=${ANSIBLE_DIR}/library
-export ANSIBLE_HOSTS=~/.ansible_hosts
 export LEIN_FAST_TRAMPOLINE=y
-export ANDROID_HOME=/usr/local/opt/android-sdk
 
 if [[ $platform == 'Linux' ]]; then
   export LD_LIBRARY_PATH="/usr/lib/jvm/java-8-openjdk/jre/lib/amd64"
@@ -35,13 +25,14 @@ if [[ $platform == 'Linux' ]]; then
   export LOLCOMMITS_DIR="/shared/Dev/lolcommits"
 fi
 
-#export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
-path=($HOME/bin $HOME/.dotfiles/bin ${ANSIBLE_DIR}/bin ${RBENV_PATH}/bin $HOME/.vim/scripts $path)
+path=($HOME/bin $HOME/.dotfiles/bin ${RBENV_PATH}/bin $HOME/.vim/scripts $path)
 
 if [[ $platform == 'Darwin' ]]; then
   test -f $HOME/.cargo && source $HOME/.cargo/env
   # TODO: test for qt
-  path=($HOME/Qt/5.8/clang_64/bin $path)
+  if [ -d "$HOME/Qt" ]; then
+    path=($HOME/Qt/5.8/clang_64/bin $path)
+  fi
 fi
 
 if [ -d "$HOME/.rbenv" ]; then

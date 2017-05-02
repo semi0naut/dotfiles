@@ -21,6 +21,12 @@ fi
 
 set -e
 
+printf "Installing env...\n"
+ln -sf $HOME/.dotfiles/osx/env.platform $HOME/.env.platform
+
+printf "Installing git customizations...\n"
+ln -sf $HOME/.dotfiles/osx/gitconfig.platform $HOME/.gitconfig.platform
+
 printf "Installing Homebrew..."
 if [ ! -d "/usr/local/Homebrew" ]; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
