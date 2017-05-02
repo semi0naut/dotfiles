@@ -52,7 +52,7 @@ fi
 # OSX
 
 if [[ $platform == 'Darwin' ]]; then
-  printf "\nRunning the OS X installer\n"
+  printf "\n${BOLD}Running the OS X installer${NORMAL}\n"
   ./osx/install.sh
 fi
 

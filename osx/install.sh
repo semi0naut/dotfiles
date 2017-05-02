@@ -58,3 +58,12 @@ do
     printf \n
   fi
 done
+
+printf "\n${YELLOW}Now you must install Xcode.${NORMAL}\n"
+printf "Open the App Store and install the software.\n"
+printf "When that finishes open a terminal and run the following:\n"
+printf "  1. ${YELLOW}sudo xcode-select --install${NORMAL}\n"
+printf "  2. ${YELLOW}sudo xcodebuild -license${NORMAL}\n"
+printf "  3. ${YELLOW}sudo xcode-select -s /Applications/Xcode.app/Contents/Developer${NORMAL}\n"
+
+printf "\n${BOLD}Finished setting up OS X${NORMAL}\n"
