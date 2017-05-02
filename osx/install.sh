@@ -28,15 +28,24 @@ else
   printf "${YELLOW}already installed!${NORMAL}\n"
 fi
 
+brew tap homebrew/core
+
+printf "Installing xquartz..."
+brew cask install xquartz
+
 brew_packages=(
   'tree'
-  'openssl')
+  'openssl'
+  'xclip'
+  'rlwrap'
+  'cmake'
+  'rust')
 
 for package in "${brew_packages[@]}"
 do
   printf "Installing $package..."
   ret=$(brew list | awk /$package/)
-  if [ $ret == $package ]; then
+  if [[ $ret == $package ]]; then
     printf "${YELLOW}already installed!${NORMAL}\n"
   else
     eval "brew install $package"
