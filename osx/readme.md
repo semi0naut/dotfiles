@@ -7,9 +7,7 @@
 * Install Ruby Docs
   gem install rdoc-data
   rdoc-data --install
-  # to regenerate all gem docs
   gem rdoc --all --overwrite
-
 
 ## Setup Keyboard
 
