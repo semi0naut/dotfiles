@@ -279,7 +279,7 @@ autocmd bufread,bufnewfile *.lisp,*.scm,*.rkt setlocal equalprg=scmindent.rkt
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:default_bg = 'dark'
 let s:dark_theme = 'campo-dark'
-let s:light_theme = 'basic-light'
+let s:light_theme = 'campo-light'
 
 " Switch between light and dark
 map <leader>l :call ChangeBgTheme('light', 0)<cr>
@@ -347,19 +347,34 @@ set statusline+=%*
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " HIGHLIGHT TODO, NOTE, FIXME, etc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" NOTE: These depend on custom color names (Bugs, Notes and Notices) defined
+" in the campo color themes. Since most themes won't define these, you can
+" use WildMenu as substitution.
+"
+" FIXME: the custom Bugs, Notes and Notices highlighting for campo-light isn't
+" working...
+
 augroup vimrc_bugs
     au!
-    au Syntax * syn match MyBugs /\v<(FIXME|BUG|DEPRECATED|OPTIMIZE):/
+    au Syntax * syn match MyBugs /\v<(FIXME|BUG|DEPRECATED):/
           \ containedin=.*Comment,vimCommentTitle
 augroup END
-hi def link MyBugs Todo
+hi def link MyBugs Bugs
 
 augroup vimrc_notes
     au!
     au Syntax * syn match MyNotes /\v<(IDEA|NOTE|QUESTION|WARNING|IMPORTANT):/
           \ containedin=.*Comment,vimCommentTitle
 augroup END
-hi def link MyNotes WildMenu
+hi def link MyNotes Notes
+
+augroup vimrc_notices
+    au!
+    au Syntax * syn match MyNotices /\v<(WARNING|IMPORTANT):/
+          \ containedin=.*Comment,vimCommentTitle
+augroup END
+hi def link MyNotices Notices
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GIT
