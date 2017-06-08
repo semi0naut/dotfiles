@@ -14,6 +14,7 @@
 
 * Can create symlinks to dotfiles using the git bash shell. The cygwin home directory
   is likely going to be `C:\cygwin\home\<username>`.
+* Build [rlwrap](https://github.com/hanslub42/rlwrap)
 
 ## Setting up Clojure
 
