@@ -240,13 +240,6 @@ map <leader>rn :sp ~/.work-files/dive-networks/files/notes/refactoring-notes.md<
 " AsyncRun status line
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
-" Toggle AsyncRun window
-augroup vimrc
-  autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
-augroup END
-noremap <F9> :call asyncrun#quickfix_toggle(8)<cr>
-nnoremap <leader>bb :call asyncrun#quickfix_toggle(8)<cr>
-
 " Display error highlighting in source after running GCC with AsyncRun
 let g:asyncrun_auto = "make"
 
@@ -259,16 +252,28 @@ set errorformat+=\\\ %#%f(%l)\ :\ %#%t%[A-z]%#\ %m
 " Microsoft HLSL compiler: fxc.exe
 set errorformat+=\\\ %#%f(%l\\\,%c-%*[0-9]):\ %#%t%[A-z]%#\ %m
 
-" Execute build script
-
-function! RunBuildCommand(command)
-  execute 'AsyncRun! -save=2' a:command
+function! ToggleAsyncRunWindow()
+  call asyncrun#quickfix_toggle(8)
 endfunction
 
-nnoremap <leader>b :call RunBuildCommand("./build.sh")<cr>
-nnoremap <F8> :call RunBuildCommand("./build.sh")<CR>
+function! ExecuteRunScript()
+  exec "AsyncRun! -post=call\\ ToggleAsyncRunWindow() ./run.sh"
+endfunction
+
+" Show results window the moment the async job starts
+augroup vimrc
+  autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
+augroup END
+" Toggle AsyncRun window
+noremap <F9> :call ToggleAsyncRunWindow()<cr>
+nnoremap <leader>bb :call ToggleAsyncRunWindow()<cr>
+
+" Execute build script
+nnoremap <leader>b :AsyncRun! -save=2 ./build.sh<cr>
+nnoremap <F8> :AsyncRun! -save=2 ./build.sh<cr>
+
 " Execute run script
-nnoremap <leader>br :AsyncRun! ./run.sh<cr>
+nnoremap <leader>br :call ExecuteRunScript()<cr>
 
 "Go to next build error
 nnoremap <F7> :cn<CR>
