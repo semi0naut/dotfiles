@@ -43,8 +43,12 @@ Plug 'craigemery/vim-autotag'
 Plug 'jeetsukumaran/vim-filesearch'
 Plug 'embear/vim-localvimrc'
 Plug 'rking/ag.vim'
-Plug 'scrooloose/syntastic'
 Plug 'nelstrom/vim-qargs'
+
+" Async commands + build error highlighting
+Plug 'skywind3000/asyncrun.vim'
+Plug 'mh21/errormarker.vim'
+
 " Plug 'shougo/unite.vim' # Create user interfaces. Not currently needed.
 " DISABLED since it requires vim 7.3.598+ and I don't have that on my macbook
 " Plug 'Valloric/YouCompleteMe'
@@ -130,7 +134,7 @@ set hlsearch
 set ignorecase smartcase
 " highlight current line
 set cmdheight=2
-set switchbuf=useopen
+set switchbuf=useopen,split
 set numberwidth=5
 set showtabline=2
 set winwidth=79
@@ -223,40 +227,51 @@ map <leader>sn :sp ~/.personal-files/documents/software-notes/clojure.md<cr>
 map <leader>rn :sp ~/.work-files/dive-networks/files/notes/refactoring-notes.md<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Build commands
+" Build Commands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! RunBuildCommand(command)
-  let l:existing_buf = bufwinnr("__build_output_log__")
-  let l:current_buf = bufnr("%")
-
-  " Save current buffer in case there are unsaved changes
-  silent! wall
-
-  if l:existing_buf > 0
-    silent! exe l:existing_buf . " wincmd w"
-    "execute 'botright sb' l:existing_buf
-  else
-    botright sp __build_output_log__
-    setlocal buftype=nofile
-    resize 10
-  endif
-
-  " Clear the buffer
-  normal! ggdG
-
-  " Output compile log into buffer
-  let l:output = system(a:command)
-  call append(0, split(l:output, '\v\n'))
-  go
-
-  silent! exe l:existing_buf. " wincmd w"
+  silent! wall " Save current buffer in case there are unsaved changes
+  execute 'AsyncRun' a:command
 endfunction
 
+" AsyncRun status line
+let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+
+" Toggle AsyncRun window
+augroup vimrc
+  autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
+augroup END
+noremap <F9> :call asyncrun#quickfix_toggle(8)<cr>
+nnoremap <leader>bb :call asyncrun#quickfix_toggle(8)<cr>
+
+" Display error highlighting in source after running GCC with AsyncRun
+let g:asyncrun_auto = "make"
+
+" Thanks to https://forums.handmadehero.org/index.php/forum?view=topic&catid=4&id=704#3982
+" for the error message formats
+" Microsoft MSBuild errors
+set errorformat+=\\\ %#%f(%l\\\,%c):\ %m
+" Microsoft compiler: cl.exe
+set errorformat+=\\\ %#%f(%l)\ :\ %#%t%[A-z]%#\ %m
+" Microsoft HLSL compiler: fxc.exe
+set errorformat+=\\\ %#%f(%l\\\,%c-%*[0-9]):\ %#%t%[A-z]%#\ %m
+
+" Run custom build script with <leader>b or F8
 nnoremap <leader>b :call RunBuildCommand("./build.sh")<cr>
-nnoremap <leader>cb :call RunBuildCommand("cargo build")<cr>
-nnoremap <leader>cr :call RunBuildCommand("cargo run")<cr>
-nnoremap <leader>bb :bw!<cr>
+nnoremap <F8> :call RunBuildCommand("./build.sh")<CR>
+
+"Go to next build error
+nnoremap <F7> :cn<CR>
+nnoremap <C-n> :cn<CR>
+
+"Go to previous build error
+nnoremap <F6> :cp<CR>
+nnoremap <C-p> :cp<CR>
+
+" Rust build commands
+nnoremap <leader>bc :call RunBuildCommand("cargo build")<cr>
+nnoremap <leader>br :call RunBuildCommand("cargo run")<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lisp
@@ -338,11 +353,6 @@ augroup END
 " STATUS LINE
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-
-" Syntastic status info
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " HIGHLIGHT TODO, NOTE, FIXME, etc
