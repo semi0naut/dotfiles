@@ -236,12 +236,6 @@ map <leader>rn :sp ~/.work-files/dive-networks/files/notes/refactoring-notes.md<
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Build Commands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-function! RunBuildCommand(command)
-  silent! wall " Save current buffer in case there are unsaved changes
-  execute 'AsyncRun' a:command
-endfunction
-
 " AsyncRun status line
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
@@ -264,9 +258,16 @@ set errorformat+=\\\ %#%f(%l)\ :\ %#%t%[A-z]%#\ %m
 " Microsoft HLSL compiler: fxc.exe
 set errorformat+=\\\ %#%f(%l\\\,%c-%*[0-9]):\ %#%t%[A-z]%#\ %m
 
-" Run custom build script with <leader>b or F8
+" Execute build script
+
+function! RunBuildCommand(command)
+  execute 'AsyncRun! -save=2' a:command
+endfunction
+
 nnoremap <leader>b :call RunBuildCommand("./build.sh")<cr>
 nnoremap <F8> :call RunBuildCommand("./build.sh")<CR>
+" Execute run script
+nnoremap <leader>br :AsyncRun! ./run.sh<cr>
 
 "Go to next build error
 nnoremap <F7> :cn<CR>
@@ -275,10 +276,6 @@ nnoremap <C-n> :cn<CR>
 "Go to previous build error
 nnoremap <F6> :cp<CR>
 nnoremap <C-p> :cp<CR>
-
-" Rust build commands
-nnoremap <leader>bc :call RunBuildCommand("cargo build")<cr>
-nnoremap <leader>br :call RunBuildCommand("cargo run")<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lisp
