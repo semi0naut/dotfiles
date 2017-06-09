@@ -6,6 +6,11 @@
   * Run `pacman -S base-devel mingw-w64-x86_64-toolchain git`
   * Use `C:\Users\<user>` as the terminal $HOME by editting `C:\msys64\etc\nsswitch.conf` and
     changing the `db_home` value to `windows`.
+* You may need to work around an issue with envsubst.exe - you'll know there's a bug if git
+  displays "': not a valid identifierline 89: export: dashless" or rebase complains about "new_count".
+  * To patch, cd into `/mingw64/bin` and run `mv envsubst.exe envsubst.exe_backup`. Now run `pacman -S gettext`
+    and verify that `which envsubst` reports back `/usr/bin/envsubst`.
+  * Bug report is at https://github.com/Alexpux/MSYS2-packages/issues/735
 * Map caps to left-ctrl using https://sharpkeys.codeplex.com/
 * Symlink dotfiles to ~/.dotfiles with `cmd //c 'mklink .dotfiles drive:\path\to\dotfiles'`
 * Symlink files in the dotfiles windows folder using `cmd //c 'mklink .some-file .dotfiles\some-file'`
