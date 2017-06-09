@@ -35,6 +35,7 @@ Plug 'mattn/webapi-vim' " Required by gist-vim
 Plug 'mattn/gist-vim'
 Plug 'bling/vim-airline'
 Plug 'vim-scripts/VimCalc' " Requires a vim compiled with Python support
+Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-classpath'
