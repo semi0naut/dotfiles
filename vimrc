@@ -274,6 +274,7 @@ nnoremap <F8> :AsyncRun! -save=2 ./build.sh<cr>
 
 " Execute run script
 nnoremap <leader>br :call ExecuteRunScript()<cr>
+nnoremap <leader>bs :AsyncStop<cr>
 
 "Go to next build error
 nnoremap <F7> :cn<CR>
