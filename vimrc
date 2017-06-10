@@ -257,7 +257,7 @@ function! ToggleAsyncRunWindow()
 endfunction
 
 function! ExecuteRunScript()
-  exec "AsyncRun! -post=call\\ ToggleAsyncRunWindow() ./run.sh"
+  exec "AsyncRun! -post=call\\ ToggleAsyncRunWindow() ./run"
 endfunction
 
 " Show results window the moment the async job starts
@@ -269,8 +269,8 @@ noremap <F9> :call ToggleAsyncRunWindow()<cr>
 nnoremap <leader>bb :call ToggleAsyncRunWindow()<cr>
 
 " Execute build script
-nnoremap <leader>b :AsyncRun! -save=2 ./build.sh<cr>
-nnoremap <F8> :AsyncRun! -save=2 ./build.sh<cr>
+nnoremap <leader>b :AsyncRun! -save=2 ./build*<cr>
+nnoremap <F8> :AsyncRun! -save=2 ./build*<cr>
 
 " Execute run script
 nnoremap <leader>br :call ExecuteRunScript()<cr>
