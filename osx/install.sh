@@ -45,7 +45,9 @@ brew_packages=(
   'xclip'
   'rlwrap'
   'cmake'
-  'rust')
+  'pkg-config'
+  'rust'
+  'sdl')
 
 for package in "${brew_packages[@]}"
 do

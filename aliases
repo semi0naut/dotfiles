@@ -268,3 +268,5 @@ alias gwip="git add . && git commit -m \"WIP\""
 # Other aliases
 alias pal='vim ~/.private-dotfiles/aliases'
 test -f ~/.private-dotfiles/aliases && . ~/.private-dotfiles/aliases
+
+alias cmake-gen='cmake -D CMAKE_CXX_COMPILER="/Library/Developer/CommandLineTools/usr/bin/c++" CMAKE_C_COMPILER="/Library/Developer/CommandLineTools/usr/bin/cc" ..'
