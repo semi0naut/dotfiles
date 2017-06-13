@@ -57,7 +57,7 @@ function git-on-master {
   git checkout master && git pull --rebase
   git checkout $branch
   git rebase master
-  }
+}
 
 function take {
   mkdir $1
@@ -84,5 +84,11 @@ function chrome () {
 
 # See top 10 bash commands
 function hist() {
-   cat ~/.history|cut -d ';' -f 2- 2>/dev/null| awk '{a[$1]++ } END{for(i in a){print a[i] " " i}}'|sort -rn|head
+  if [[ "${platform,,}" == *'ming'* ]]; then
+    hist_file=~/.bash_history
+  else
+    hist_file=~/.history
+  fi
+
+  cat $hist_file|cut -d ';' -f 2- 2>/dev/null| awk '{a[$1]++ } END{for(i in a){print a[i] " " i}}'|sort -rn|head
 }
