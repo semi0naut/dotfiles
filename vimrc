@@ -241,7 +241,11 @@ map <leader>rn :sp ~/.work-files/dive-networks/files/notes/refactoring-notes.md<
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
 " Display error highlighting in source after running GCC with AsyncRun
+" NOTE: error results can be cleared with <leader>cr or by hiding the build
+" result window.
 let g:asyncrun_auto = "make"
+let errormarker_errortext = "E"
+let errormarker_warningtext = "W"
 
 " Thanks to https://forums.handmadehero.org/index.php/forum?view=topic&catid=4&id=704#3982
 " for the error message formats
@@ -252,26 +256,37 @@ set errorformat+=\\\ %#%f(%l)\ :\ %#%t%[A-z]%#\ %m
 " Microsoft HLSL compiler: fxc.exe
 set errorformat+=\\\ %#%f(%l\\\,%c-%*[0-9]):\ %#%t%[A-z]%#\ %m
 
-function! ToggleAsyncRunWindow()
-  call asyncrun#quickfix_toggle(8)
+let g:build_window_size = 12 " in rows
+
+function! HideBuildResultsAndClearErrors()
+  RemoveErrorMarkers
+  call asyncrun#quickfix_toggle(g:build_window_size, 0)
 endfunction
 
-function! StopTaskAndToggleWindow()
+function! ToggleBuildResults()
+  call asyncrun#quickfix_toggle(g:build_window_size)
+endfunction
+
+function! StopRunTask()
   AsyncStop
-  call ToggleAsyncRunWindow()
+  call asyncrun#quickfix_toggle(g:build_window_size, 0)
 endfunction
 
 function! ExecuteRunScript()
-  exec "AsyncRun! -post=call\\ StopTaskAndToggleWindow() ./run"
+  exec "AsyncRun! -post=call\\ StopRunTask() ./run"
 endfunction
 
 " Show results window the moment the async job starts
 augroup vimrc
-  autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
+  autocmd User AsyncRunStart call asyncrun#quickfix_toggle(g:build_window_size, 1)
 augroup END
-" Toggle AsyncRun window
-noremap <F9> :call ToggleAsyncRunWindow()<cr>
-nnoremap <leader>bb :call ToggleAsyncRunWindow()<cr>
+
+" Toggle build results
+noremap <F9> :call ToggleBuildResults()<cr>
+nnoremap <leader>bb :call ToggleBuildResults()<cr>
+
+" Hide build results and clear errors
+noremap <F10> :call HideBuildResultsAndClearErrors()<cr>
 
 " Execute build script
 nnoremap <leader>b :AsyncRun! -save=2 ./build*<cr>
