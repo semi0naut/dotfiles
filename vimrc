@@ -550,6 +550,7 @@ map <leader>o :set number! number?<cr>
 " Spell checking
 map <leader>j :exec &spell==&spell? "se spell! spelllang=en_us" : "se spell!"<cr>
 map <leader>= z=
+" NOTE: you can add a new word to the dict with `zg`
 
 " Clear the search buffer (highlighting) when hitting return
 function! MapCR()
