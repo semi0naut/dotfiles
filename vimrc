@@ -256,8 +256,13 @@ function! ToggleAsyncRunWindow()
   call asyncrun#quickfix_toggle(8)
 endfunction
 
+function! StopTaskAndToggleWindow()
+  AsyncStop
+  call ToggleAsyncRunWindow()
+endfunction
+
 function! ExecuteRunScript()
-  exec "AsyncRun! -post=call\\ ToggleAsyncRunWindow() ./run"
+  exec "AsyncRun! -post=call\\ StopTaskAndToggleWindow() ./run"
 endfunction
 
 " Show results window the moment the async job starts
