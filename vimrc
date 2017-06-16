@@ -47,6 +47,9 @@ Plug 'rking/ag.vim'
 Plug 'nelstrom/vim-qargs' " For search and replace
 Plug 'tommcdo/vim-lion' " For text alignment, use gl= and gL=
 
+" Maintain a manually-defined jump stack. Set with zp and pop with zP
+Plug 'tommcdo/vim-kangaroo'
+
 " Async commands + build error highlighting
 Plug 'skywind3000/asyncrun.vim'
 Plug 'mh21/errormarker.vim'
