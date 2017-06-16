@@ -44,7 +44,8 @@ Plug 'craigemery/vim-autotag'
 Plug 'jeetsukumaran/vim-filesearch'
 Plug 'embear/vim-localvimrc'
 Plug 'rking/ag.vim'
-Plug 'nelstrom/vim-qargs'
+Plug 'nelstrom/vim-qargs' " For search and replace
+Plug 'tommcdo/vim-lion' " For text alignment, use gl= and gL=
 
 " Async commands + build error highlighting
 Plug 'skywind3000/asyncrun.vim'
@@ -572,6 +573,12 @@ vnoremap p "_dP
 :ab indentity identity
 :ab indetity identity
 :ab constnat constant
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TEXT ALIGNMENT PLUGIN
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let b:lion_squeeze_spaces = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
