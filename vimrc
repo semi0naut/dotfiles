@@ -36,13 +36,15 @@ Plug 'mattn/gist-vim'
 Plug 'bling/vim-airline'
 Plug 'vim-scripts/VimCalc' " Requires a vim compiled with Python support
 Plug 'vim-scripts/AnsiEsc.vim'
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-classpath'
-Plug 'tpope/vim-dispatch'
-Plug 'craigemery/vim-autotag'
-Plug 'jeetsukumaran/vim-filesearch'
 Plug 'embear/vim-localvimrc'
+Plug 'tpope/vim-obsession' " Continuously updated session files
+Plug 'tpope/vim-fugitive' " Git wrapper
+Plug 'tpope/vim-classpath' " TODO: still need this?
+
+" Automatically discover and 'properly' update ctags files on save
+Plug 'craigemery/vim-autotag'
+
+Plug 'jeetsukumaran/vim-filesearch'
 Plug 'rking/ag.vim'
 Plug 'nelstrom/vim-qargs' " For search and replace
 Plug 'tommcdo/vim-lion' " For text alignment, use gl= and gL=
