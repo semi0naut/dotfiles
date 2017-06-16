@@ -573,17 +573,6 @@ vnoremap p "_dP
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ABBREVIATIONS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:ab teh the
-:ab taht that
-:ab kewyord keyword
-:ab indentity identity
-:ab indetity identity
-:ab constnat constant
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TEXT ALIGNMENT PLUGIN
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let b:lion_squeeze_spaces = 1
