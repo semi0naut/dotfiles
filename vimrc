@@ -49,6 +49,9 @@ Plug 'rking/ag.vim'
 Plug 'nelstrom/vim-qargs' " For search and replace
 Plug 'tommcdo/vim-lion' " For text alignment, use gl= and gL=
 
+" Easily search for, substitute, and abbreviate multiple variants of a word
+Plug 'tpope/tpope-vim-abolish'
+
 " Maintain a manually-defined jump stack. Set with zp and pop with zP
 Plug 'tommcdo/vim-kangaroo'
 
