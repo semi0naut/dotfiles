@@ -221,13 +221,6 @@ if &term =~ '256color'
   set t_ut=
 endif
 
-" Save and restore folds
-augroup remember_folds
-  autocmd!
-  autocmd BufWinLeave *.* silent! mkview
-  autocmd BufWinEnter *.* silent! loadview
-augroup END
-
 " Disable arrow keys
 map <up> <nop>
 map <down> <nop>
