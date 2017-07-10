@@ -118,6 +118,9 @@ Plug 'peterhoeg/vim-qml'
 " Markdown
 Plug 'tpope/vim-markdown'
 
+" C++
+Plug 'bfrg/vim-cpp-enhanced-highlight'
+
 call plug#end()
 
 filetype plugin indent on
