@@ -410,9 +410,31 @@ inoremap <s-tab> <c-n>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "////////////////////////////////////////////////////////////////
+" CENTER THE BUFFER
+"////////////////////////////////////////////////////////////////
+
+ function! CenterPane()
+  " centers the current pane as the middle 2 of 4 imaginary columns
+  " should be called in a window with a single pane
+  " Taken from https://dev.to/vinneycavallo/easily-center-content-in-vim
+   lefta vnew
+   wincmd w
+   exec 'vertical resize '. string(&columns * 0.75)
+ endfunction
+nnoremap <leader>c :call CenterPane()<cr>
+
+function! RemoveCenterPane()
+  wincmd w
+  close
+endfunction
+nnoremap <leader>cw :call RemoveCenterPane()<cr>
+
+
+"////////////////////////////////////////////////////////////////
 " TEXT ALIGNMENT PLUGIN
 "////////////////////////////////////////////////////////////////
 let b:lion_squeeze_spaces = 1
+
 
 "////////////////////////////////////////////////////////////////
 " STATUS LINE
