@@ -40,6 +40,7 @@ Plug 'embear/vim-localvimrc'
 Plug 'tpope/vim-obsession' " Continuously updated session files
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tpope/vim-classpath' " TODO: still need this?
+Plug 'junegunn/goyo.vim' " Distraction-free mode with centered buffer
 
 " Automatically discover and 'properly' update ctags files on save
 Plug 'craigemery/vim-autotag'
