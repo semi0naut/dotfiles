@@ -22,14 +22,24 @@ let mapleader=","
 set nocompatible
 filetype off
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PLUGINS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"-----------------------------------------------------------------------------------------
+
+
+"################################################################
+"################################################################
+"################################################################
+" 1. PLUGINS
+"################################################################
+"################################################################
+"################################################################
+
+
 call plug#begin('~/.vim/plugged')
 
-" /////////////////////////////////////////////////////////////////////
-" Misc
-" /////////////////////////////////////////////////////////////////////
+"////////////////////////////////////////////////////////////////
+" MISC
+"////////////////////////////////////////////////////////////////
 
 Plug 'mattn/webapi-vim' " Required by gist-vim
 Plug 'mattn/gist-vim'
@@ -64,9 +74,10 @@ Plug 'mh21/errormarker.vim'
 " DISABLED since it requires vim 7.3.598+ and I don't have that on my macbook
 " Plug 'Valloric/YouCompleteMe'
 
-" /////////////////////////////////////////////////////////////////////
-" Colors
-" /////////////////////////////////////////////////////////////////////
+
+"////////////////////////////////////////////////////////////////
+" COLORS
+"////////////////////////////////////////////////////////////////
 
 Plug 'godlygeek/csapprox' " Try to make gvim themes look decent in Windows
 
@@ -87,22 +98,26 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'zcodes/vim-colors-basic'
 
 " Hybrid Themes
-
-" Seabird themes
-" High contrast: seagull  (light),  petrel      (dark)
-" Low contrast:  greygull (light),  stormpetrel (dark)
-Plug 'nightsense/seabird' " No Win support, unless using gvim
 Plug 'sickill/vim-monokai'
 Plug 'chmllr/elrodeo-vim-colorscheme' " A little dark on Windows, term
 Plug 'reedes/vim-colors-pencil' " High-contrast
+" Seabird themes
+  " High contrast: seagull  (light),  petrel      (dark)
+  " Low contrast:  greygull (light),  stormpetrel (dark)
+Plug 'nightsense/seabird' " No Win support, unless using gvim
 
 
-" /////////////////////////////////////////////////////////////////////
-" Clojure
-" /////////////////////////////////////////////////////////////////////
+"////////////////////////////////////////////////////////////////
+" CLOJURE
+"////////////////////////////////////////////////////////////////
 Plug 'guns/vim-clojure-highlight'
 Plug 'guns/vim-clojure-static'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+
+"////////////////////////////////////////////////////////////////
+" OTHER LANGUAGES
+"////////////////////////////////////////////////////////////////
 
 " Rust
 Plug 'rust-lang/rust.vim'
@@ -126,9 +141,22 @@ call plug#end()
 
 filetype plugin indent on
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"-----------------------------------------------------------------------------------------
+
+
+"################################################################
+"################################################################
+"################################################################
+" 2. BASE CONFIG
+"################################################################
+"################################################################
+"################################################################
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 set history=10000
@@ -235,136 +263,6 @@ imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
 
-" Notes and other helpers
-map <leader>pn :sp ~/.personal-files/brain/writing/stack.txt<cr>
-map <leader>sn :sp ~/.personal-files/documents/software-notes/clojure.md<cr>
-map <leader>rn :sp ~/.work-files/dive-networks/files/notes/refactoring-notes.md<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Build Commands
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" AsyncRun status line
-let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
-
-" Display error highlighting in source after running GCC with AsyncRun
-" NOTE: error results can be cleared with <leader>cr or by hiding the build
-" result window.
-let g:asyncrun_auto = "make"
-let errormarker_errortext = "E"
-let errormarker_warningtext = "W"
-
-" Thanks to https://forums.handmadehero.org/index.php/forum?view=topic&catid=4&id=704#3982
-" for the error message formats
-" Microsoft MSBuild errors
-set errorformat+=\\\ %#%f(%l\\\,%c):\ %m
-" Microsoft compiler: cl.exe
-set errorformat+=\\\ %#%f(%l)\ :\ %#%t%[A-z]%#\ %m
-" Microsoft HLSL compiler: fxc.exe
-set errorformat+=\\\ %#%f(%l\\\,%c-%*[0-9]):\ %#%t%[A-z]%#\ %m
-
-let g:build_window_size = 12 " in rows
-
-function! HideBuildResultsAndClearErrors()
-  RemoveErrorMarkers
-  call asyncrun#quickfix_toggle(g:build_window_size, 0)
-endfunction
-
-function! ToggleBuildResults()
-  call asyncrun#quickfix_toggle(g:build_window_size)
-endfunction
-
-function! StopRunTask()
-  AsyncStop
-  call asyncrun#quickfix_toggle(g:build_window_size, 0)
-endfunction
-
-function! ExecuteRunScript()
-  exec "AsyncRun! -post=call\\ StopRunTask() ./run"
-endfunction
-
-" Show results window the moment the async job starts
-augroup vimrc
-  autocmd User AsyncRunStart call asyncrun#quickfix_toggle(g:build_window_size, 1)
-augroup END
-
-" Toggle build results
-noremap <F9> :call ToggleBuildResults()<cr>
-nnoremap <leader>bb :call ToggleBuildResults()<cr>
-
-" Hide build results and clear errors
-noremap <F10> :call HideBuildResultsAndClearErrors()<cr>
-
-" Execute build script
-nnoremap <leader>b :AsyncRun! -save=2 ./build*<cr>
-nnoremap <F8> :AsyncRun! -save=2 ./build*<cr>
-
-" Execute run script
-nnoremap <leader>br :call ExecuteRunScript()<cr>
-nnoremap <leader>bs :AsyncStop<cr>
-
-"Go to next build error
-nnoremap <F7> :cn<CR>
-nnoremap <C-n> :cn<CR>
-
-"Go to previous build error
-nnoremap <F6> :cp<CR>
-nnoremap <C-p> :cp<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Lisp
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Rainbow parens ala rainbow_parentheses.vim
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-au Syntax * RainbowParenthesesLoadChevrons
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Schemes
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" properly indent schemes (scheme, racket, etc)
-autocmd bufread,bufnewfile *.lisp,*.scm,*.rkt setlocal equalprg=scmindent.rkt
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" COLORS
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:default_bg = 'dark'
-let s:dark_theme = 'campo-dark'
-let s:light_theme = 'campo-light'
-
-" Switch between light and dark
-map <leader>l :call ChangeBgTheme('light', 0)<cr>
-map <leader>ll :call ChangeBgTheme('dark', 0)<cr>
-
-function! ChangeBgTheme(bg, onlySetTheme)
-  if a:bg =~ 'light'
-    let s:theme = s:light_theme
-    exe 'colorscheme ' . s:theme
-    set background=light
-  else
-    let s:theme = s:dark_theme
-    " We have to set the theme twice in order to get its correct dark-theme colors.
-    " Weird stuff.
-    exe 'colorscheme ' . s:theme
-    set background=dark
-    exe 'colorscheme ' . s:theme
-  endif
-
-  if !a:onlySetTheme
-    exec ':AirlineTheme ' . a:bg
-    " Have to run this twice to get the plugin to set the colors
-    exec ':RainbowParenthesesToggle'
-    exec ':RainbowParenthesesToggle'
-  endif
-endfunction
-
-if s:default_bg =~ 'light'
-  call ChangeBgTheme('light', 1)
-else
-  call ChangeBgTheme('dark', 1)
-endif
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -385,98 +283,6 @@ augroup vimrcEx
   autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
 augroup END
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" STATUS LINE
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" HIGHLIGHT TODO, NOTE, FIXME, etc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" NOTE: These depend on custom color names (Bugs, Notes and Notices) defined
-" in the campo color themes. Since most themes won't define these, you can
-" use WildMenu as substitution.
-"
-" FIXME: the custom Bugs, Notes and Notices highlighting for campo-light isn't
-" working...
-
-augroup vimrc_bugs
-    au!
-    au Syntax * syn match MyBugs /\v<(FIXME|BUG|DEPRECATED):/
-          \ containedin=.*Comment,vimCommentTitle
-augroup END
-hi def link MyBugs Bugs
-
-augroup vimrc_notes
-    au!
-    au Syntax * syn match MyNotes /\v<(IDEA|NOTE|QUESTION|WARNING|IMPORTANT):/
-          \ containedin=.*Comment,vimCommentTitle
-augroup END
-hi def link MyNotes Notes
-
-augroup vimrc_notices
-    au!
-    au Syntax * syn match MyNotices /\v<(WARNING|IMPORTANT):/
-          \ containedin=.*Comment,vimCommentTitle
-augroup END
-hi def link MyNotices Notices
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GIT
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>gb :Gblame<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SEARCHING
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TODO: Not sure if I still need this
-map <leader>gs :let @/ = ""<CR>
-
-" Replace the selected text in all files within the repo
-function! GlobalReplaceIt(confirm_replacement)
-  if exists(':Ggrep')
-   " let term = @/
-   " if empty(term)
-      call inputsave()
-      let l:term = input('Enter search term: ')
-      call inputrestore()
-   " else
-   "   echo '\nReplacing '.term
-   " endif
-    call inputsave()
-    let l:replacement = input('Enter replacement: ')
-    call inputrestore()
-    if a:confirm_replacement
-      let l:confirm_opt = 'c'
-    else
-      let l:confirm_opt = 'e'
-    endif
-    execute 'Ggrep '.l:term
-    execute 'Qargs | argdo %s/'.l:term.'/'.l:replacement.'/g'.l:confirm_opt.' | update'
-  else
-    echo "Unable to search since you're not in a git repo"
-  endif
-endfunction
-map <leader>gg :call GlobalReplaceIt(0)<cr>
-map <leader>gr :call GlobalReplaceIt(1)<cr>
-
-function! Search()
-  let l:term = input('Grep search term: ')
-  if l:term != ''
-    if IsWindows()
-      exec 'Fsgrep "' . l:term . '"'
-    else
-      " is pt faster than ag? I forget now and didn't document it
-      exec 'pt "' . l:term . '"'
-      "exec 'Ag "' . l:term . '"'
-    endif
-  endif
-endfunction
-map <leader>s :call Search()<cr>
-
-command! -nargs=+ MyGrep execute 'silent grep! <args>' | copen 33
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
@@ -568,16 +374,13 @@ nnoremap <leader><leader> <c-^>
 " Replace currently selected text with default register without yanking it
 vnoremap p "_dP
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TEXT ALIGNMENT PLUGIN
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let b:lion_squeeze_spaces = 1
+" Use Marked.app to preview Markdown files...
+nnoremap <leader>pp :silent !open -a Marked.app '%:p'<cr>
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"////////////////////////////////////////////////////////////////
 " MULTIPURPOSE TAB KEY
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"////////////////////////////////////////////////////////////////
 function! InsertTabWrapper()
     let l:col = col('.') - 1
     if !l:col || getline('.')[l:col - 1] !~ '\k'
@@ -589,43 +392,253 @@ endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RENAME CURRENT FILE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! RenameFile()
-    let l:old_name = expand('%')
-    let l:new_name = input('New file name: ', expand('%'), 'file')
-    if l:new_name != '' && l:new_name != l:old_name
-        exec ':saveas ' . l:new_name
-        exec ':silent !rm ' . l:old_name
-        redraw!
+
+"-----------------------------------------------------------------------------------------
+
+
+"################################################################
+"################################################################
+"################################################################
+" 3. VISUALS
+"################################################################
+"################################################################
+"################################################################
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LAYOUT
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"////////////////////////////////////////////////////////////////
+" TEXT ALIGNMENT PLUGIN
+"////////////////////////////////////////////////////////////////
+let b:lion_squeeze_spaces = 1
+
+"////////////////////////////////////////////////////////////////
+" STATUS LINE
+"////////////////////////////////////////////////////////////////
+set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COLORS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let s:default_bg = 'dark'
+let s:dark_theme = 'campo-dark'
+let s:light_theme = 'campo-light'
+
+" Switch between light and dark
+map <leader>l :call ChangeBgTheme('light', 0)<cr>
+map <leader>ll :call ChangeBgTheme('dark', 0)<cr>
+
+function! ChangeBgTheme(bg, onlySetTheme)
+  if a:bg =~ 'light'
+    let s:theme = s:light_theme
+    exe 'colorscheme ' . s:theme
+    set background=light
+  else
+    let s:theme = s:dark_theme
+    " We have to set the theme twice in order to get its correct dark-theme colors.
+    " Weird stuff.
+    exe 'colorscheme ' . s:theme
+    set background=dark
+    exe 'colorscheme ' . s:theme
+  endif
+
+  if !a:onlySetTheme
+    exec ':AirlineTheme ' . a:bg
+    " Have to run this twice to get the plugin to set the colors
+    exec ':RainbowParenthesesToggle'
+    exec ':RainbowParenthesesToggle'
+  endif
+endfunction
+
+if s:default_bg =~ 'light'
+  call ChangeBgTheme('light', 1)
+else
+  call ChangeBgTheme('dark', 1)
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" HIGHLIGHTS - TODO, NOTE, FIXME, etc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" NOTE: These depend on custom color names (Bugs, Notes and Notices) defined
+" in the campo color themes. Since most themes won't define these, you can
+" use WildMenu as substitution.
+"
+" FIXME: the custom Bugs, Notes and Notices highlighting for campo-light isn't
+" working...
+
+augroup vimrc_bugs
+    au!
+    au Syntax * syn match MyBugs /\v<(FIXME|BUG|DEPRECATED):/
+          \ containedin=.*Comment,vimCommentTitle
+augroup END
+hi def link MyBugs Bugs
+
+augroup vimrc_notes
+    au!
+    au Syntax * syn match MyNotes /\v<(IDEA|NOTE|QUESTION|WARNING|IMPORTANT):/
+          \ containedin=.*Comment,vimCommentTitle
+augroup END
+hi def link MyNotes Notes
+
+augroup vimrc_notices
+    au!
+    au Syntax * syn match MyNotices /\v<(WARNING|IMPORTANT):/
+          \ containedin=.*Comment,vimCommentTitle
+augroup END
+hi def link MyNotices Notices
+
+
+"-----------------------------------------------------------------------------------------
+
+
+"################################################################
+"################################################################
+"################################################################
+" 4. HELPER FUNCTIONS
+"################################################################
+"################################################################
+"################################################################
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BUILD COMMANDS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" AsyncRun status line
+let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+
+" Display error highlighting in source after running GCC with AsyncRun
+" NOTE: error results can be cleared with <leader>cr or by hiding the build
+" result window.
+let g:asyncrun_auto = "make"
+let errormarker_errortext = "E"
+let errormarker_warningtext = "W"
+
+" Thanks to https://forums.handmadehero.org/index.php/forum?view=topic&catid=4&id=704#3982
+" for the error message formats
+" Microsoft MSBuild errors
+set errorformat+=\\\ %#%f(%l\\\,%c):\ %m
+" Microsoft compiler: cl.exe
+set errorformat+=\\\ %#%f(%l)\ :\ %#%t%[A-z]%#\ %m
+" Microsoft HLSL compiler: fxc.exe
+set errorformat+=\\\ %#%f(%l\\\,%c-%*[0-9]):\ %#%t%[A-z]%#\ %m
+
+let g:build_window_size = 12 " in rows
+
+function! HideBuildResultsAndClearErrors()
+  RemoveErrorMarkers
+  call asyncrun#quickfix_toggle(g:build_window_size, 0)
+endfunction
+
+function! ToggleBuildResults()
+  call asyncrun#quickfix_toggle(g:build_window_size)
+endfunction
+
+function! StopRunTask()
+  AsyncStop
+  call asyncrun#quickfix_toggle(g:build_window_size, 0)
+endfunction
+
+function! ExecuteRunScript()
+  exec "AsyncRun! -post=call\\ StopRunTask() ./run"
+endfunction
+
+" Show results window the moment the async job starts
+augroup vimrc
+  autocmd User AsyncRunStart call asyncrun#quickfix_toggle(g:build_window_size, 1)
+augroup END
+
+" Toggle build results
+noremap <F9> :call ToggleBuildResults()<cr>
+nnoremap <leader>bb :call ToggleBuildResults()<cr>
+
+" Hide build results and clear errors
+noremap <F10> :call HideBuildResultsAndClearErrors()<cr>
+
+" Execute build script
+nnoremap <leader>b :AsyncRun! -save=2 ./build*<cr>
+nnoremap <F8> :AsyncRun! -save=2 ./build*<cr>
+
+" Execute run script
+nnoremap <leader>br :call ExecuteRunScript()<cr>
+nnoremap <leader>bs :AsyncStop<cr>
+
+"Go to next build error
+nnoremap <F7> :cn<CR>
+nnoremap <C-n> :cn<CR>
+
+"Go to previous build error
+nnoremap <F6> :cp<CR>
+nnoremap <C-p> :cp<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SEARCHING
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TODO: Not sure if I still need this
+map <leader>gs :let @/ = ""<CR>
+
+" Replace the selected text in all files within the repo
+function! GlobalReplaceIt(confirm_replacement)
+  if exists(':Ggrep')
+   " let term = @/
+   " if empty(term)
+      call inputsave()
+      let l:term = input('Enter search term: ')
+      call inputrestore()
+   " else
+   "   echo '\nReplacing '.term
+   " endif
+    call inputsave()
+    let l:replacement = input('Enter replacement: ')
+    call inputrestore()
+    if a:confirm_replacement
+      let l:confirm_opt = 'c'
+    else
+      let l:confirm_opt = 'e'
     endif
+    execute 'Ggrep '.l:term
+    execute 'Qargs | argdo %s/'.l:term.'/'.l:replacement.'/g'.l:confirm_opt.' | update'
+  else
+    echo "Unable to search since you're not in a git repo"
+  endif
 endfunction
-map <leader>n :call RenameFile()<cr>
+map <leader>gg :call GlobalReplaceIt(0)<cr>
+map <leader>gr :call GlobalReplaceIt(1)<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PROMOTE VARIABLE TO RSPEC LET
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! PromoteToLet()
-  :normal! dd
-  " :exec '?^\s*it\>'
-  :normal! P
-  :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
-  :normal ==
+function! Search()
+  let l:term = input('Grep search term: ')
+  if l:term != ''
+    if IsWindows()
+      exec 'Fsgrep "' . l:term . '"'
+    else
+      " is pt faster than ag? I forget now and didn't document it
+      exec 'pt "' . l:term . '"'
+      "exec 'Ag "' . l:term . '"'
+    endif
+  endif
 endfunction
-:command! PromoteToLet :call PromoteToLet()
-:map <leader>pl :PromoteToLet<cr>
+map <leader>s :call Search()<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MARKDOWN
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use Marked.app to preview Markdown files...
-nnoremap <leader>pp :silent !open -a Marked.app '%:p'<cr>
+command! -nargs=+ MyGrep execute 'silent grep! <args>' | copen 33
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"////////////////////////////////////////////////////////////////
+" FILESEARCH PLUGIN
+"////////////////////////////////////////////////////////////////
+ let g:filesearch_viewport_split_policy = "B"
+ let g:filesearch_split_size = 10
+ let g:filesearch_autodismiss_on_select = 0
+
+
+"////////////////////////////////////////////////////////////////
 " SELECTA -- find files with fuzzy-search
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"////////////////////////////////////////////////////////////////
+"
 " Run a given vim command on the results of fuzzy selecting from a given shell
 " command. See usage below.
 function! SelectaCommand(choice_command, selecta_args, vim_command)
@@ -651,44 +664,42 @@ endfunction
 nnoremap <leader>f :call SelectaCommand("find * -type f ! -path 'resources/public/js/*' ! -path 'resources/.sass-cache/*' ! -path 'target/*'", "", ":e")<cr>
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GIST VIM
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-let g:gist_show_privates = 1
-let g:gist_post_private = 1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+    let l:old_name = expand('%')
+    let l:new_name = input('New file name: ', expand('%'), 'file')
+    if l:new_name != '' && l:new_name != l:old_name
+        exec ':saveas ' . l:new_name
+        exec ':silent !rm ' . l:old_name
+        redraw!
+    endif
+endfunction
+map <leader>n :call RenameFile()<cr>
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VIM-CLOJURE-STATIC
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Default
-let g:clojure_fuzzy_indent = 1
-let g:clojure_align_multiline_strings = 1
-let g:clojure_fuzzy_indent_patterns = ['^match', '^with', '^def', '^let']
-let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
+"-----------------------------------------------------------------------------------------
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RUST.VIM
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:rustfmt_autosave = 1 " auto run rust formatter when saving
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FILESEARCH
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
- let g:filesearch_viewport_split_policy = "B"
- let g:filesearch_split_size = 10
- let g:filesearch_autodismiss_on_select = 0
+"################################################################
+"################################################################
+"################################################################
+" 5. PLUGIN CONFIGS
+"################################################################
+"################################################################
+"################################################################
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LOCAL VIMRC
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:localvimrc_sandbox = 0
 let g:localvimrc_ask = 0
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Syntastic
+" SYNTASTIC
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NOTE: there is a status line config in the status line section
 let g:syntastic_always_populate_loc_list = 1
@@ -704,7 +715,74 @@ let g:syntastic_check_on_wq = 0
 "let g:syntastic_rust_checkers = ['rustc']
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GIT
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>gb :Gblame<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GIST VIM
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+let g:gist_show_privates = 1
+let g:gist_post_private = 1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM-CLOJURE-STATIC
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Default
+let g:clojure_fuzzy_indent = 1
+let g:clojure_align_multiline_strings = 1
+let g:clojure_fuzzy_indent_patterns = ['^match', '^with', '^def', '^let']
+let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RUST.VIM
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:rustfmt_autosave = 1 " auto run rust formatter when saving
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RAINBOW PARENS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Rainbow parens ala rainbow_parentheses.vim
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+au Syntax * RainbowParenthesesLoadChevrons
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SCHEME
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" properly indent schemes (scheme, racket, etc)
+autocmd bufread,bufnewfile *.lisp,*.scm,*.rkt setlocal equalprg=scmindent.rkt
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " C-TAGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set tags+=tags;$HOME
+
+
+"-----------------------------------------------------------------------------------------
+
+
+"################################################################
+"################################################################
+"################################################################
+" 6. PERSONAL
+"################################################################
+"################################################################
+"################################################################
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FILE MAPPINGS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Notes and other helpers
+map <leader>pn :sp ~/.dev-scratchpad<cr>
+
