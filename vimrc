@@ -377,6 +377,8 @@ vnoremap p "_dP
 " Use Marked.app to preview Markdown files...
 nnoremap <leader>pp :silent !open -a Marked.app '%:p'<cr>
 
+" Switch between C++ source and header files
+map <leader>v :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 
 "////////////////////////////////////////////////////////////////
 " MULTIPURPOSE TAB KEY
