@@ -316,6 +316,9 @@ nmap <leader>x :x<cr>
 :ca W w
 :ca Q q
 
+" lowercase the e (have a habit of making it uppercase)
+:ca E e
+
 command! Q q " Bind :Q to :q
 command! Qall qall
 " Disable Ex mode
@@ -379,6 +382,30 @@ nnoremap <leader>pp :silent !open -a Marked.app '%:p'<cr>
 
 " Switch between C++ source and header files
 map <leader>v :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+
+"////////////////////////////////////////////////////////////////
+" QUICKLY OPEN C++ SOURCE OR HEADER FILE
+"////////////////////////////////////////////////////////////////
+
+function! s:CompleteFilenameWithoutExtension(ArgLead, CmdLine, CursorPos)
+  " Returns a matching filename without the period that separates the name
+  " from the extension.
+  let l:file = substitute(glob(a:ArgLead.'*', 0, 0), "[\.].*", "", "*")
+  return l:file
+endfunction
+
+" Custom command to open cpp and h files without typing an extension
+command! -nargs=+ -complete=custom,s:CompleteFilenameWithoutExtension OpenCppSource execute ':e <args>.cpp'
+:ca c OpenCppSource
+:ca C OpenCppSource
+
+command! -nargs=+ -complete=custom,s:CompleteFilenameWithoutExtension OpenCppHeader execute ':e <args>.h'
+:ca h OpenCppHeader
+:ca H OpenCppHeader
+
+command! -nargs=+ -complete=custom,s:CompleteFilenameWithoutExtension OpenCppSourceAndHeader execute ':vsp | :e <args>.h | :sp <args>.cpp'
+:ca b OpenCppSourceAndHeader
+:ca B OpenCppSourceAndHeader
 
 "////////////////////////////////////////////////////////////////
 " MULTIPURPOSE TAB KEY
