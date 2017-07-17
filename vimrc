@@ -287,12 +287,6 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" insert an end tag with <c-e>
-imap <c-e> end
-
-" insert a clojure lambda <c-l>
-imap <c-l> (fn [x]<space>
-
 " Mapping ESC in insert mode and command mode to double i
 "imap ii <C-[>
 "cmap ii <C-[>
