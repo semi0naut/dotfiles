@@ -193,10 +193,13 @@ endif
 set t_ti= t_te=
 " keep more context when scrolling off the end of a buffer
 set scrolloff=3
+
 " Store temporary files in a central spot
 set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=$HOME/tmp " For swap files
+set backupdir=$HOME/tmp
+:au BufWritePre * let &bex = '.' . strftime("%Y-%m-%d-%T") . '.bak'
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 " display incomplete commands
