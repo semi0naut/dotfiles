@@ -19,10 +19,23 @@ export TMP=/tmp
 export TEMP=/tmp
 export TMPDIR=/tmp
 
+# Customize the shell prompt
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-
 export PS1='\[\033[0;32m\]\[\033[0m\033[0;32m\]\u\[\033[0;36m\] @ \w\[\033[33m\]\n$(parse_git_branch)\[\033[0;32m\]\[\033[0m\033[0;32m\] \$\[\033[0m\033[0;32m\]\[\033[0m\] '
+
+# Git autocompletion
+# Git bash file can be downloaded with: `curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash`
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+
+  # Git autocompletion fixes for bash aliases
+  __git_complete g     __git_main
+  __git_complete gco   _git_checkout
+  __git_complete gm    _git_merge
+  __git_complete gmff  _git_merge
+  __git_complete gmnff _git_merge
+fi
 
 cd ~
