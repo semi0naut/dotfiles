@@ -23,6 +23,18 @@ set nocompatible
 filetype off
 
 
+"################################################################
+"################################################################
+"################################################################
+" 0. GLOBALS
+"################################################################
+"################################################################
+"################################################################
+
+let s:default_bg = 'dark'
+let s:rainbow_theme = s:default_bg
+
+
 "-----------------------------------------------------------------------------------------
 
 
@@ -81,7 +93,7 @@ Plug 'mh21/errormarker.vim'
 
 Plug 'godlygeek/csapprox' " Try to make gvim themes look decent in Windows
 
-Plug 'eapache/rainbow_parentheses.vim'
+Plug 'sir-pinecone/rainbow'
 
 " WARNING: Has a lot of themes, but they break the other themes listed below
 "Plug 'flazz/vim-colorschemes'
@@ -425,7 +437,117 @@ inoremap <s-tab> <c-n>
 "################################################################
 "################################################################
 "################################################################
-" 3. VISUALS
+" 3. PLUGIN CONFIGS
+"################################################################
+"################################################################
+"################################################################
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LOCAL VIMRC
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:localvimrc_sandbox = 0
+let g:localvimrc_ask = 0
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SYNTASTIC
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NOTE: there is a status line config in the status line section
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+
+" Customize Rust
+" https://github.com/rust-lang/rust.vim/issues/130
+" Can remove once this Syntastic PR is merged https://github.com/rust-lang/rust.vim/pull/132
+"let g:syntastic_rust_rustc_exe = 'cargo check'
+"let g:syntastic_rust_rustc_fname = ''
+"let g:syntastic_rust_checkers = ['rustc']
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GIT
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>gb :Gblame<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GIST VIM
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+let g:gist_show_privates = 1
+let g:gist_post_private = 1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM-CLOJURE-STATIC
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Default
+let g:clojure_fuzzy_indent = 1
+let g:clojure_align_multiline_strings = 1
+let g:clojure_fuzzy_indent_patterns = ['^match', '^with', '^def', '^let']
+let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RUST.VIM
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:rustfmt_autosave = 1 " auto run rust formatter when saving
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RAINBOW
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:rainbow_active = 1 " Always on
+"let g:rainbow_conf = {
+"\}
+
+let s:light_rainbow = ['red', 'green', 'magenta', 'cyan', 'yellow', 'white', 'gray', 'blue']
+let s:dark_rainbow = ['darkblue', 'red', 'black', 'darkgreen', 'darkyellow', 'darkred', 'darkgray']
+
+function! UpdateRainbowConf()
+  let g:rainbow_conf = {
+        \   'ctermfgs': (s:rainbow_theme == "light"? s:dark_rainbow : s:light_rainbow)
+   \}
+"\   'separately': {
+"\       '*': 0, " Disable all
+"\       'c++': {} " Only enable c++
+"\   }
+endfunction
+
+call UpdateRainbowConf()
+
+function! ReloadRainbow()
+  if exists('g:rainbow_loaded')
+    call UpdateRainbowConf()
+    call rainbow#clear() | call rainbow#hook()
+  endif
+endfunction
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SCHEME
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" properly indent schemes (scheme, racket, etc)
+autocmd bufread,bufnewfile *.lisp,*.scm,*.rkt setlocal equalprg=scmindent.rkt
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" C-TAGS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set tags+=tags;$HOME
+
+
+"-----------------------------------------------------------------------------------------
+
+
+"################################################################
+"################################################################
+"################################################################
+" 4. VISUALS
 "################################################################
 "################################################################
 "################################################################
@@ -471,9 +593,11 @@ set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLORS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:default_bg = 'dark'
 let s:dark_theme = 'campo-dark'
 let s:light_theme = 'campo-light'
+
+execute "autocmd ColorScheme " . s:dark_theme . " call ReloadRainbow()"
+execute "autocmd ColorScheme " . s:light_theme . " call ReloadRainbow()"
 
 " Switch between light and dark
 map <leader>l :call ChangeBgTheme('light', 0)<cr>
@@ -481,10 +605,12 @@ map <leader>ll :call ChangeBgTheme('dark', 0)<cr>
 
 function! ChangeBgTheme(bg, onlySetTheme)
   if a:bg =~ 'light'
+    let s:rainbow_theme = 'light'
     let s:theme = s:light_theme
     exe 'colorscheme ' . s:theme
     set background=light
   else
+    let s:rainbow_theme = 'dark'
     let s:theme = s:dark_theme
     " We have to set the theme twice in order to get its correct dark-theme colors.
     " Weird stuff.
@@ -495,9 +621,6 @@ function! ChangeBgTheme(bg, onlySetTheme)
 
   if !a:onlySetTheme
     exec ':AirlineTheme ' . a:bg
-    " Have to run this twice to get the plugin to set the colors
-    exec ':RainbowParenthesesToggle'
-    exec ':RainbowParenthesesToggle'
   endif
 endfunction
 
@@ -547,7 +670,7 @@ hi def link MyNotices Notices
 "################################################################
 "################################################################
 "################################################################
-" 4. HELPER FUNCTIONS
+" 5. HELPER FUNCTIONS
 "################################################################
 "################################################################
 "################################################################
@@ -725,96 +848,6 @@ function! RenameFile()
     endif
 endfunction
 map <leader>n :call RenameFile()<cr>
-
-
-"-----------------------------------------------------------------------------------------
-
-
-"################################################################
-"################################################################
-"################################################################
-" 5. PLUGIN CONFIGS
-"################################################################
-"################################################################
-"################################################################
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LOCAL VIMRC
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:localvimrc_sandbox = 0
-let g:localvimrc_ask = 0
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SYNTASTIC
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NOTE: there is a status line config in the status line section
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
-" Customize Rust
-" https://github.com/rust-lang/rust.vim/issues/130
-" Can remove once this Syntastic PR is merged https://github.com/rust-lang/rust.vim/pull/132
-"let g:syntastic_rust_rustc_exe = 'cargo check'
-"let g:syntastic_rust_rustc_fname = ''
-"let g:syntastic_rust_checkers = ['rustc']
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GIT
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>gb :Gblame<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GIST VIM
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-let g:gist_show_privates = 1
-let g:gist_post_private = 1
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VIM-CLOJURE-STATIC
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Default
-let g:clojure_fuzzy_indent = 1
-let g:clojure_align_multiline_strings = 1
-let g:clojure_fuzzy_indent_patterns = ['^match', '^with', '^def', '^let']
-let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RUST.VIM
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:rustfmt_autosave = 1 " auto run rust formatter when saving
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RAINBOW PARENS
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Rainbow parens ala rainbow_parentheses.vim
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-au Syntax * RainbowParenthesesLoadChevrons
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SCHEME
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" properly indent schemes (scheme, racket, etc)
-autocmd bufread,bufnewfile *.lisp,*.scm,*.rkt setlocal equalprg=scmindent.rkt
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" C-TAGS
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set tags+=tags;$HOME
 
 
 "-----------------------------------------------------------------------------------------
