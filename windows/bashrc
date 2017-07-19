@@ -33,6 +33,10 @@ if [ -f ~/.git-completion.bash ]; then
   # Git autocompletion fixes for bash aliases
   __git_complete g     __git_main
   __git_complete gco   _git_checkout
+  __git_complete gl    _git_branch
+  __git_complete gll   _git_branch
+  __git_complete gsh   _git_branch
+  __git_complete gbd   _git_branch
   __git_complete gm    _git_merge
   __git_complete gmff  _git_merge
   __git_complete gmnff _git_merge
