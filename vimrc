@@ -253,9 +253,13 @@ if has('persistent_undo')
     set undofile
 endif
 
-" When loading text files, wrap them and don't split up words.
+" Wrap text files and don't split up words. Everything else doesn't get
+" wrapped.
+set nowrap
 au BufNewFile,BufRead *.txt setlocal wrap
 au BufNewFile,BufRead *.txt setlocal lbr
+au BufNewFile,BufRead *.md setlocal wrap
+au BufNewFile,BufRead *.md setlocal lbr
 
 " Remove trailing whitespace on save all files.
 au BufWritePre * :%s/\s\+$//e
@@ -867,3 +871,4 @@ map <leader>n :call RenameFile()<cr>
 " Notes and other helpers
 map <leader>pn :sp ~/.dev-scratchpad<cr>
 
+let g:autotagStopAt = "$HOME"
