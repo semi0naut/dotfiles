@@ -37,6 +37,8 @@ if [ -f ~/.git-completion.bash ]; then
   __git_complete gll   _git_branch
   __git_complete gsh   _git_branch
   __git_complete gbd   _git_branch
+  __git_complete gpo   _git_branch
+  __git_complete grb   _git_branch
   __git_complete gm    _git_merge
   __git_complete gmff  _git_merge
   __git_complete gmnff _git_merge
