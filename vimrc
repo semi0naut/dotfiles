@@ -318,9 +318,18 @@ augroup campoCmds
 
   " C/C++ template
   autocmd bufnewfile *.{c,cc,cpp,h,hpp} 0r ~/.vim/templates/c_header_notice
-  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 6 . "g/File:.*/s//File: " .expand("%")
-  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 6 . "g/Creation Date:.*/s//Creation Date: " .strftime("%Y-%m-%d")
-  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 6 . "g/$year/s//" .strftime("%Y")
+  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 7 . "g/File:.*/s//File: " .expand("%")
+  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 7 . "g/Creation Date:.*/s//Creation Date: " .strftime("%Y-%m-%d")
+  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 7 . "g/$year/s//" .strftime("%Y")
+  function! s:InsertModifiedDateIfRequired()
+    if &modified
+      normal! m0
+      execute "2," . 7 . "g/Last Modified:.*/s//Last Modified: " .strftime("%Y-%m-%d %T")
+      normal! '0
+    endif
+  endfunction
+  autocmd Bufwritepre,filewritepre *.{c,cc,cpp,h,hpp} call <SID>InsertModifiedDateIfRequired()
+
   function! s:InsertHeaderGates()
     let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
     execute "normal! ggO#ifndef " . gatename
