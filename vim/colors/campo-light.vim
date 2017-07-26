@@ -1,15 +1,12 @@
-" basic-light -- a simple light vim theme
-"
-" Maintainer: zcodes <zcodes@qq.com>
+" A simple light vim colorscheme.
+" Maintainer: Michael Campagnaro <mikecampo@gmail.com>
 " Version: 1.0
 "
-" the theme file original copyed from Tomorrow theme.
-" see: https://github.com/chriskempson/vim-tomorrow-theme.git for it.
-"
-" the colors choose from Google Material Desgin and some from Sublime Text
-" LAZY theme.
+" The theme file original copied from the Tomorrow theme.
+" See https://github.com/chriskempson/vim-tomorrow-theme.git for it.
+" Hex color conversion functions borrowed from the theme "Desert256".
 
-" default gui colors
+" Default GUI colors
 let s:foreground = "263238"
 let s:background = "fbfbfb"
 let s:selection = "e3fc8d"
@@ -26,7 +23,9 @@ let s:window = "cfd8dc"
 
 set background=light
 hi clear
-syntax reset
+if exists("syntax_on")
+    syntax reset
+endif
 
 let g:colors_name = "basic-light"
 

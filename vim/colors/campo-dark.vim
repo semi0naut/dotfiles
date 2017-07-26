@@ -1,18 +1,16 @@
 " A simple dark vim colorscheme.
-" Maintainer: zcodes <zcodes@qq.com>
+" Maintainer: Michael Campagnaro <mikecampo@gmail.com>
 " Version: 1.0
 "
-" The theme file original copyed from Tomorrow theme.
+" The theme file original copied from the Tomorrow theme.
 " See https://github.com/chriskempson/vim-tomorrow-theme.git for it.
-" And hex color conversion functions borrowed from the theme "Desert256".
-"
-" Most of the colors based on Google Material Design.
+" Hex color conversion functions borrowed from the theme "Desert256".
 
 " Default GUI colors
 let s:foreground = "cfd8dc"
-let s:background = "263238"
+let s:background = "333333"
 let s:selection = "546e7a"
-let s:line = "37474f"
+let s:line = "444444"
 let s:comment = "78909c"
 let s:red = "ee877d"
 let s:orange = "ffb74d"
@@ -23,11 +21,6 @@ let s:blue = "6699cc"
 let s:purple = "ce93d8"
 let s:window = "37474f"
 let s:grey = "b0bec5"
-
-if !has("gui_running")
-    let s:background = "333333"
-    let s:line = "303030"
-endif
 
 set background=dark
 hi clear
