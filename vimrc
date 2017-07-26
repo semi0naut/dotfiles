@@ -31,6 +31,7 @@ filetype off
 "################################################################
 "################################################################
 
+let s:max_row_length = 100
 let s:default_bg = 'dark'
 let s:rainbow_theme = s:default_bg
 
@@ -228,7 +229,7 @@ syntax on
 set wildmenu
 set wildmode=longest,list,full
 set wildignore+=*/tmp/*,*/log/*,*.so,*.swp,*.zip,*/rdoc/*
-set colorcolumn=90
+let &colorcolumn=s:max_row_length
 " Show trailing whitespace
 set list listchars=tab:»·,trail:·
 " Adding this since the esc remap on the 'i' key had a long delay when pressed
@@ -252,14 +253,6 @@ if has('persistent_undo')
     " Persist undo
     set undofile
 endif
-
-" Wrap text files and don't split up words. Everything else doesn't get
-" wrapped.
-set nowrap
-au BufNewFile,BufRead *.txt setlocal wrap
-au BufNewFile,BufRead *.txt setlocal lbr
-au BufNewFile,BufRead *.md setlocal wrap
-au BufNewFile,BufRead *.md setlocal lbr
 
 " Remove trailing whitespace on save all files.
 au BufWritePre * :%s/\s\+$//e
@@ -289,8 +282,15 @@ imap <right> <nop>
 augroup campoCmds
   " Clear all autocmds in the group
   autocmd!
-  autocmd FileType text setlocal textwidth=78
+
+  " Automatically wrap at N characters
   autocmd FileType gitcommit setlocal colorcolumn=72
+  autocmd BufRead,BufNewFile *.{md,txt} execute "setlocal textwidth=" .s:max_row_length
+
+  " Spell checking
+  autocmd FileType gitcommit setlocal spell
+  autocmd FileType markdown setlocal spell
+  autocmd FileType text setlocal spell
 
   " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -300,6 +300,14 @@ augroup campoCmds
 
   " Indent p tags
   autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
+
+  " Properly indent schemes (scheme, racket, etc)
+  autocmd bufread,bufnewfile *.{lisp,scm,rkt} setlocal equalprg=scmindent.rkt
+
+  " Auto reload VIM when settings changed
+  autocmd BufWritePost .vimrc so $MYVIMRC
+  autocmd BufWritePost *.vim so $MYVIMRC
+  autocmd BufWritePost vimrc.symlink so $MYVIMRC
 
   "////////////////////////////////////////////////////////////////
   " FILE TEMPLATES
@@ -552,13 +560,6 @@ function! ReloadRainbow()
     call rainbow#clear() | call rainbow#hook()
   endif
 endfunction
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SCHEME
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" properly indent schemes (scheme, racket, etc)
-autocmd bufread,bufnewfile *.lisp,*.scm,*.rkt setlocal equalprg=scmindent.rkt
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
