@@ -286,7 +286,7 @@ imap <right> <nop>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup vimrcEx
+augroup campoCmds
   " Clear all autocmds in the group
   autocmd!
   autocmd FileType text setlocal textwidth=78
@@ -300,8 +300,30 @@ augroup vimrcEx
 
   " Indent p tags
   autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
-augroup END
 
+  "////////////////////////////////////////////////////////////////
+  " FILE TEMPLATES
+  "////////////////////////////////////////////////////////////////
+
+  " Shell script template
+  autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh
+
+  " C/C++ template
+  autocmd bufnewfile *.{c,cc,cpp,h,hpp} 0r ~/.vim/templates/c_header_notice
+  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 6 . "g/File:.*/s//File: " .expand("%")
+  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 6 . "g/Creation Date:.*/s//Creation Date: " .strftime("%Y-%m-%d")
+  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 6 . "g/$year/s//" .strftime("%Y")
+  function! s:InsertHeaderGates()
+    let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+    execute "normal! ggO#ifndef " . gatename
+    normal! Go
+    normal! Go
+    execute "normal! Go#define " . gatename . " "
+    execute "normal! o#endif"
+    normal! kkk
+  endfunction
+  autocmd bufnewfile *.{h,hpp} call <SID>InsertHeaderGates()
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
