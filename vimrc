@@ -4,6 +4,8 @@
 
 scriptencoding utf-8
 set encoding=utf-8 fileencoding=utf-8 fileencodings=ucs-bom,utf8,prc
+set nocompatible
+filetype off
 
 " Store the current system name so that we can conditionally set configs for
 " different platforms
@@ -18,10 +20,6 @@ function! IsWindows()
 endfunction
 
 let mapleader=","
-
-set nocompatible
-filetype off
-
 
 "################################################################
 "################################################################
@@ -179,14 +177,17 @@ set shiftwidth=2
 set softtabstop=2
 set autoindent
 set laststatus=2
+set showcmd " display incomplete commands
 set showmatch
-set incsearch
+set incsearch " Highlight matches as you type
+set hlsearch " Highlight matches
 set dictionary+=/usr/share/dict/words
 "set clipboard=unnamed " yank and paste with the system clipboard
-set nonumber
-set hlsearch
+set relativenumber " Use realtive line numebrs
 " make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
+set visualbell " No bell sounds
+set ttyfast
 " highlight current line
 set cmdheight=2
 set switchbuf=useopen,split
@@ -215,8 +216,6 @@ set backupdir=$HOME/tmp
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-" display incomplete commands
-set showcmd
 " Spell checking autocomplete
 set complete+=kspell
 " Enable highlighting for syntax
@@ -288,9 +287,7 @@ augroup campoCmds
   autocmd BufRead,BufNewFile *.{md,txt} execute "setlocal textwidth=" .s:max_row_length
 
   " Spell checking
-  autocmd FileType gitcommit setlocal spell
-  autocmd FileType markdown setlocal spell
-  autocmd FileType text setlocal spell
+  autocmd FileType gitcommit,markdown,text setlocal spell
 
   " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -321,15 +318,6 @@ augroup campoCmds
   autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 7 . "g/File:.*/s//File: " .expand("%")
   autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 7 . "g/Creation Date:.*/s//Creation Date: " .strftime("%Y-%m-%d")
   autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 7 . "g/$year/s//" .strftime("%Y")
-  function! s:InsertModifiedDateIfRequired()
-    if &modified
-      normal! m0
-      execute "2," . 7 . "g/Last Modified:.*/s//Last Modified: " .strftime("%Y-%m-%d %T")
-      normal! '0
-    endif
-  endfunction
-  autocmd Bufwritepre,filewritepre *.{c,cc,cpp,h,hpp} call <SID>InsertModifiedDateIfRequired()
-
   function! s:InsertHeaderGates()
     let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
     execute "normal! ggO#ifndef " . gatename
