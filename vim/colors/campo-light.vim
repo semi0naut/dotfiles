@@ -27,7 +27,7 @@ if exists("syntax_on")
     syntax reset
 endif
 
-let g:colors_name = "basic-light"
+let g:colors_name = "campo-light"
 
 if has("gui_running") || &t_Co == 88 || &t_Co == 256
     " Returns an approximate grey index for the given grey level

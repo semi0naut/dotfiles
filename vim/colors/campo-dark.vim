@@ -27,7 +27,7 @@ hi clear
 if exists("syntax_on")
     syntax reset
 endif
-let g:colors_name = "basic-dark"
+let g:colors_name = "campo-dark"
 
 if has("gui_running") || &t_Co == 88 || &t_Co == 256
     " Returns an approximate grey index for the given grey level
@@ -286,6 +286,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     call <SID>X("Define", s:purple, "", "none")
     call <SID>X("Include", s:blue, "", "")
     call <SID>X("Number", s:orange, "", "")
+    call <SID>X("SpellBad", s:red, s:background, "underline,bold")
 
     " Custom TODO/NOTE colors
     call <SID>X("Todo", s:red, s:background, "underline")
