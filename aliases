@@ -56,13 +56,12 @@ alias cloc='cloc --no3 --by-file-by-lang .'
 alias cls=clear
 alias code='cd ~/code'
 alias cpr='cp -r'
-alias cw='compass watch'
 alias dc='gdc'
 alias dot='cd ~/.dotfiles'
 alias pdot='cd ~/.private-dotfiles'
 alias duh='du -csh'
-alias functions='vim ~/.dotfiles/functions'
 alias f='fg'
+alias functions='vim ~/.dotfiles/functions'
 alias history='fc -l 1'
 alias histroy='history'
 alias h='heroku'
@@ -81,12 +80,6 @@ alias irb='irb --readline -r irb/completion'
 alias lcc='lein clean'
 alias lca='lein cljsbuild auto dev'
 alias ldi='lein deps install'
-alias li='lineman'
-alias lir='lineman run'
-alias lib='lineman build'
-alias lig='lineman grunt'
-alias lis='lineman spec'
-alias lic='lineman spec-ci'
 alias lsd='lein start-dev'
 alias mc='mvn compile'
 alias mct='mvn test'
@@ -94,6 +87,7 @@ alias mi='mvn install'
 alias mci='mvn clean install'
 alias mp='mvn package'
 alias mcp='mvn clean package'
+alias moon='curl wttr.in/moon'
 alias patch='git format-patch HEAD^ --stdout > patch.diff'
 alias reguard='killall -9 ruby ; guard'
 alias r='./run'
@@ -106,14 +100,12 @@ function reload {
   if [[ $platform == 'Linux' || $platform == 'Darwin' ]]; then
     source ~/.zshrc
   else
-    source ~/.bash_profile
+    test -f ~/.aliases && . ~/.aliases
   fi
 }
 
 alias rl='reload'
 alias rmr='rm -rf'
-alias rc='rails console'
-alias rs='rails server'
 alias restart='sudo shutdown now -r'
 alias s='cd ~/.ssh'
 alias sc='vim ~/.ssh/config'
@@ -259,6 +251,10 @@ alias gx='git reset --hard'
 alias gxx='git reset --hard HEAD~1'
 alias gstats='echo "Total commits: $(git rev-list HEAD --count)"; echo "\nAuthor breakdown:"; git shortlog | grep -E "^[^ ]"'
 alias gwip="git add . && git commit -m \"WIP\""
+
+# Haxe
+alias flow='haxelib run flow'
+alias snowfall='haxelib run snowfall'
 
 # Other aliases
 alias pal='vim ~/.private-dotfiles/aliases'
