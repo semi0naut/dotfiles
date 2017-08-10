@@ -187,7 +187,7 @@ set incsearch " Highlight matches as you type
 set hlsearch " Highlight matches
 set dictionary+=/usr/share/dict/words
 "set clipboard=unnamed " yank and paste with the system clipboard
-set relativenumber " Use realtive line numebrs
+set nonumber
 " make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
 set visualbell " No bell sounds
@@ -257,9 +257,6 @@ if has('persistent_undo')
     set undofile
 endif
 
-" Remove trailing whitespace on save all files.
-au BufWritePre * :%s/\s\+$//e
-
 " Fix vim's background colour erase - http://snk.tuxfamily.org/log/vim-256color-bce.html
 if &term =~ '256color'
   " Disable Background Color Erase (BCE) so that color schemes
@@ -309,6 +306,15 @@ augroup campoCmds
   autocmd BufWritePost .vimrc so $MYVIMRC
   autocmd BufWritePost *.vim so $MYVIMRC
   autocmd BufWritePost vimrc.symlink so $MYVIMRC
+
+  " Remove trailing whitespace on save all files.
+  function! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+  endfun
+  autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
   "////////////////////////////////////////////////////////////////
   " FILE TEMPLATES
