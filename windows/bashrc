@@ -1,5 +1,5 @@
 # For Windows setup
-test -f ~/.aliases && . ~/.functions
+test -f ~/.functions && . ~/.functions
 test -f ~/.aliases && . ~/.aliases
 test -f ~/.private-dotfiles/env && . ~/.private-dotfiles/env
 test -f ~/.env.platform && . ~/.env.platform
