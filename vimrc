@@ -65,6 +65,7 @@ Plug 'junegunn/goyo.vim' " Distraction-free mode with centered buffer
 
 " Automatically discover and 'properly' update ctags files on save
 Plug 'craigemery/vim-autotag'
+Plug 'majutsushi/tagbar'
 
 Plug 'jeetsukumaran/vim-filesearch'
 Plug 'rking/ag.vim'
@@ -147,6 +148,9 @@ Plug 'tpope/vim-markdown'
 
 " C++
 Plug 'bfrg/vim-cpp-enhanced-highlight'
+
+" Haxe
+Plug 'jdonaldson/vaxe'
 
 call plug#end()
 
@@ -480,6 +484,11 @@ inoremap <s-tab> <c-n>
 let g:localvimrc_sandbox = 0
 let g:localvimrc_ask = 0
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TAGBAR
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+noremap <F11> :TagbarToggle<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTASTIC
