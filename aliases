@@ -14,11 +14,13 @@ if [[ $platform == 'Linux' ]]; then
   alias prr='pacman -Rdd'
   alias pss='sudo pacman -Syu'
   alias pu='yaourt -U'
+  # TODO add a trash alias for trash-cli?
 
 elif [[ $platform == 'Darwin' ]]; then
   alias l='ls -laG'
   alias ls='ls -laG'
   alias ll='ls -lG'
+  # TODO add a trash alias for trash-cli? or brew install rmtrash
 
 elif [[ "${platform,,}" == *'ming'* ]]; then # convert to lowercase then compare with wildcard
   alias python='winpty python.exe'
@@ -26,6 +28,7 @@ elif [[ "${platform,,}" == *'ming'* ]]; then # convert to lowercase then compare
 
   alias l='ls -ahg --color'
   alias ls='ls -ahg --color'
+  alias trash='recycle-bin.exe '
 fi
 
 alias c='cd'
@@ -107,7 +110,8 @@ function reload {
 }
 
 alias rl='reload'
-alias rmr='rm -rf'
+alias rm='echo "use trash command instead!"'
+alias rmr='echo "use trash command instead!"'
 alias restart='sudo shutdown now -r'
 alias s='cd ~/.ssh'
 alias sc='vim ~/.ssh/config'
