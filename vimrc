@@ -62,6 +62,7 @@ Plug 'tpope/vim-obsession' " Continuously updated session files
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tpope/vim-classpath' " TODO: still need this?
 Plug 'junegunn/goyo.vim' " Distraction-free mode with centered buffer
+Plug 'fedorenchik/VimCalc3'
 
 " Automatically discover and 'properly' update ctags files on save
 Plug 'craigemery/vim-autotag'
@@ -325,9 +326,9 @@ augroup campoCmds
 
   " C/C++ template
   autocmd bufnewfile *.{c,cc,cpp,h,hpp} 0r ~/.vim/templates/c_header_notice
-  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 7 . "g/File:.*/s//File: " .expand("%")
-  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 7 . "g/Creation Date:.*/s//Creation Date: " .strftime("%Y-%m-%d")
-  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 7 . "g/$year/s//" .strftime("%Y")
+  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 6 . "g/File:.*/s//File: " .expand("%")
+  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 6 . "g/Creation Date:.*/s//Creation Date: " .strftime("%Y-%m-%d")
+  autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 6 . "g/$year/s//" .strftime("%Y")
   function! s:InsertHeaderGates()
     let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
     execute "normal! ggO#ifndef " . gatename
@@ -744,17 +745,26 @@ function! HideBuildResultsAndClearErrors()
   call asyncrun#quickfix_toggle(g:build_window_size, 0)
 endfunction
 
+function! HideAsyncResults()
+  call asyncrun#quickfix_toggle(g:build_window_size, 0)
+endfunction
+
 function! ToggleBuildResults()
   call asyncrun#quickfix_toggle(g:build_window_size)
 endfunction
 
 function! StopRunTask()
   AsyncStop
-  call asyncrun#quickfix_toggle(g:build_window_size, 0)
+  call HideAsyncResults()
 endfunction
 
 function! ExecuteRunScript()
   exec "AsyncRun! -post=call\\ StopRunTask() ./run"
+endfunction
+
+function! SilentBuild()
+  AsyncStop
+  exec "AsyncRun! -save=2 -post=call\\ HideAsyncResults() ./build*"
 endfunction
 
 " Show results window the moment the async job starts
@@ -771,7 +781,7 @@ noremap <F10> :call HideBuildResultsAndClearErrors()<cr>
 
 " Execute build script
 nnoremap <leader>b :AsyncRun! -save=2 ./build*<cr>
-nnoremap <F8> :AsyncRun! -save=2 ./build*<cr>
+nnoremap <F8> :call SilentBuild()<cr>
 
 " Execute run script
 nnoremap <leader>br :call ExecuteRunScript()<cr>
