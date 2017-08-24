@@ -19,6 +19,15 @@ else
   NORMAL=""
 fi
 
+error() {
+  printf "${BOLD}${RED}$1${NORMAL}"
+}
+
+abort() {
+  error "\nAborting...\n"
+  exit 1
+}
+
 set -e
 
 cwd=$PWD
