@@ -19,6 +19,15 @@
   * Don't symlink .vim folder because Plugged will fail to install the plugins.
     Just make a copy.
 
+## Setup dev tools
+
+* Download the Windows 2003 Resource Kit in order to get tools like `list.exe` (command line hex
+  editor)
+  * URL: https://www.microsoft.com/en-us/download/details.aspx?id=17657
+  * Installer will display a compatibility warning. Ignore it.
+  * Full list of tools can be found here
+    https://www.technlg.net/windows/download-windows-resource-kit-tools/
+
 
 ## Compiling Vim
 
