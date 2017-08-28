@@ -29,6 +29,7 @@ elif [[ "${platform,,}" == *'ming'* ]]; then # convert to lowercase then compare
   alias l='ls -ahg --color'
   alias ls='ls -ahg --color'
   alias trash='recycle-bin.exe '
+  alias tt='trash '
 fi
 
 alias c='cd'
