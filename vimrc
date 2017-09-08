@@ -834,6 +834,7 @@ function! Search()
   let l:term = input('Grep search term: ')
   if l:term != ''
     if IsWindows()
+      " TODO: add --exclude=<file> support to filesearch plugin
       exec 'Fsgrep "' . l:term . '"'
     else
       " is pt faster than ag? I forget now and didn't document it
