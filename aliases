@@ -44,7 +44,7 @@ alias cd.....='cd ../../../..'
 
 alias aliases='vim ~/.dotfiles/aliases'
 alias al='aliases'
-alias b='./build'
+alias b='if [ -f build ]; then ./build ; else test -f build.sh && ./build.sh ; fi'
 alias bl='brew link --overwrite'
 alias bld='brew link --overwrite --dry-run'
 alias bower='noglob bower'
