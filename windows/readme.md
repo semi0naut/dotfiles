@@ -1,5 +1,8 @@
 # Windows Setup
 
+* Turn off hibernation
+  * Open admin cmd prompt: `powercfg.exe /hiberate off`
+
 ## Configure Shell
 * Install [MSYS2 w/ MinGW-w64](http://www.msys2.org/) to `C:\msys64`
   * Open `C:\msys64\mingw64.exe`
