@@ -495,7 +495,7 @@ let g:localvimrc_ask = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TAGBAR
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-noremap <F11> :TagbarToggle<cr>
+noremap <F12> :TagbarToggle<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTASTIC
@@ -773,7 +773,7 @@ augroup vimrc
 augroup END
 
 " Toggle build results
-noremap <F9> :call ToggleBuildResults()<cr>
+noremap <F11> :call ToggleBuildResults()<cr>
 nnoremap <leader>bb :call ToggleBuildResults()<cr>
 
 " Hide build results and clear errors
@@ -785,6 +785,8 @@ nnoremap <F8> :call SilentBuild()<cr>
 
 " Execute run script
 nnoremap <leader>br :call ExecuteRunScript()<cr>
+nnoremap <F9> :call ExecuteRunScript()<cr>
+
 nnoremap <leader>bs :AsyncStop<cr>
 
 "Go to next build error
