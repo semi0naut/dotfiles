@@ -355,6 +355,9 @@ nmap <leader>z <c-z>
 nmap <silent> <leader>ev :vsp $MYVIMRC<cr>
 nmap <silent> <leader>rv :so $MYVIMRC<cr>
 
+" Easy way to open a file in the directory of the current file
+:cmap %/ %:p:h/
+
 " remap saving and quiting
 nmap <leader>w :w<cr>
 nmap <leader>q :q<cr>
@@ -432,7 +435,8 @@ vnoremap p "_dP
 nnoremap <leader>pp :silent !open -a Marked.app '%:p'<cr>
 
 " Switch between C++ source and header files
-map <leader>v :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+map <leader>v :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
+map <leader>vv :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 
 "////////////////////////////////////////////////////////////////
 " QUICKLY OPEN C++ SOURCE OR HEADER FILE
