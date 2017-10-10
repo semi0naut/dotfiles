@@ -137,6 +137,10 @@ function gitCmdWrapper {
   fi
 }
 
+# Fix a weird mingw 'not a valid identifierline' error.
+# Got the fix from https://github.com/Alexpux/MSYS2-packages/issues/735#issuecomment-328938800
+alias git="PATH=/usr/bin git"
+
 alias am='git commit --amend'
 alias ama='git commit --amend -C head --author'
 alias ams='git commit -S --amend' # signed
