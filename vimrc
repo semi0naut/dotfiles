@@ -323,6 +323,7 @@ augroup campoCmds
 
   " Shell script template
   autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh
+  autocmd BufNewFile *.plan 0r ~/.vim/templates/skeleton.plan
 
   " C/C++ template
   autocmd bufnewfile *.{c,cc,cpp,h,hpp} 0r ~/.vim/templates/c_header_notice
@@ -778,13 +779,16 @@ augroup END
 
 " Toggle build results
 noremap <F11> :call ToggleBuildResults()<cr>
-nnoremap <leader>bb :call ToggleBuildResults()<cr>
+nnoremap <leader>bc :call ToggleBuildResults()<cr>
 
 " Hide build results and clear errors
 noremap <F10> :call HideBuildResultsAndClearErrors()<cr>
 
 " Execute build script
+" Optimizations off
 nnoremap <leader>b :AsyncRun! -save=2 ./build*<cr>
+" Optimizations on
+nnoremap <leader>bb :AsyncRun! -save=2 ./build* -o 1<cr>
 nnoremap <F8> :call SilentBuild()<cr>
 
 " Execute run script
