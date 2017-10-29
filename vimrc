@@ -573,9 +573,17 @@ endfunction
 call UpdateRainbowConf()
 
 function! ReloadRainbow()
-  if exists('g:rainbow_loaded')
-    call UpdateRainbowConf()
-    call rainbow#clear() | call rainbow#hook()
+  if g:campo_theme_use_rainbow_parens
+    if exists('g:rainbow_loaded')
+      call UpdateRainbowConf()
+      call rainbow#clear() | call rainbow#hook()
+    endif
+  else
+    let g:rainbow_active = 0
+    if exists('g:rainbow_loaded')
+      call UpdateRainbowConf()
+      call rainbow#clear()
+    endif
   endif
 endfunction
 
@@ -638,7 +646,10 @@ set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLORS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:dark_theme = 'campo-dark'
+
+" alternative dark theme: 'campo-dark'
+let g:campo_theme_use_rainbow_parens = 1
+let s:dark_theme = 'campo-dark-green'
 let s:light_theme = 'campo-light'
 
 execute "autocmd ColorScheme " . s:dark_theme . " call ReloadRainbow()"

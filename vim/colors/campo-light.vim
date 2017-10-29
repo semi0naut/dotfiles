@@ -6,6 +6,8 @@
 " See https://github.com/chriskempson/vim-tomorrow-theme.git for it.
 " Hex color conversion functions borrowed from the theme "Desert256".
 
+let g:campo_theme_use_rainbow_parens = 1
+
 " Default GUI colors
 let s:foreground = "263238"
 let s:background = "fbfbfb"
