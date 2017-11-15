@@ -62,7 +62,21 @@ Plug 'tpope/vim-obsession' " Continuously updated session files
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tpope/vim-classpath' " TODO: still need this?
 Plug 'junegunn/goyo.vim' " Distraction-free mode with centered buffer
-Plug 'fedorenchik/VimCalc3'
+Plug 'fedorenchik/VimCalc3' " A calculator inside vim
+
+Plug 'suxpert/vimcaps' " Disable capslock (useful if the OS isn't configured to do so)
+Plug 'itchyny/vim-cursorword' " Underlines the word under the cursor
+Plug 'itchyny/thumbnail.vim' " View open buffers in a Chrome-inspired thumbnail layout
+" Google Calendar - :Calendar, :Calendar <year> <m#> <d#>, :Calendar -view=year (-split=veritcal -width=<n>)
+" :Calendar -view=day, :Calendar -first_day=monday
+Plug 'itchyny/calendar.vim'
+Plug 'itchyny/screensaver.vim' " A screensaver view - open with :ScreenSaver
+" (MAYBE) Plug 'itchyny/vim-winfix'
+
+if !IsWindows()
+  Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+  Plug 'itchyny/dictionary.vim' " A way to query dictionary.com with :Dictionary
+endif
 
 " Automatically discover and 'properly' update ctags files on save
 Plug 'craigemery/vim-autotag'
@@ -286,7 +300,7 @@ augroup campoCmds
 
   " Automatically wrap at N characters
   autocmd FileType gitcommit setlocal colorcolumn=72
-  autocmd BufRead,BufNewFile *.{md,txt} execute "setlocal textwidth=" .s:max_row_length
+  autocmd BufRead,BufNewFile *.{md,txt,plan} execute "setlocal textwidth=" .s:max_row_length
 
   " Spell checking
   autocmd FileType gitcommit,markdown,text setlocal spell
@@ -501,6 +515,11 @@ let g:localvimrc_ask = 0
 " TAGBAR
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 noremap <F12> :TagbarToggle<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CALENDAR
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:calendar_google_calendar = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTASTIC
@@ -719,9 +738,20 @@ augroup vimrc_notices
 augroup END
 hi def link MyNotices Notices
 
+augroup vimrc_annotated_todo
+    au!
+    " This was a major pain in the ass to get working...
+    au Syntax * syn match cTodo /@\S\+/
+          \ containedin=.*Comment,vimCommentTitle
+augroup END
+
+augroup vimrc_annotated_notes
+    au!
+    au Syntax * syn match cTodo /#\+ .\+$/
+          \ containedin=.*Comment,vimCommentTitle
+augroup END
 
 "-----------------------------------------------------------------------------------------
-
 
 "################################################################
 "################################################################

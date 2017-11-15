@@ -61,4 +61,12 @@ linked source as well.
 
 * Install Lein: https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
 
+## Setup Xbox stuff
+
+* Install the xbox controller drivers
+* Turn off stats collection
+  * cmd-r, msconfig.exe, startup tab, uncheck `Microsoft Xbox 360 Accessories`.
+
+## Turn off various startup processes
+* cmd-r, msconfig.exe, startup tab
 
