@@ -64,7 +64,10 @@ Plug 'tpope/vim-classpath' " TODO: still need this?
 Plug 'junegunn/goyo.vim' " Distraction-free mode with centered buffer
 Plug 'fedorenchik/VimCalc3' " A calculator inside vim
 
-Plug 'suxpert/vimcaps' " Disable capslock (useful if the OS isn't configured to do so)
+if IsWindows()
+  Plug 'suxpert/vimcaps' " Disable capslock (useful if the OS isn't configured to do so)
+endif
+
 Plug 'itchyny/vim-cursorword' " Underlines the word under the cursor
 Plug 'itchyny/thumbnail.vim' " View open buffers in a Chrome-inspired thumbnail layout
 " Google Calendar - :Calendar, :Calendar <year> <m#> <d#>, :Calendar -view=year (-split=veritcal -width=<n>)
