@@ -29,30 +29,104 @@ if [[ $platform != 'Linux' && $platform != 'Darwin' ]]; then
   exit
 fi
 
-if [ ! -d "$HOME/.dotfiles" ]; then
-  printf "${YELLOW}Creating dotfiles symlink${NORMAL}\n"
-  ln -s $cwd $HOME/.dotfiles
-fi
-
-printf "Installing zsh..."
-TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
-if [ "$TEST_CURRENT_SHELL" != "zsh" ]; then
-  if hash chsh >/dev/null 2>&1; then
-    printf "\n${BLUE}Changing the default shell to zsh${NORMAL}\n"
-    chsh -s $(grep /zsh$ /etc/shells | tail -1)
-  else
-    printf "\n${RED}Unable to change the shell because this system does not have chsh.\n"
-    printf "${BLUE}If this is Windows then you probably want to run the bash installer.${NORMAL}\n"
+setup_dotfile_repo() {
+  if [ ! -d "$HOME/.dotfiles" ]; then
+    printf "${YELLOW}Creating dotfiles symlink${NORMAL}\n"
+    ln -s $cwd $HOME/.dotfiles
   fi
-else
-    printf "${YELLOW}already installed!${NORMAL}\n"
-fi
+}
+
+link_file() {
+  file=$1
+  dest="$HOME/.$file"
+  if [ ! -e $dest ]; then
+    printf "${YELLOW}Creating ${file} symlink${NORMAL}\n"
+    ln -s "$HOME/.dotfiles/$file" $dest
+  fi
+}
+
+setup_git() {
+  printf "Setting up git...\n"
+
+  FILES=()
+  FILES+=('gitconfig')
+  FILES+=('githelpers')
+
+  for file in "${FILES[@]}"
+  do
+    link_file "$file"
+  done
+}
+
+setup_zsh() {
+  printf "Setting up zsh...\n"
+  TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
+  if [ "$TEST_CURRENT_SHELL" != "zsh" ]; then
+    if hash chsh >/dev/null 2>&1; then
+      printf "\n${BLUE}Changing the default shell to zsh${NORMAL}\n"
+      chsh -s $(grep /zsh$ /etc/shells | tail -1)
+    else
+      printf "\n${RED}Unable to change the shell because this system does not have chsh.\n"
+      printf "${BLUE}If this is Windows then you probably want to run the bash installer.${NORMAL}\n"
+    fi
+  fi
+
+  FILES=()
+  FILES+=('zsh')
+  FILES+=('zshrc')
+  FILES+=('zshenv')
+  FILES+=('zlogin')
+  FILES+=('zprofile')
+
+  for file in "${FILES[@]}"
+  do
+    link_file "$file"
+  done
+}
+
+setup_vim() {
+  printf "Setting up vim...\n"
+
+  FILES=()
+  FILES+=('vim')
+  FILES+=('vimrc')
+
+  for file in "${FILES[@]}"
+  do
+    link_file "$file"
+  done
+}
+
+setup_misc() {
+  printf "Setting up misc...\n"
+
+  FILES=()
+  FILES+=('curlrc')
+  FILES+=('racketrc')
+
+  for file in "${FILES[@]}"
+  do
+    link_file "$file"
+  done
+}
 
 # ////////////////////////////////////////////////////////////////////////////////////////
 # OSX
 
+setup_osx() {
+  ./osx/install.sh
+}
+
+# ////////////////////////////////////////////////////////////////////////////////////////
+# Run
+
+setup_dotfile_repo
+setup_git
+setup_zsh
+setup_vim
+setup_misc
+
 if [[ $platform == 'Darwin' ]]; then
   printf "\n${BOLD}Running the OS X installer${NORMAL}\n"
-  ./osx/install.sh
+  setup_osx
 fi
-

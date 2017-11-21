@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if which tput >/dev/null 2>&1; then
   ncolors=$(tput colors)
@@ -27,26 +27,21 @@ ln -sf $HOME/.dotfiles/osx/env.platform $HOME/.env.platform
 printf "Installing git customizations...\n"
 ln -sf $HOME/.dotfiles/osx/gitconfig.platform $HOME/.gitconfig.platform
 
-printf "Installing Homebrew..."
-if [ ! -d "/usr/local/Homebrew" ]; then
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-else
-  printf "${YELLOW}already installed!${NORMAL}\n"
-fi
-
 brew tap homebrew/core
 
 printf "Installing xquartz..."
-brew cask install xquartz
+#brew cask install xquartz
 
 brew_packages=(
   'tree'
   'openssl'
-  'xclip'
+#  'xclip'
   'rlwrap'
   'cmake'
   'pkg-config'
-  'rust'
+  'vim'
+#  'rust'
+#  'go'
   'sdl')
 
 for package in "${brew_packages[@]}"
