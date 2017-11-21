@@ -34,6 +34,9 @@ setup_dotfile_repo() {
     printf "${YELLOW}Creating dotfiles symlink${NORMAL}\n"
     ln -s $cwd $HOME/.dotfiles
   fi
+
+  # Used by various things (e.g. vim history)
+  mkdir -p $HOME/tmp
 }
 
 link_file() {

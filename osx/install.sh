@@ -35,6 +35,7 @@ printf "Installing xquartz..."
 brew_packages=(
   'tree'
   'openssl'
+  'git'
 #  'xclip'
   'rlwrap'
   'cmake'
