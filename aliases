@@ -28,6 +28,8 @@ elif [[ "${platform,,}" == *'ming'* ]]; then # convert to lowercase then compare
 
   alias l='ls -ahg --color'
   alias ls='ls -ahg --color'
+  alias rm='echo "use trash command instead!"'
+  alias rmr='echo "use trash command instead!"'
   alias trash='recycle-bin.exe '
   alias tt='trash '
 fi
@@ -110,8 +112,6 @@ function reload {
 }
 
 alias rl='reload'
-alias rm='echo "use trash command instead!"'
-alias rmr='echo "use trash command instead!"'
 alias restart='sudo shutdown now -r'
 alias s='cd ~/.ssh'
 alias sc='vim ~/.ssh/config'
