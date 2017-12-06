@@ -232,9 +232,10 @@ set scrolloff=3
 
 " Store temporary files in a central spot
 set backup
-set directory=$HOME/tmp " For swap files
-set backupdir=$HOME/tmp
+set directory=$HOME/tmp// " For swap files
+set backupdir=$HOME/tmp//
 :au BufWritePre * let &bex = '.' . strftime("%Y-%m-%d-%T") . '.bak'
+set writebackup
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -311,6 +312,7 @@ augroup campoCmds
   " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
+  " Language identation
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,rust,go set ai sw=2 sts=2 et
   autocmd FileType python,qml set sw=4 sts=4 et
 
