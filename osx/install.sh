@@ -41,6 +41,7 @@ brew_packages=(
   'cmake'
   'pkg-config'
   'vim'
+  'the_silver_searcher'
 #  'rust'
 #  'go'
   'sdl')

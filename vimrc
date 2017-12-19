@@ -892,8 +892,8 @@ function! Search()
       exec 'Fsgrep "' . l:term . '"'
     else
       " is pt faster than ag? I forget now and didn't document it
-      exec 'pt "' . l:term . '"'
-      "exec 'Ag "' . l:term . '"'
+      "exec 'pt "' . l:term . '"'
+      exec 'Ag "' . l:term . '"'
     endif
   endif
 endfunction
