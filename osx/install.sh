@@ -42,6 +42,7 @@ brew_packages=(
   'pkg-config'
   'vim'
   'the_silver_searcher'
+  'selecta'
 #  'rust'
 #  'go'
   'sdl')
