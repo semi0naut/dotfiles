@@ -29,6 +29,8 @@ if has('termguicolors')
   let s:bad_spelling = "ee877d"
   let s:todo = "b8fbb0"
   let s:bugs = "b8fbb0"
+  let s:error_msg_background = s:background
+  let s:error_msg_foreground = "e40e0e"
 
   let s:function_name = "2ebda9"
   let s:pre_processor = "97debf"
@@ -327,6 +329,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     call <SID>X("Bugs", s:bugs, s:background, "standout")
     call <SID>X("Notes","ffffff",s:background,"standout")
     call <SID>X("Notices","dcd53e",s:background,"bold")
+    call <SID>X("ErrorMsg", s:error_msg_foreground, s:error_msg_background, "bold")
 
     "call <SID>X("Ignore", "666666", "", "")
 

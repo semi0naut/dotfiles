@@ -1,4 +1,4 @@
-" A simple light vim colorscheme.
+" A simple dark vim colorscheme.
 " Maintainer: Michael Campagnaro <mikecampo@gmail.com>
 " Version: 1.0
 "
@@ -6,33 +6,64 @@
 " See https://github.com/chriskempson/vim-tomorrow-theme.git for it.
 " Hex color conversion functions borrowed from the theme "Desert256".
 
-let g:campo_theme_use_rainbow_parens = 1
+if has('termguicolors')
+  " Supports 24-bit color range
+  set termguicolors
+  let g:campo_theme_use_rainbow_parens = 0
 
-" Default GUI colors
-let s:foreground = "263238"
-let s:background = "fbfbfb"
-let s:selection = "e3fc8d"
-let s:line = "d5d5d5"
-let s:comment = "7c7c7c"
-let s:red = "d62a28"
-let s:orange = "ff7800"
-let s:yellow = "eab700"
-let s:green = "409b1c"
-let s:aqua = "00897b"
-let s:blue = "3b5bb5"
-let s:purple = "673ab7"
-let s:window = "cfd8dc"
+  let s:blue = "3699cc"
+  let s:purple = "ce93d8"
+  let s:window = "37474f"
+  let s:grey = "b0bec5"
+  let s:orange = "ffb74d"
+  let s:yellow = "fff176"
+  let s:green = "88b888"
+  let s:red = "ef2929"
 
-let s:error_msg_background = s:background
-let s:error_msg_foreground = "e40e0e"
+  let s:text = "dfdfdf"
 
-set background=light
+  let s:foreground = s:text
+  let s:background = "0f3c42"
+  let s:selection = "546e7a"
+  let s:line = "034a4a"
+  let s:bad_spelling = "ee877d"
+  let s:todo = "b8fbb0"
+  let s:bugs = "b8fbb0"
+  let s:error_msg_background = s:background
+  let s:error_msg_foreground = "e40e0e"
+
+  let s:function_name = "24f5d6"
+  let s:pre_processor = "96e4dd"
+  let s:define = "a5bce4"
+  let s:struct = "e2a2ec"
+  " things like 'return'
+  let s:statement = "ffffff"
+  let s:number = "ffffff"
+  " this like 'inline'
+  let s:type = "ffffff"
+  " #include
+  let s:include = s:text
+  let s:string = s:text
+  let s:comment = "6df97e"
+  let s:constant = "90f0f7"
+
+  let s:c_type = s:pre_processor
+  let s:c_storage_class = s:text
+  let s:c_conditional = "ffffff"
+  let s:c_loops = "ffffff"
+
+  let s:vim_command = "ffffff"
+
+else
+  echoerr "This theme requires 'termguicolors' support!"
+endif
+
+set background=dark
 hi clear
 if exists("syntax_on")
     syntax reset
 endif
-
-let g:colors_name = "campo-light"
+let g:colors_name = "campo-dark"
 
 if has("gui_running") || &t_Co == 88 || &t_Co == 256
     " Returns an approximate grey index for the given grey level
@@ -244,7 +275,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
     " Vim Highlighting
     call <SID>X("Normal", s:foreground, s:background, "")
-    call <SID>X("LineNr", s:comment, "", "none")
+    call <SID>X("LineNr", s:grey, "", "")
     call <SID>X("NonText", s:foreground, "", "")
     call <SID>X("SpecialKey", s:blue, "", "")
     call <SID>X("Search", s:foreground, s:selection, "")
@@ -273,54 +304,65 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     end
 
     " Standard Highlighting
-    call <SID>X("Comment", s:comment, "", "none")
+    call <SID>X("Comment", s:comment, "", "")
     call <SID>X("Title", s:comment, "", "")
     call <SID>X("Cursor", "", s:foreground, "")
-    call <SID>X("Identifier", s:aqua, "", "none")
-    call <SID>X("Statement", s:foreground, "", "")
+    call <SID>X("Identifier", s:grey, "", "none")
+    call <SID>X("Statement", s:statement, "", "")
     call <SID>X("Conditional", s:foreground, "", "")
-    call <SID>X("Repeat", s:foreground, "", "")
-    call <SID>X("Structure", s:purple, "", "")
-    call <SID>X("Function", s:blue, "", "")
-    call <SID>X("Constant", s:foreground, "", "")
-    call <SID>X("String", s:green, "", "")
+    call <SID>X("Repeat", s:yellow, "", "")
+    call <SID>X("Structure", s:struct, "", "")
+    call <SID>X("Function", s:function_name, "", "")
+    call <SID>X("Constant", s:constant, "", "")
+    call <SID>X("String", s:string, "", "")
     call <SID>X("Special", s:foreground, "", "")
-    call <SID>X("PreProc", s:aqua, "", "")
+    call <SID>X("PreProc", s:pre_processor, "", "")
     call <SID>X("Operator", s:foreground, "", "none")
-    call <SID>X("Type", s:blue, "", "none")
-    call <SID>X("Define", s:purple, "", "none")
-    call <SID>X("Include", s:blue, "", "")
-    call <SID>X("Number", s:orange, "", "")
-    "call <SID>X("Ignore", "666666", "", "")
+    call <SID>X("Type", s:type, "", "")
+    call <SID>X("Define", s:define, "", "none")
+    call <SID>X("Include", s:include, "", "")
+    call <SID>X("Number", s:number, "", "")
+    call <SID>X("SpellBad", s:bad_spelling, s:background, "underline,bold")
 
     " Custom TODO/NOTE colors
-    call <SID>X("Todo", s:red, s:background, "underline")
-    call <SID>X("Bugs", s:red, s:background, "standout")
-    call <SID>X("Notes","666666", "ffffff","bold")
+    call <SID>X("Todo", s:todo, s:background, "underline")
+    call <SID>X("Bugs", s:bugs, s:background, "standout")
+    call <SID>X("Notes","ffffff",s:background,"standout")
     call <SID>X("Notices","dcd53e",s:background,"bold")
-    call <SID>X("ErrorMsg", s:error_msg_foreground, s:error_msg_background, "underline")
+    call <SID>X("ErrorMsg", s:error_msg_foreground, s:error_msg_background, "bold")
 
+    "call <SID>X("Ignore", "666666", "", "")
 
     " Vim Highlighting
-    call <SID>X("vimCommand", s:blue, "", "none")
+    call <SID>X("vimCommand", s:vim_command, "", "")
 
     " C Highlighting
-    call <SID>X("cType", s:blue, "", "")
-    call <SID>X("cStorageClass", s:blue, "", "")
-    call <SID>X("cConditional", s:red, "", "")
-    call <SID>X("cRepeat", s:red, "", "")
+    call <SID>X("cType", s:c_type, "", "")
+    call <SID>X("cStorageClass", s:c_storage_class, "", "")
+    call <SID>X("cConditional", s:c_conditional, "", "")
+    call <SID>X("cRepeat", s:c_loops, "", "")
 
     " PHP Highlighting
-    call <SID>X("phpVarSelector", s:aqua, "", "")
-    call <SID>X("phpKeyword", s:blue, "", "")
+    call <SID>X("phpVarSelector", s:red, "", "")
+    call <SID>X("phpIdentifier", s:red, "", "")
+    call <SID>X("phpFCKeyword", s:purple, "", "")
+    call <SID>X("phpSCKeyword", s:purple, "", "")
+    call <SID>X("phpKeyword", s:purple, "", "")
+    call <SID>X("phpType", s:purple, "", "")
     call <SID>X("phpRepeat", s:red, "", "")
-    call <SID>X("phpConditional", s:blue, "", "")
-    call <SID>X("phpStatement", s:blue, "", "")
-    call <SID>X("phpMemberSelector", s:foreground, "", "")
+    call <SID>X("phpDefine", s:purple, "", "")
+    call <SID>X("phpDocTags", s:function_name, "", "")
+    call <SID>X("phpDocParam", s:green, "", "")
+    call <SID>X("phpFunction", s:blue, "", "")
+    call <SID>X("phpFunctions", s:blue, "", "")
+    call <SID>X("phpClass", s:blue, "", "")
+    call <SID>X("phpClasses", s:orange, "", "")
+    call <SID>X("phpMagicConstants", s:yellow, "", "")
+    call <SID>X("phpMemberSelector", s:grey, "", "")
 
     " Ruby Highlighting
     call <SID>X("rubySymbol", s:green, "", "")
-    call <SID>X("rubyConstant", s:yellow, "", "")
+    call <SID>X("rubyConstant", s:foreground, "", "")
     call <SID>X("rubyAttribute", s:blue, "", "")
     call <SID>X("rubyInclude", s:blue, "", "")
     call <SID>X("rubyLocalVariableOrMethod", s:orange, "", "")
@@ -332,21 +374,20 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
     " Python Highlighting
     call <SID>X("pythonInclude", s:red, "", "")
-    call <SID>X("pythonStatement", s:aqua, "", "")
-    call <SID>X("pythonConditional", s:blue, "", "")
-    call <SID>X("pythonRepeat", s:blue, "", "")
-    call <SID>X("pythonException", s:blue, "", "")
-    call <SID>X("pythonFunction", s:purple, "", "")
-    call <SID>X("pythonSelf", s:comment, "", "")
-    call <SID>X("pythonOperator", s:blue, "", "")
-    call <SID>X("pythonExtraOperator", s:blue, "", "")
-    call <SID>X("pythonClass", s:blue, "", "")
-    call <SID>X("pythonDecorator", s:yellow, "", "")
+    call <SID>X("pythonStatement", s:blue, "", "")
+    call <SID>X("pythonConditional", s:purple, "", "")
+    call <SID>X("pythonRepeat", s:purple, "", "")
+    call <SID>X("pythonException", s:purple, "", "")
+    call <SID>X("pythonFunction", s:function_name, "", "")
+    call <SID>X("pythonSelf", s:grey, "", "")
+    call <SID>X("pythonOperator", s:purple, "", "")
+    call <SID>X("pythonExtraOperator", s:purple, "", "")
+    call <SID>X("pythonClass", s:function_name, "", "")
+    call <SID>X("pythonDecorator", s:orange, "", "")
     call <SID>X("pythonDocstring", s:comment, "", "")
-    call <SID>X("pythonBuiltinObj", s:red, "", "")
+    call <SID>X("pythonBuiltinObj", s:yellow, "", "")
     call <SID>X("pythonBuiltinType", s:orange, "", "")
     call <SID>X("pythonNumber", s:orange, "", "")
-
 
     " Go Highlighting
     call <SID>X("goStatement", s:purple, "", "")
@@ -360,6 +401,15 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     " CoffeeScript Highlighting
     call <SID>X("coffeeKeyword", s:purple, "", "")
     call <SID>X("coffeeConditional", s:purple, "", "")
+    call <SID>X("coffeeSpecialVar", s:orange, "", "")
+    call <SID>X("coffeeSpecialIdent", s:red, "", "")
+    call <SID>X("coffeeObject", s:orange, "", "")
+    call <SID>X("coffeeObjAssign", s:blue, "", "")
+    call <SID>X("coffeeArrow", s:purple, "", "")
+    call <SID>X("coffeeBoolean", s:foreground, "", "")
+    call <SID>X("coffeeGlobal", s:foreground, "", "")
+    call <SID>X("coffeeModuleKeyword", s:function_name, "", "")
+    call <SID>X("coffeeFuncCall", s:blue, "", "")
 
     " JavaScript Highlighting
     call <SID>X("javaScriptBraces", s:foreground, "", "")
@@ -370,10 +420,14 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     call <SID>X("javaScriptMember", s:orange, "", "")
 
     " HTML Highlighting
-    call <SID>X("htmlTag", s:blue, "", "")
-    call <SID>X("htmlTagName", s:blue, "", "")
-    call <SID>X("htmlArg", s:aqua, "", "")
+    call <SID>X("htmlTag", s:foreground, "", "")
+    call <SID>X("htmlTagName", s:foreground, "", "")
+    call <SID>X("htmlArg", s:foreground, "", "")
     call <SID>X("htmlScriptTag", s:blue, "", "")
+
+    " Blade Tempalte Highlight
+    call <SID>X("bladeDelimiter", s:orange, "", "")
+    call <SID>X("bladeKeyword", s:blue, "", "")
 
     " Diff Highlighting
     call <SID>X("diffAdded", "", s:green, "none")
@@ -388,6 +442,13 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     call <SID>X("GitGutterDelete", s:red, "", "")
     call <SID>X("GitGutterChange", s:yellow, "", "")
     call <SID>X("GitGutterChangeDelete", s:orange, "", "")
+
+    call <SID>X("VimwikiHeader1", s:red, "", "")
+    call <SID>X("VimwikiHeader2", s:green, "", "")
+    call <SID>X("VimwikiHeader3", s:blue, "", "")
+    call <SID>X("VimwikiHeader4", s:function_name, "", "")
+    call <SID>X("VimwikiHeader5", s:orange, "", "")
+    call <SID>X("VimwikiHeader6", s:yellow, "", "")
 
     " YAML
     call <SID>X("yamlBlockMappingKey", s:blue, "", "")
