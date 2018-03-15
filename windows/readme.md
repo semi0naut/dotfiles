@@ -3,6 +3,19 @@
 * Turn off hibernation
   * Open admin cmd prompt: `powercfg.exe /hiberate off`
 
+* Install Windows Defender
+
+## Enable security updates
+
+If you don't have an antivirus program, or you do but it's not verified by Microsoft, then you will
+not receive security updates unless you set a key in the registry. Note that Windows Defender counts
+as a valid antivirus program.
+
+Add the following registry key:
+Key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\QualityCompat"
+Value="cadca5fe-87d3-4b96-b7fb-a231484277cc" Type="REG_DWORD”
+Data="0x00000000”
+
 ## Configure Shell
 * Install [MSYS2 w/ MinGW-w64](http://www.msys2.org/) to `C:\msys64`
   * Open `C:\msys64\mingw64.exe`
