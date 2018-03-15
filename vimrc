@@ -60,7 +60,7 @@ Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'embear/vim-localvimrc'
 Plug 'tpope/vim-obsession' " Continuously updated session files
 Plug 'tpope/vim-fugitive' " Git wrapper
-Plug 'tpope/vim-classpath' " TODO: still need this?
+" Plug 'tpope/vim-classpath' " For Java
 Plug 'junegunn/goyo.vim' " Distraction-free mode with centered buffer
 Plug 'fedorenchik/VimCalc3' " A calculator inside vim
 
@@ -69,7 +69,6 @@ if IsWindows()
 endif
 
 Plug 'itchyny/vim-cursorword' " Underlines the word under the cursor
-Plug 'itchyny/thumbnail.vim' " View open buffers in a Chrome-inspired thumbnail layout
 " Google Calendar - :Calendar, :Calendar <year> <m#> <d#>, :Calendar -view=year (-split=veritcal -width=<n>)
 " :Calendar -view=day, :Calendar -first_day=monday
 Plug 'itchyny/calendar.vim'
@@ -163,6 +162,7 @@ Plug 'peterhoeg/vim-qml'
 
 " Markdown
 Plug 'tpope/vim-markdown'
+"Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " C++
 Plug 'bfrg/vim-cpp-enhanced-highlight'
@@ -205,7 +205,7 @@ set incsearch " Highlight matches as you type
 set hlsearch " Highlight matches
 set dictionary+=/usr/share/dict/words
 "set clipboard=unnamed " yank and paste with the system clipboard
-set nonumber
+set number
 " make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
 set visualbell " No bell sounds
@@ -232,8 +232,9 @@ set scrolloff=3
 
 " Store temporary files in a central spot
 set backup
-set directory=$HOME/tmp// " For swap files
-set backupdir=$HOME/tmp//
+set backupcopy=yes
+set directory=X://tmp//vim// " For swap files
+set backupdir=X://tmp//vim//
 :au BufWritePre * let &bex = '.' . strftime("%Y-%m-%d-%T") . '.bak'
 set writebackup
 
@@ -298,6 +299,7 @@ imap <right> <nop>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 augroup campoCmds
   " Clear all autocmds in the group
   autocmd!
@@ -455,8 +457,9 @@ vnoremap p "_dP
 nnoremap <leader>pp :silent !open -a Marked.app '%:p'<cr>
 
 " Switch between C++ source and header files
-map <leader>v :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
-map <leader>vv :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+map <leader>v :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+"map <leader>vv :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
+"map <leader>vvv :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
 
 "////////////////////////////////////////////////////////////////
 " QUICKLY OPEN C++ SOURCE OR HEADER FILE
@@ -546,8 +549,9 @@ let g:syntastic_check_on_wq = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GIT
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>gb :Gblame<cr>
-
+map <leader>gb :Gblame -w<cr>
+" Ignore whitespace changes; follow renames and copies.
+command! -bar -bang -nargs=* Blame :Gblame<bang> -wCM <args>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GIST VIM
@@ -671,9 +675,10 @@ set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 " COLORS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" alternative dark theme: 'campo-dark'
 let g:campo_theme_use_rainbow_parens = 1
-let s:dark_theme = 'campo-dark-green'
+"let s:dark_theme = 'campo-dark-green'
+let s:dark_theme = 'campo-flux-dark-green'
+"let s:dark_theme = 'campo-dark'
 let s:light_theme = 'campo-light'
 
 execute "autocmd ColorScheme " . s:dark_theme . " call ReloadRainbow()"

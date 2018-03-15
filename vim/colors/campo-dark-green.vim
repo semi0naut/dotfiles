@@ -23,7 +23,8 @@ if has('termguicolors')
   let s:text = "cbc5b0"
 
   let s:foreground = s:text
-  let s:background = "132f32"
+  "let s:background = "132f32"
+  let s:background = "05353d"
   let s:selection = "546e7a"
   let s:line = "034a4a"
   let s:bad_spelling = "ee877d"
