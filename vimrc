@@ -52,28 +52,21 @@ call plug#begin('~/.vim/plugged')
 " MISC
 "////////////////////////////////////////////////////////////////
 
-Plug 'mattn/webapi-vim' " Required by gist-vim
-Plug 'mattn/gist-vim'
 Plug 'bling/vim-airline'
-Plug 'vim-scripts/VimCalc' " Requires a vim compiled with Python support
 Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'embear/vim-localvimrc'
 Plug 'tpope/vim-obsession' " Continuously updated session files
 Plug 'tpope/vim-fugitive' " Git wrapper
-" Plug 'tpope/vim-classpath' " For Java
 Plug 'junegunn/goyo.vim' " Distraction-free mode with centered buffer
-Plug 'fedorenchik/VimCalc3' " A calculator inside vim
 
 if IsWindows()
   Plug 'suxpert/vimcaps' " Disable capslock (useful if the OS isn't configured to do so)
 endif
 
 Plug 'itchyny/vim-cursorword' " Underlines the word under the cursor
-" Google Calendar - :Calendar, :Calendar <year> <m#> <d#>, :Calendar -view=year (-split=veritcal -width=<n>)
-" :Calendar -view=day, :Calendar -first_day=monday
-Plug 'itchyny/calendar.vim'
-Plug 'itchyny/screensaver.vim' " A screensaver view - open with :ScreenSaver
 " (MAYBE) Plug 'itchyny/vim-winfix'
+
+Plug 'airblade/vim-gitgutter'
 
 if !IsWindows()
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -81,7 +74,7 @@ if !IsWindows()
 endif
 
 " Automatically discover and 'properly' update ctags files on save
-Plug 'craigemery/vim-autotag'
+"Plug 'craigemery/vim-autotag'
 Plug 'majutsushi/tagbar'
 
 Plug 'jeetsukumaran/vim-filesearch'
@@ -139,9 +132,11 @@ Plug 'nightsense/seabird' " No Win support, unless using gvim
 "////////////////////////////////////////////////////////////////
 " CLOJURE
 "////////////////////////////////////////////////////////////////
-Plug 'guns/vim-clojure-highlight'
-Plug 'guns/vim-clojure-static'
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+" Temporarily disabled since I'm not doing any Clojure work atm.
+"Plug 'tpope/vim-classpath' " For Java
+"Plug 'guns/vim-clojure-highlight'
+"Plug 'guns/vim-clojure-static'
+"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 
 "////////////////////////////////////////////////////////////////
@@ -329,6 +324,9 @@ augroup campoCmds
   autocmd BufWritePost *.vim so $MYVIMRC
   autocmd BufWritePost vimrc.symlink so $MYVIMRC
 
+  " Generate ctags
+  au BufWritePost *.py,*.c,*.cpp,*.h silent! !eval 'ctags -R -o newtags; mv newtags tags' &
+
   " Remove trailing whitespace on save all files.
   function! <SID>StripTrailingWhitespaces()
     let l = line(".")
@@ -367,8 +365,8 @@ augroup END
 " MISC KEY MAPS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mapping ESC in insert mode and command mode to double i
-"imap ii <C-[>
-"cmap ii <C-[>
+imap jj <Esc>
+"cmap ii <Esc>
 
 " suspend process
 nmap <leader>z <c-z>
@@ -397,6 +395,7 @@ nmap <leader>x :x<cr>
 
 command! Q q " Bind :Q to :q
 command! Qall qall
+command! Qa qall
 " Disable Ex mode
 map Q <Nop>
 
@@ -524,10 +523,17 @@ let g:localvimrc_ask = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 noremap <F12> :TagbarToggle<cr>
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CALENDAR
+" GITGUTTER
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:calendar_google_calendar = 1
+
+let g:gitgutter_highlight_lines = 1
+nmap <Leader>ha <Plug>GitGutterStageHunk
+nmap [h <Plug>GitGutterNextHunk
+nmap ]h <Plug>GitGutterPrevHunk
+" Run on file save. Realtime update is disabled in after/plugins/gitgutter.vim
+autocmd BufWritePost * GitGutter
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTASTIC
@@ -978,4 +984,4 @@ map <leader>n :call RenameFile()<cr>
 " Notes and other helpers
 map <leader>pn :sp ~/.dev-scratchpad<cr>
 
-let g:autotagStopAt = "$HOME"
+"let g:autotagStopAt = "$HOME"
