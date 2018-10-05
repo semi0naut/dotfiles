@@ -1,7 +1,7 @@
 # Windows Setup
 
 * Turn off hibernation
-  * Open admin cmd prompt: `powercfg.exe /hiberate off`
+  * Open admin cmd prompt: `powercfg.exe /hibernate off`
 
 * Install Windows Defender
 
