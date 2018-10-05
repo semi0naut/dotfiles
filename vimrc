@@ -528,8 +528,10 @@ noremap <F12> :TagbarToggle<cr>
 " GITGUTTER
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:gitgutter_enabled = 0
 let g:gitgutter_highlight_lines = 1
-nmap <Leader>ha <Plug>GitGutterStageHunk
+nmap <leader>ha <Plug>GitGutterStageHunk
+nmap <leader>hh :GitGutterToggle
 nmap [h <Plug>GitGutterNextHunk
 nmap ]h <Plug>GitGutterPrevHunk
 " Run on file save. Realtime update is disabled in after/plugins/gitgutter.vim
@@ -845,7 +847,7 @@ noremap <F10> :call HideBuildResultsAndClearErrors()<cr>
 " Optimizations off
 nnoremap <leader>b :AsyncRun! -save=2 ./build*<cr>
 " Optimizations on
-nnoremap <leader>bb :AsyncRun! -save=2 ./build* -o 1<cr>
+nnoremap <leader>bb :AsyncRun! -save=2 ./build -o 1<cr>
 nnoremap <F8> :call SilentBuild()<cr>
 
 " Execute run script

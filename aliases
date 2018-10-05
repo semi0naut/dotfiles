@@ -176,6 +176,10 @@ alias gcm="git commit -m"
 alias gcms="git commit -S -m"
 alias gco='git checkout'
 alias gco-='git checkout -'
+git_checkout_build() {
+  git checkout "$1" ; b
+}
+alias gcoo=git_checkout_build
 alias gcob='git checkout -b'
 alias gcon='vi .git/config'
 alias gcp='git cherry-pick'
