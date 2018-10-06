@@ -28,12 +28,23 @@ Data="0x00000000”
     and verify that `which envsubst` reports back `/usr/bin/envsubst`.
   * Bug report is at https://github.com/Alexpux/MSYS2-packages/issues/735
 * Map caps to left-ctrl using https://sharpkeys.codeplex.com/
-* Symlink dotfiles to ~/.dotfiles with `cmd //c 'mklink .dotfiles drive:\path\to\dotfiles'`
-* Symlink files in the dotfiles windows folder using `cmd //c 'mklink .some-file .dotfiles\some-file'`
-* Symlink appropriate files in the root dotfiles directory
-  * Ignore all zsh files
-  * Don't symlink .vim folder because Plugged will fail to install the plugins.
-    Just make a copy.
+
+* Use symlink command `cmd //c 'mklink .name-of-dotfile drive:\path\to\file`.
+* Symlink `~/.private-files` to the root directory containing `dev/`.
+* Symlink `~/.dev` to `~/.private-files/path/to/dev`.
+* Symlink `~/.dotfiles` to `~/.dev/path/to/dotfiles`.
+* Create `~/bin`.
+* Symlink `$HOME/bin/sym` to `$HOME/.dotfiles/windows/symbolic-link.sh`. You can now use this to
+  do symlinks.
+* Symlink files in the dotfiles windows folder.
+* Symlink appropriate files in the root dotfiles directory.
+  * Ignore all zsh files.
+  * Don't symlink .vim folder because Plugged will fail to install the plugins. Just make a copy.
+* Setup private dotfiles. Once done, you should now have `~/bin` and `~/.dotfiles/bin` in your path.
+
+## Configure Private dotfiles
+* The most important task is to setup the `c-dev-x64` shortcut for launching a msys shell with appropriate dev environment.
+  * Add this to your taskbar and use this for launching a shell.
 
 ## Setup dev tools
 
@@ -44,6 +55,11 @@ Data="0x00000000”
   * Full list of tools can be found here
     https://www.technlg.net/windows/download-windows-resource-kit-tools/
 
+## Setup Visual Studio
+
+* Use the backed up VS2015 ISO.
+* Pick a custom install directory, e.g. /x/programs/VS2015, /c/VS2015, etc.
+* Make sure to not do a default install. You must select the C++ language support.
 
 ## Compiling Vim
 
