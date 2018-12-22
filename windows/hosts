@@ -24,6 +24,8 @@
 # Michael's custom block list
 #----------------------------------------------
 
+# Block Sublime's annoying "there's an update" dialog
+127.0.0.1 www.sublimetext.com
 
 # Block Spotify update
 127.0.0.1 upgrade.spotify.com
