@@ -340,7 +340,8 @@ augroup campoCmds
   autocmd BufWritePost vimrc.symlink so $MYVIMRC
 
   " Generate ctags
-  au BufWritePost *.py,*.c,*.cpp,*.h silent! !eval 'ctags -R -o newtags; mv newtags tags' &
+  " Include local variables for c languages.
+  au BufWritePost *.py,*.c,*.cpp,*.h silent! !eval 'ctags --c-types=+l --c++-types=+l -R -o newtags; mv newtags tags' &
 
   " Remove trailing whitespace on save all files.
   function! <SID>StripTrailingWhitespaces()
