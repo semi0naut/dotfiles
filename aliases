@@ -47,15 +47,28 @@ alias cd.....='cd ../../../..'
 alias aliases='vim ~/.dotfiles/aliases'
 alias al='aliases'
 
-alias b='if [ -f build ]; then ./build ; else test -f build.sh && ./build.sh ; fi'
-alias bb='if [ -f build ]; then ./build -o 1 ; else test -f build.sh && ./build.sh -o 1 ; fi'
+
+r() {
+  if [ -f run ]; then ./run $@ ; else test -f run.sh && ./run.sh $@ ; fi
+}
+
+b() {
+  if [ -f build ]; then ./build $@ ; else test -f build.sh && ./build.sh $@ ; fi
+}
+
+bb() {
+  if [ -f build ]; then ./build -o 1 $@ ; else test -f build.sh && ./build.sh -o 1 $@ ; fi
+}
+
+br() {
+  b $@ ; r
+}
+
 alias bd='if [ -f build ]; then ./build -data 1 ; else test -f build.sh && ./build.sh -data 1 ; fi'
 alias bbd='if [ -f build ]; then ./build -o 1 -data 1 ; else test -f build.sh && ./build.sh -o 1 -data 1 ; fi'
-
 alias bl='brew link --overwrite'
 alias bld='brew link --overwrite --dry-run'
 alias bower='noglob bower'
-alias br='b ; r'
 alias cr='RUSTFLAGS="$RUSTFLAGS -A unused_variables -A dead_code -A unused_parens" cargo run'
 alias crr='cargo run --release'
 alias cb='RUSTFLAGS="$RUSTFLAGS -A unused_variables -A dead_code -A unused_parens" cargo build'
@@ -76,17 +89,17 @@ alias functions='vim ~/.dotfiles/functions'
 alias history='fc -l 1'
 alias histroy='history'
 # alias h='heroku'
-alias ho='heroku open'
-alias hc='heroku config'
-alias hca='heroku config:add'
-alias hcu='heroku config:unset'
-alias hcr='heroku config:unset'
-alias hl='heroku logs -t -n 5000'
-alias hmo='heroku maintenance:on'
-alias hmoo='heroku maintenance:off'
-alias hr='heroku releases'
-alias hrs='heroku restart'
-alias hscale='heroku ps:scale '
+# alias ho='heroku open'
+# alias hc='heroku config'
+# alias hca='heroku config:add'
+# alias hcu='heroku config:unset'
+# alias hcr='heroku config:unset'
+# alias hl='heroku logs -t -n 5000'
+# alias hmo='heroku maintenance:on'
+# alias hmoo='heroku maintenance:off'
+# alias hr='heroku releases'
+# alias hrs='heroku restart'
+# alias hscale='heroku ps:scale '
 alias irb='irb --readline -r irb/completion'
 alias lcc='lein clean'
 alias lca='lein cljsbuild auto dev'
@@ -95,7 +108,6 @@ alias lsd='lein start-dev'
 alias moon='curl wttr.in/moon'
 alias patch='git format-patch HEAD^ --stdout > patch.diff'
 alias reguard='killall -9 ruby ; guard'
-alias r='if [ -f run ]; then ./run ; else test -f run.sh && ./run.sh ; fi'
 alias rb='rbenv'
 alias rbg='rbenv gemset active'
 alias rbp='cd $RBENV_PATH/versions/$(rbenv version | sed -e "s/ (set.*$//")'
@@ -129,6 +141,8 @@ alias vs='vagrant ssh'
 alias vu='vagrant up'
 alias vimrc='vim ~/.vimrc'
 alias weather='curl wttr.in/toronto'
+alias yt-download='youtube-dl.exe -o "%(upload_date)s-%(title)s-youtube-%(id)s.%(ext)s"'
+alias yt8='youtube-dl.exe -f "137+140" -o "%(upload_date)s-%(title)s-youtube-%(id)s.%(ext)s" '
 alias yt-download-1080='youtube-dl.exe -f "137+140" -o "%(upload_date)s-%(title)s-youtube-%(id)s.%(ext)s" '
 alias yt-download-720='youtube-dl.exe -f "136+140" -o "%(upload_date)s-%(title)s-youtube-%(id)s.%(ext)s" '
 alias tw-download-60='youtube-dl.exe -f "1080p60" -o "%(upload_date)s-%(title)s-twitch-%(id)s.%(ext)s" '
@@ -237,9 +251,9 @@ alias grb='git rebase'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
 alias grbs='git rebase --skip'
-alias grbi='git rebase -i'
-alias grbm='git rebase master'
-alias grbmi='git rebase master -i'
+alias grbi='git rebase -i --autostash'
+alias grbm='git rebase master --autostash'
+alias grbmi='git rebase master -i --autostash'
 alias grbo='git fetch origin master && git rebase origin/master'
 alias grboi='git fetch origin master && git rebase origin/master -i'
 alias grbum='git fetch upstream master && git rebase upstream/master'
