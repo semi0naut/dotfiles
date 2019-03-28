@@ -61,15 +61,16 @@ Data="0x00000000”
 * Pick a custom install directory, e.g. /x/programs/VS2015, /c/VS2015, etc.
 * Make sure to not do a default install. You must select the C++ language support.
 
-## Compiling Vim
+## Setting up Vim
+
+### Compiling
 
 * If for some reason you want to compile Vim on Windows, do the following:
   * Git clone vim from Github
   * `cd vim/src`
   * `make -f Make_ming.mak ARCH=x86-64 OPTIMIZE=MAXSPEED STATIC_STDCPLUS=yes FEATURES=HUGE PYTHON="C:/Python27" PYTHON_VER=27 DYNAMIC_PYTHON=yes PYTHON3="C:/Python3" PYTHON3_VER=361 DYNAMIC_PYTHON=yes`
 
-
-## Setting up Vim
+### Configuring
 
 You have to make a copy of the vim folder. For some unknown reason the Plugged scripts
 don't work when running them on a symlinked .vim directory. Can also symlink most of the
@@ -78,11 +79,16 @@ something like `~\.dotfiles\vim`, otherwise it won't work. The full path is some
 `c:\users\michael\.dotfiles\vim`. Be careful when removing symlinks as it will delete the
 linked source as well.
 
+**Search Setup**
 The vim search setup requires some setup:
 * First install Rusto. See `Setting up Rust` below.
 * Setup `ripgrep`:
   * Open an `msvc x64` shell and run `cargo install ripgrep`.
   * Verify it works by running `rg` in a shell.
+
+**ctags**
+* Install the latest Universal ctags build: https://github.com/universal-ctags/ctags-win32/releases
+* Place it in `~/bin`.
 
 ## Setting up Cygwin
 
@@ -109,5 +115,5 @@ The vim search setup requires some setup:
   * cmd-r, msconfig.exe, startup tab, uncheck `Microsoft Xbox 360 Accessories`.
 
 ## Turn off various startup processes
-* cmd-r, msconfig.exe, startup tab
+* cmd-r -> msconfig.exe -> startup tab
 
