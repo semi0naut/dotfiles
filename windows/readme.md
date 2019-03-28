@@ -78,6 +78,11 @@ something like `~\.dotfiles\vim`, otherwise it won't work. The full path is some
 `c:\users\michael\.dotfiles\vim`. Be careful when removing symlinks as it will delete the
 linked source as well.
 
+The vim search setup requires some setup:
+* First install Rusto. See `Setting up Rust` below.
+* Setup `ripgrep`:
+  * Open an `msvc x64` shell and run `cargo install ripgrep`.
+  * Verify it works by running `rg` in a shell.
 
 ## Setting up Cygwin
 
@@ -85,6 +90,13 @@ linked source as well.
   is likely going to be `C:\cygwin\home\<username>`.
 * Build [rlwrap](https://github.com/hanslub42/rlwrap)
 
+## Setting up Rust
+
+* Install `rustup`: https://win.rustup.rs/
+
+## Setting up Go
+
+* Installer: https://golang.org/doc/install
 
 ## Setting up Clojure
 
