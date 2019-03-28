@@ -45,7 +45,6 @@ let s:rainbow_theme = s:default_bg
 "################################################################
 "################################################################
 
-
 call plug#begin('~/.vim/plugged')
 
 "////////////////////////////////////////////////////////////////
@@ -54,29 +53,27 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'bling/vim-airline'
 Plug 'vim-scripts/AnsiEsc.vim'
-Plug 'embear/vim-localvimrc'
-Plug 'tpope/vim-obsession' " Continuously updated session files
-Plug 'tpope/vim-fugitive' " Git wrapper
-Plug 'junegunn/goyo.vim' " Distraction-free mode with centered buffer
+Plug 'embear/vim-localvimrc'  " Add a .lvimrc to a folder to override .vimrc config.
+Plug 'tpope/vim-obsession'    " Continuously updated session files
+Plug 'tpope/vim-fugitive'     " Git wrapper
+Plug 'junegunn/goyo.vim'      " Distraction-free mode with centered buffer
+Plug 'jremmen/vim-ripgrep'    " Wrapper around ripgrep (must intall ripgrep first; use Rust: cargo install ripgrep)
+Plug 'itchyny/vim-cursorword' " Underlines the word under the cursor
+Plug 'airblade/vim-gitgutter' " See git diff in the gutter and stage/unstage hunks.
+
 
 if IsWindows()
   Plug 'suxpert/vimcaps' " Disable capslock (useful if the OS isn't configured to do so)
-endif
-
-Plug 'itchyny/vim-cursorword' " Underlines the word under the cursor
-" (MAYBE) Plug 'itchyny/vim-winfix'
-
-Plug 'airblade/vim-gitgutter'
-
-if !IsWindows()
+else
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   Plug 'itchyny/dictionary.vim' " A way to query dictionary.com with :Dictionary
+
+  " Fuzzy search
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
 endif
 
-" Automatically discover and 'properly' update ctags files on save
-"Plug 'craigemery/vim-autotag'
 Plug 'majutsushi/tagbar'
-
 Plug 'jeetsukumaran/vim-filesearch'
 Plug 'rking/ag.vim'
 Plug 'nelstrom/vim-qargs' " For search and replace
@@ -92,10 +89,20 @@ Plug 'tommcdo/vim-kangaroo'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'mh21/errormarker.vim'
 
-" Plug 'shougo/unite.vim' # Create user interfaces. Not currently needed.
-" DISABLED since it requires vim 7.3.598+ and I don't have that on my macbook
-" Plug 'Valloric/YouCompleteMe'
+"///////////////////
+" MAYBE SOME DAY
+"///////////////////
+"Plug 'shougo/unite.vim'   " Create user interfaces. Not currently needed.
+"Plug 'itchyny/vim-winfix' " Fix the focus and the size of windows in Vim
 
+"///////////////////
+" DISABLED
+"///////////////////
+" I don't think I need this anymore...
+"Plug 'craigemery/vim-autotag' " Automatically discover and 'properly' update ctags files on save
+
+" Doesn't do anything on my Windows desktop...
+"Plug 'ervandew/supertab' " For autocompletion
 
 "////////////////////////////////////////////////////////////////
 " COLORS
@@ -235,8 +242,10 @@ set writebackup
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-" Spell checking autocomplete
-set complete+=kspell
+
+set complete+=kspell  " Spell checking autocomplete.
+set complete-=i       " Don't scan all included files since it's really slow.
+
 " Enable highlighting for syntax
 syntax on
 " Enable file type detection.
@@ -246,11 +255,16 @@ syntax on
 " use emacs-style tab completion when selecting files, etc
 set wildmenu
 set wildmode=longest,list,full
-set wildignore+=*/tmp/*,*/log/*,*.so,*.swp,*.zip,*/rdoc/*
+set wildignore+=*/log/*,*.so,*.swp,*.zip,*/rdoc/*
 let &colorcolumn=s:max_row_length
-" Show trailing whitespace
+
+" Requires ripgrep to be installed.
+set grepprg=rg\ --vimgrep
+
+" Show trailing whitespace.
 set list listchars=tab:»·,trail:·
-" Adding this since the esc remap on the 'i' key had a long delay when pressed
+
+" Adding this since the esc remap on the 'i' key had a long delay when pressed.
 set timeoutlen=300 ttimeoutlen=0
 
 " Allow undo when doing back into a closed file
@@ -379,15 +393,15 @@ nmap <silent> <leader>rv :so $MYVIMRC<cr>
 :cmap %/ %:p:h/
 
 " remap saving and quiting
-nmap <leader>w :w<cr>
+nmap <leader>w :w!<cr>
 nmap <leader>q :q<cr>
 nmap <leader>qq :q!<cr>
 nmap <leader>x :x<cr>
-:ca Wa wa
-:ca WA wa
+:ca Wa wa!
+:ca WA wa!
 :ca WQ wq
 :ca Wq wq
-:ca W w
+:ca W w!
 :ca Q q
 
 " lowercase the e (have a habit of making it uppercase)
@@ -476,9 +490,9 @@ command! -nargs=+ -complete=custom,s:CompleteFilenameWithoutExtension OpenCppSou
 :ca c OpenCppSource
 :ca C OpenCppSource
 
-command! -nargs=+ -complete=custom,s:CompleteFilenameWithoutExtension OpenCppHeader execute ':e <args>.h'
-:ca h OpenCppHeader
-:ca H OpenCppHeader
+"command! -nargs=+ -complete=custom,s:CompleteFilenameWithoutExtension OpenCppHeader execute ':e <args>.h'
+":ca h OpenCppHeader
+":ca H OpenCppHeader
 
 command! -nargs=+ -complete=custom,s:CompleteFilenameWithoutExtension OpenCppSourceAndHeader execute ':vsp | :e <args>.h | :sp <args>.cpp'
 :ca b OpenCppSourceAndHeader
@@ -517,17 +531,14 @@ inoremap <s-tab> <c-n>
 let g:localvimrc_sandbox = 0
 let g:localvimrc_ask = 0
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TAGBAR
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 noremap <F12> :TagbarToggle<cr>
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GITGUTTER
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:gitgutter_enabled = 0
 let g:gitgutter_highlight_lines = 1
 nmap <leader>ha <Plug>GitGutterStageHunk
@@ -553,6 +564,10 @@ let g:syntastic_check_on_wq = 0
 "let g:syntastic_rust_rustc_fname = ''
 "let g:syntastic_rust_checkers = ['rustc']
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RIPGREP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:rg_highlight = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GIT
@@ -628,7 +643,6 @@ endfunction
 " C-TAGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set tags+=tags;$HOME
-
 
 "-----------------------------------------------------------------------------------------
 
@@ -845,9 +859,11 @@ noremap <F10> :call HideBuildResultsAndClearErrors()<cr>
 
 " Execute build script
 " Optimizations off
+nnoremap <leader>ba :AsyncRun! -save=2 ./build_all*<cr>
 nnoremap <leader>b :AsyncRun! -save=2 ./build*<cr>
 " Optimizations on
 nnoremap <leader>bb :AsyncRun! -save=2 ./build -o 1<cr>
+nnoremap <leader>baa :AsyncRun! -save=2 ./build_all* -o 1<cr>
 nnoremap <F8> :call SilentBuild()<cr>
 
 " Execute run script
@@ -868,6 +884,13 @@ nnoremap <C-p> :cp<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SEARCHING
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Search using ripgrep (first install with Rust: cargo install ripgrep)
+" Ignores vendor folder.
+if !IsWindows()
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!vendor/*" --pretty "always" '.shellescape(<q-args>), 1, <bang>0)
+endif
+
 " TODO: Not sure if I still need this
 map <leader>gs :let @/ = ""<CR>
 
@@ -903,19 +926,26 @@ function! Search()
   let l:term = input('Grep search term: ')
   if l:term != ''
     if IsWindows()
-      " TODO: add --exclude=<file> support to filesearch plugin
-      exec 'Fsgrep "' . l:term . '"'
+      "Fsgrep is slow...."
+      "exec 'Fsgrep "' . l:term . '"'
+
+      "@note --pretty (i.e. colors) is not enabled in vim-ripgrep because the
+      "quickfix window doesn't seem to parse the ansi color codes.
+      exec 'Rg --trim --ignore-case -g "!vendor/*" "' . l:term . '"'
     else
-      " is pt faster than ag? I forget now and didn't document it
-      "exec 'pt "' . l:term . '"'
-      exec 'Ag "' . l:term . '"'
+      "exec 'Ag "' . l:term . '"'
+      " ripgrep is faster than Ag.
+      execute 'Find '.l:term
     endif
   endif
 endfunction
 map <leader>s :call Search()<cr>
 
-command! -nargs=+ MyGrep execute 'silent grep! <args>' | copen 33
-
+" Navigation for the vim-ripgrep search results.
+" Hit o on a result line to open the file at that line.
+" Hit p on a result line to open the file at that line and return to the results pane.
+nnoremap <expr> o (&buftype is# "quickfix" ? "<CR>\|:lopen<CR>" : "o")
+nnoremap <expr> p (&buftype is# "quickfix" ? "<CR>\|:copen<CR>" : "p")
 
 "////////////////////////////////////////////////////////////////
 " FILESEARCH PLUGIN
@@ -928,7 +958,7 @@ command! -nargs=+ MyGrep execute 'silent grep! <args>' | copen 33
 "////////////////////////////////////////////////////////////////
 " SELECTA -- find files with fuzzy-search
 "////////////////////////////////////////////////////////////////
-"
+
 " Run a given vim command on the results of fuzzy selecting from a given shell
 " command. See usage below.
 function! SelectaCommand(choice_command, selecta_args, vim_command)
