@@ -60,7 +60,7 @@ Plug 'junegunn/goyo.vim'      " Distraction-free mode with centered buffer
 Plug 'jremmen/vim-ripgrep'    " Wrapper around ripgrep (must intall ripgrep first; use Rust: cargo install ripgrep)
 Plug 'itchyny/vim-cursorword' " Underlines the word under the cursor
 Plug 'airblade/vim-gitgutter' " See git diff in the gutter and stage/unstage hunks.
-
+Plug 'ctrlpvim/ctrlp.vim'     " Fuzzy file, buffer, mru, tag, etc finder
 
 if IsWindows()
   Plug 'suxpert/vimcaps' " Disable capslock (useful if the OS isn't configured to do so)
@@ -92,8 +92,9 @@ Plug 'mh21/errormarker.vim'
 "///////////////////
 " MAYBE SOME DAY
 "///////////////////
-"Plug 'shougo/unite.vim'   " Create user interfaces. Not currently needed.
-"Plug 'itchyny/vim-winfix' " Fix the focus and the size of windows in Vim
+"Plug 'shougo/unite.vim'         " Create user interfaces. Not currently needed.
+"Plug 'itchyny/vim-winfix'       " Fix the focus and the size of windows in Vim
+"Plug 'scrooloose/nerdcommenter' " Better commenting
 
 "///////////////////
 " DISABLED
@@ -486,17 +487,17 @@ function! s:CompleteFilenameWithoutExtension(ArgLead, CmdLine, CursorPos)
 endfunction
 
 " Custom command to open cpp and h files without typing an extension
-command! -nargs=+ -complete=custom,s:CompleteFilenameWithoutExtension OpenCppSource execute ':e <args>.cpp'
-:ca c OpenCppSource
-:ca C OpenCppSource
+"command! -nargs=+ -complete=custom,s:CompleteFilenameWithoutExtension OpenCppSource execute ':e <args>.cpp'
+":ca c OpenCppSource
+":ca C OpenCppSource
 
 "command! -nargs=+ -complete=custom,s:CompleteFilenameWithoutExtension OpenCppHeader execute ':e <args>.h'
 ":ca h OpenCppHeader
 ":ca H OpenCppHeader
 
-command! -nargs=+ -complete=custom,s:CompleteFilenameWithoutExtension OpenCppSourceAndHeader execute ':vsp | :e <args>.h | :sp <args>.cpp'
-:ca b OpenCppSourceAndHeader
-:ca B OpenCppSourceAndHeader
+"command! -nargs=+ -complete=custom,s:CompleteFilenameWithoutExtension OpenCppSourceAndHeader execute ':vsp | :e <args>.h | :sp <args>.cpp'
+":ca b OpenCppSourceAndHeader
+":ca B OpenCppSourceAndHeader
 
 "////////////////////////////////////////////////////////////////
 " MULTIPURPOSE TAB KEY
@@ -570,6 +571,41 @@ let g:syntastic_check_on_wq = 0
 let g:rg_highlight = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CTRL-P
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" keybindings:
+"
+" leader-f         = open CtrlP in tag searching mode.
+" leader-g         = open CtrlP in file searching mode.
+" ctrl-f           = toggle search mode
+" enter            = open result in a current buffer or in an already open buffer for that file.
+" ctrl-v           = open result in a vertically-split buffer.
+" ctrl-h           = open result in a horizontally-split buffer.
+" ctrl-t           = open result in a new tab.
+" ctrl-j | ctrl-k  = move up and down the search results.
+" ctrl-y           = create file and open it.
+" ctrl-z           = mark multiple file search results to open (I think you can only use ctrl-v or ctrl-x and not enter).
+" ctrl-o           = ask how to open a file search result.
+" ctrl-o           = ask how to open a file search result.
+" ctrl-p | ctrl-n  = traverse search history.
+
+map <leader>g :CtrlP<cr>
+let g:ctrlp_map = '<leader>f'
+let g:ctrlp_cmd = 'CtrlPTag' " Search tags by default.
+let g:ctrlp_by_filename = 1  " File search by filename as opposed to full path.
+let g:ctrlp_match_window = 'bottom,order:ttb,min:10,max:20,results:20' " Keep results synced with max height.
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files'] " If a git repo, use checked in files; fallback to globpath()
+let g:ctrlp_clear_cache_on_exit = 1 " No need to keep cache for now since I mostly work in git repos. Press F5 inside CtrlP to rebuild the cache.
+
+" @fixme Not sure why I can't get these new mappings (c-m, c-cr) to register...
+"let g:ctrlp_prompt_mappings = {
+"  \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>'],
+"  \ 'AcceptSelection("v")': ['<c-v>', '<c-m>'],
+"  \ }
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GIT
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>gb :Gblame -w<cr>
@@ -584,7 +620,6 @@ let g:gist_open_browser_after_post = 1
 let g:gist_show_privates = 1
 let g:gist_post_private = 1
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM-CLOJURE-STATIC
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -594,12 +629,10 @@ let g:clojure_align_multiline_strings = 1
 let g:clojure_fuzzy_indent_patterns = ['^match', '^with', '^def', '^let']
 let g:clojure_fuzzy_indent_blacklist = ['-fn$', '\v^with-%(meta|out-str|loading-context)$']
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUST.VIM
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:rustfmt_autosave = 1 " auto run rust formatter when saving
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RAINBOW
@@ -637,7 +670,6 @@ function! ReloadRainbow()
     endif
   endif
 endfunction
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " C-TAGS
@@ -981,7 +1013,8 @@ endfunction
 
 " Find all files in all non-dot directories starting in the working directory.
 " Fuzzy select one of those. Open the selected file with :e.
-nnoremap <leader>f :call SelectaCommand("find * -type f ! -path 'resources/public/js/*' ! -path 'resources/.sass-cache/*' ! -path 'target/*'", "", ":e")<cr>
+" DISABLED (2019-03) because I'm now using ctrl-p for fuzzy searching.
+" nnoremap <leader>f :call SelectaCommand("find * -type f ! -path 'resources/public/js/*' ! -path 'resources/.sass-cache/*' ! -path 'target/*'", "", ":e")<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
