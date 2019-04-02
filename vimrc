@@ -932,22 +932,26 @@ map <leader>gs :let @/ = ""<CR>
 " Replace the selected text in all files within the repo
 function! GlobalReplaceIt(confirm_replacement)
   if exists(':Ggrep')
-   " let term = @/
-   " if empty(term)
-      call inputsave()
-      let l:term = input('Enter search term: ')
-      call inputrestore()
-   " else
-   "   echo '\nReplacing '.term
-   " endif
+    call inputsave()
+    let l:term = input('Enter search term: ')
+    call inputrestore()
+    if empty(l:term)
+      return
+    endif
+
     call inputsave()
     let l:replacement = input('Enter replacement: ')
     call inputrestore()
+    if empty(l:replacement)
+      return
+    endif
+
     if a:confirm_replacement
       let l:confirm_opt = 'c'
     else
       let l:confirm_opt = 'e'
     endif
+
     execute 'Ggrep '.l:term
     execute 'Qargs | argdo %s/'.l:term.'/'.l:replacement.'/g'.l:confirm_opt.' | update'
   else
@@ -959,19 +963,20 @@ map <leader>gr :call GlobalReplaceIt(1)<cr>
 
 function! Search()
   let l:term = input('Grep search term: ')
-  if l:term != ''
-    if IsWindows()
-      "Fsgrep is slow...."
-      "exec 'Fsgrep "' . l:term . '"'
+  if empty(l:term)
+    return
+  endif
+  if IsWindows()
+    "Fsgrep is slow...."
+    "exec 'Fsgrep "' . l:term . '"'
 
-      "@note --pretty (i.e. colors) is not enabled in vim-ripgrep because the
-      "quickfix window doesn't seem to parse the ansi color codes.
-      exec 'Rg --trim --ignore-case -g "!vendor/*" "' . l:term . '"'
-    else
-      "exec 'Ag "' . l:term . '"'
-      " ripgrep is faster than Ag.
-      execute 'Find '.l:term
-    endif
+    "@note --pretty (i.e. colors) is not enabled in vim-ripgrep because the
+    "quickfix window doesn't seem to parse the ansi color codes.
+    exec 'Rg --trim --ignore-case -g "!vendor/*" "' . l:term . '"'
+  else
+    "exec 'Ag "' . l:term . '"'
+    " ripgrep is faster than Ag.
+    execute 'Find '.l:term
   endif
 endfunction
 map <leader>s :call Search()<cr>
