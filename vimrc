@@ -476,6 +476,9 @@ map <leader>v :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 "map <leader>vv :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
 "map <leader>vvv :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
 
+" Replace all instances of the highlighted text with whatever you enter.
+nnoremap <c-s> :%s///g<left><left>
+
 "////////////////////////////////////////////////////////////////
 " QUICKLY OPEN C++ SOURCE OR HEADER FILE
 "////////////////////////////////////////////////////////////////
@@ -604,7 +607,6 @@ let g:ctrlp_clear_cache_on_exit = 1 " No need to keep cache for now since I most
 "  \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>'],
 "  \ 'AcceptSelection("v")': ['<c-v>', '<c-m>'],
 "  \ }
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GIT
