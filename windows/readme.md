@@ -5,6 +5,8 @@
 
 * Install Windows Defender
 
+* Enable clear text
+
 ## Enable security updates
 
 If you don't have an antivirus program, or you do but it's not verified by Microsoft, then you will
@@ -117,3 +119,11 @@ The vim search setup requires some setup:
 ## Turn off various startup processes
 * cmd-r -> msconfig.exe -> startup tab
 
+## Software
+
+* Install Desktop Restore (http://www.midiox.com/index.htm?http://midiox.com/desktoprestore.htm)
+
+# Firefox
+* If you see jaggy fonts then about `about:config` and check the value of
+  `gfx.font_rendering.cleartype_params.rendering_mode`. Mine was -1 by default. Setting it to 5
+  removed the bad font rendering.
