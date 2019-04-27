@@ -122,8 +122,14 @@ The vim search setup requires some setup:
 ## Software
 
 * Install Desktop Restore (http://www.midiox.com/index.htm?http://midiox.com/desktoprestore.htm)
+* Install Android platform tools to get adb.exe:
+  * Download Android commandline tools https://developer.android.com/studio/#downloads
+  * Unzip to some location.
+  * Inside the sdk dir, run `$ tools/bin/sdkmanager.bat platform-tools`.
+  * You can now add the platform-tools dir to your path if you want, or just symlink `adb` to `~/bin`.
 
-# Firefox
+## Firefox
 * If you see jaggy fonts then about `about:config` and check the value of
   `gfx.font_rendering.cleartype_params.rendering_mode`. Mine was -1 by default. Setting it to 5
   removed the bad font rendering.
+
