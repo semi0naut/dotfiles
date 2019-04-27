@@ -341,7 +341,7 @@ augroup campoCmds
 
   " Generate ctags
   " Include local variables for c languages.
-  au BufWritePost *.py,*.c,*.cpp,*.h silent! !eval 'ctags --c-types=+l --c++-types=+l -R -o newtags; mv newtags tags' &
+  au BufWritePost *.py,*.c,*.cpp,*.h silent! !eval 'ctags --c-types=+l --c++-types=+l --exclude=vendor -R -o newtags; mv newtags tags' &
 
   " Remove trailing whitespace on save all files.
   function! <SID>StripTrailingWhitespaces()
@@ -477,7 +477,7 @@ map <leader>v :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 "map <leader>vvv :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
 
 " Replace all instances of the highlighted text with whatever you enter.
-nnoremap <c-s> :%s///g<left><left>
+nnoremap <c-g> :%s///g<left><left>
 
 "////////////////////////////////////////////////////////////////
 " QUICKLY OPEN C++ SOURCE OR HEADER FILE
@@ -961,25 +961,34 @@ endfunction
 map <leader>gg :call GlobalReplaceIt(0)<cr>
 map <leader>gr :call GlobalReplaceIt(1)<cr>
 
-function! Search()
-  let l:term = input('Grep search term: ')
-  if empty(l:term)
+function! Search(case_insensitive)
+  let helper = "[" . (a:case_insensitive ? "case-insensitive" : "case-sensitive") . "] search: "
+  let term = input(helper)
+  if empty(term)
     return
   endif
-  if IsWindows()
-    "Fsgrep is slow...."
-    "exec 'Fsgrep "' . l:term . '"'
 
-    "@note --pretty (i.e. colors) is not enabled in vim-ripgrep because the
-    "quickfix window doesn't seem to parse the ansi color codes.
-    exec 'Rg --trim --ignore-case -g "!vendor/*" "' . l:term . '"'
+  "@note --pretty (i.e. colors) is not enabled in vim-ripgrep because the
+  "quickfix window doesn't seem to parse the ansi color codes.
+  let rg_args = "--trim -g \"!vendor/*\""
+
+  if a:case_insensitive
+    let rg_args .= " --ignore-case"
+  endif
+
+  if IsWindows()
+    "@deprecated: Fsgrep is slow...."
+    "exec 'Fsgrep "' . term . '"'
+    exec 'Rg ' . rg_args . ' "' . term . '"'
   else
-    "exec 'Ag "' . l:term . '"'
-    " ripgrep is faster than Ag.
-    execute 'Find '.l:term
+    "@deprecated: ripgrep is faster than Ag.
+    "exec 'Ag "' . term . '"'
+    " @incomplete pass case sensitivity toggle to Find.
+    execute 'Find ' . term
   endif
 endfunction
-map <leader>s :call Search()<cr>
+map <leader>s :call Search(1)<cr>
+map <leader>ss :call Search(0)<cr>
 
 " Navigation for the vim-ripgrep search results.
 " Hit o on a result line to open the file at that line.
