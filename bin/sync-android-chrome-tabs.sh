@@ -1,0 +1,50 @@
+#!/bin/bash
+
+if which tput >/dev/null 2>&1; then
+  ncolors=$(tput colors)
+fi
+if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
+  RED="$(tput setaf 1)"
+  GREEN="$(tput setaf 2)"
+  YELLOW="$(tput setaf 3)"
+  BLUE="$(tput setaf 4)"
+  BOLD="$(tput bold)"
+  NORMAL="$(tput sgr0)"
+else
+  RED=""
+  GREEN=""
+  YELLOW=""
+  BLUE=""
+  BOLD=""
+  NORMAL=""
+fi
+
+error() {
+  printf "${BOLD}${RED}$1${NORMAL}"
+}
+
+abort() {
+  error "\nAborting...\n"
+  exit 1
+}
+
+set -e
+
+cwd=$PWD
+
+printf "${BOLD}Attempting to connect to device via adb...\nMake sure 'file transfer' mode is set on device. You may have to accept the connection and then re-run this script.\n${NORMAL}"
+
+adb forward tcp:9222 localabstract:chrome_devtools_remote
+
+src=_tabs.json
+if wget -qO $src http://localhost:9222/json/list; then
+  ts=`date +"%Y-%m-%d_%H-%M-%S"`
+  dest="${cwd}/${ts}_android-chrome-tabs.md"
+  sed -n "/\"url\"/p" $src | sed -e "s/^[ \t]*.\{8\}//" -e "s/.\{2\}$//" > $dest
+  printf "${BOLD}Saved tabs to: ${YELLOW}$dest${NORMAL}\n"
+else
+  error "Unable to download tabs from device!\n"
+fi
+
+rm $src
+

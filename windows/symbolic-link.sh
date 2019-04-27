@@ -60,15 +60,12 @@ is_valid_sym_path() {
 
 windows_path() {
   ret=$1
-
   if [[ $(is_drive_path $ret) -eq 1 ]]; then
     ret="${ret/\//}"
     # Fix the drive name, e.g. c\foo becomes c:\foo
     ret=$(sed 's,\([a-zA-Z]*\),\1:,' <<< "$ret")
   fi
-
-  ret="${ret////\\}" # replace unix path with windows path
-
+  ret="${ret////\\}" # Replace Unix path with Windows path.
   echo $ret
 }
 
@@ -77,29 +74,29 @@ set -e
 cwd=$PWD
 platform=`uname` # 'Linux', 'Darwin', etc
 
-printf "${BOLD}What's the link file's path and name?\n${YELLOW}> ${NORMAL}"
-read -e link_name
-if [[ $(is_valid_sym_path $link_name) -eq 0 ]]; then
-  error "This path is invalid. Only symbolic and absolute paths and allowed."
-  abort
-fi
-
-test -d "$link_name" && error "That is an existing folder!" && abort
-test -e "$link_name" && error "That file already exists!" && abort
-link_name=$(windows_path $link_name)
-
-printf "${BOLD}Where should it point to?\n${YELLOW}> ${NORMAL}"
-read -e link_path
-if [[ $(is_valid_sym_path $link_path) -eq 0 ]]; then
+printf "${BOLD}${YELLOW}Enter full path to source file/dir:\n${NORMAL}"
+read -e source_path
+if [[ $(is_valid_sym_path $source_path) -eq 0 ]]; then
   error "This path is invalid. Only symbolic and absolute paths are allowed."
   abort
 fi
-! test -d "$link_path" && ! test -e "$link_path" && error "That path doesn't exist!" && abort
-link_path=$(windows_path $link_path)
+! test -d "$source_path" && ! test -e "$source_path" && error "That path doesn't exist!" && abort
+source_path=$(windows_path $source_path)
 
-cmd="cmd //c 'mklink  $link_name $link_path'"
 
-printf "\n${BOLD}${BLUE}About to link ${GREEN}$link_name${BLUE} to ${GREEN}$link_path${NORMAL}\n"
+printf "${BOLD}${YELLOW}Enter full path to symlink destination:\n${NORMAL}"
+read -e link_dest
+if [[ $(is_valid_sym_path $link_dest) -eq 0 ]]; then
+  error "This path is invalid. Only symbolic and absolute paths and allowed."
+  abort
+fi
+test -d "$link_dest" && error "That is an existing folder!" && abort
+test -e "$link_dest" && error "That file already exists!" && abort
+link_dest=$(windows_path $link_dest)
+
+cmd="cmd //c 'mklink  $link_dest $source_path'"
+
+echo "${BOLD}${BLUE}About to create link ${GREEN}$link_dest${BLUE} to source ${GREEN}$source_path${NORMAL}"
 printf "\n${BOLD}Enter 1 to proceed\n${YELLOW}> ${NORMAL}"
 read confirm
 
