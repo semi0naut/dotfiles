@@ -1,102 +1,75 @@
 #!/bin/bash
 
-if which tput >/dev/null 2>&1; then
-  ncolors=$(tput colors)
-fi
-if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
-  RED="$(tput setaf 1)"
-  GREEN="$(tput setaf 2)"
-  YELLOW="$(tput setaf 3)"
-  BLUE="$(tput setaf 4)"
-  BOLD="$(tput bold)"
-  NORMAL="$(tput sgr0)"
-else
-  RED=""
-  GREEN=""
-  YELLOW=""
-  BLUE=""
-  BOLD=""
-  NORMAL=""
-fi
-
-error() {
-  printf "${BOLD}${RED}$1${NORMAL}"
-}
+# @improve this path stuff
+source_helpers="$HOME/.game-libs/project-templates/_helpers"
+source "$source_helpers/printing.sh"
+source "$source_helpers/file_ops.sh"
 
 abort() {
   error "\nAborting...\n"
   exit 1
 }
 
-is_drive_path() {
-  if [[ $1 =~ ^/ ]]; then
-    echo 1
-  else
-    echo 0
-  fi
-}
-
-is_symbolic_path() {
-if [[ $1 =~ ^\.{1} ]]; then
-    echo 1
-  else
-    echo 0
-  fi
-}
-
-is_valid_sym_path() {
+# If the path is not symbolic or an absolute drive path then we return it in an expanded form.
+clean_path() {
   path=$1
-  valid=0
-  if [[ $(is_drive_path $path) -eq 1 ]]; then
-    valid=1
-  elif [[ $(is_symbolic_path $path) -eq 1 ]]; then
-    valid=1
-  elif [[ ! $path =~ \/+ ]]; then
-    valid=1
+  if [[ $(is_absolute_unix_path $path) -eq 0 && $(is_sym_file $path) -eq 0 ]]; then
+    path=$(expand_path "$path")
   fi
-
-  echo $valid
+  echo $path
 }
 
-windows_path() {
-  ret=$1
-  if [[ $(is_drive_path $ret) -eq 1 ]]; then
-    ret="${ret/\//}"
-    # Fix the drive name, e.g. c\foo becomes c:\foo
-    ret=$(sed 's,\([a-zA-Z]*\),\1:,' <<< "$ret")
+path_debug() {
+  path=$1
+  printf "\ninfo on path '$path'\n"
+  printf "abs unix path: $(is_absolute_unix_path $path)\n"
+  printf "sym file: $(is_sym_file $path)\n"
+  if [[ $path =~ \/+ ]]; then echo "unix path\n"; else echo "not unix path\n"; fi
+  expanded_path=$(expand_path "$path")
+  printf "expanded version: $expanded_path\n"
+  if [[ $(is_absolute_unix_path $path) -eq 0 && $(is_sym_file $path) -eq 0 ]]; then
+    printf "needs cleaning\n"
+  else
+    printf "no cleaning needed\n"
   fi
-  ret="${ret////\\}" # Replace Unix path with Windows path.
-  echo $ret
 }
-
-set -e
 
 cwd=$PWD
 platform=`uname` # 'Linux', 'Darwin', etc
+source_path=""
+dest_path=""
 
-printf "${BOLD}${YELLOW}Enter full path to source file/dir:\n${NORMAL}"
-read -e source_path
-if [[ $(is_valid_sym_path $source_path) -eq 0 ]]; then
-  error "This path is invalid. Only symbolic and absolute paths are allowed."
-  abort
+#echo "got $1 and $2"
+#path_debug $1
+#path_debug $2
+
+if [[ $1 ]]; then
+  source_path=$1
+else
+  printf "${BOLD}${YELLOW}Enter full path to source file/dir:\n${NORMAL}"
+  read -e source_path
 fi
-! test -d "$source_path" && ! test -e "$source_path" && error "That path doesn't exist!" && abort
+
+source_path=$(clean_path "$source_path")
+! test -d "$source_path" && ! test -e "$source_path" && error "Source path '$source_path' doesn't exist!" && abort
+
+if [[ $2 ]]; then
+  dest_path=$2
+else
+  printf "${BOLD}${YELLOW}Enter full path to symlink destination:\n${NORMAL}"
+  read -e dest_path
+fi
+
+dest_path=$(clean_path $dest_path)
+test -d "$dest_path" && error "Dest folder '$dest_path' already exists!" && abort
+test -e "$dest_path" && error "Dest file '$dest_path' already exists!" && abort
+
 source_path=$(windows_path $source_path)
+dest_path=$(windows_path $dest_path)
 
+cmd="cmd //c 'mklink  $dest_path $source_path'"
 
-printf "${BOLD}${YELLOW}Enter full path to symlink destination:\n${NORMAL}"
-read -e link_dest
-if [[ $(is_valid_sym_path $link_dest) -eq 0 ]]; then
-  error "This path is invalid. Only symbolic and absolute paths and allowed."
-  abort
-fi
-test -d "$link_dest" && error "That is an existing folder!" && abort
-test -e "$link_dest" && error "That file already exists!" && abort
-link_dest=$(windows_path $link_dest)
-
-cmd="cmd //c 'mklink  $link_dest $source_path'"
-
-echo "${BOLD}${BLUE}About to create link ${GREEN}$link_dest${BLUE} to source ${GREEN}$source_path${NORMAL}"
+echo "${BOLD}${BLUE}Will attempt to link ${GREEN}$source_path${BLUE} to ${GREEN}$dest_path${BLUE}"
 printf "\n${BOLD}Enter 1 to proceed\n${YELLOW}> ${NORMAL}"
 read confirm
 
