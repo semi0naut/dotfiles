@@ -7,6 +7,12 @@
 
 * Enable clear text
 
+* Setup a symbol server:
+    * Right-click My Computer -> Properties -> Advanced Tab -> Environment Variables
+    * Add a new System Variable called `_NT_SYMBOL_PATH`
+    * Set the value to `SRV*c:\symbols*http://msdl.microsoft.com/download/symbols`, replacing the
+      first path to where you want the symbols to live.
+
 ## Enable security updates
 
 If you don't have an antivirus program, or you do but it's not verified by Microsoft, then you will
@@ -17,6 +23,12 @@ Add the following registry key:
 Key="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\QualityCompat"
 Value="cadca5fe-87d3-4b96-b7fb-a231484277cc" Type="REG_DWORD”
 Data="0x00000000”
+
+## Disable Win 7 Fault Tolerant Heap
+*Might be in Win 10+ too?*
+* I don't see why you want to spend large amounts of CPU time to hide application instability.
+* https://docs.microsoft.com/en-us/windows/desktop/Win7AppQual/fault-tolerant-heap
+  * Disable on system via regedit: set the REG_DWORD value **HKLM\\Software\\Microsoft\\FTH\\Enabled** to **0**.
 
 ## Configure Shell
 * Install [MSYS2 w/ MinGW-w64](http://www.msys2.org/) to `C:\msys64`
@@ -62,6 +74,7 @@ Data="0x00000000”
 * Use the backed up VS2015 ISO.
 * Pick a custom install directory, e.g. /x/programs/VS2015, /c/VS2015, etc.
 * Make sure to not do a default install. You must select the C++ language support.
+* Edit visual studio options. Open Debugging -> Symbols and add the path to your cached symbols.
 
 ## Setting up Vim
 
