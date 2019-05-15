@@ -28,7 +28,7 @@ elif [[ "${platform,,}" == *'ming'* ]]; then # convert to lowercase then compare
 
   alias l='ls -ahg --color'
   alias ls='ls -ahg --color'
-  alias rm='echo "use trash command instead!"'
+  #alias rm='echo "use trash command instead!"'
   alias rmr='echo "use trash command instead!"'
   alias trash='recycle-bin.exe '
   alias tt='trash '
@@ -58,6 +58,10 @@ b() {
 
 bb() {
   if [ -f build ]; then ./build -o 1 $@ ; else test -f build.sh && ./build.sh -o 1 $@ ; fi
+}
+
+bp() {
+  if [ -f build ]; then ./build -p p $@ ; else test -f build.sh && ./build.sh -p p $@ ; fi
 }
 
 br() {

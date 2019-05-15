@@ -31,6 +31,14 @@ abort() {
 set -e
 
 cwd=$PWD
-platform=`uname` # 'Linux', 'Darwin', etc
 
-printf "${YELLOW}Platform: $platform${NORMAL}\n"
+uname_s="$(uname -s)"
+case "${uname_s}" in
+    Linux*)   machine=Linux;;
+    Darwin*)  machine=Mac;;
+    CYGWIN*)  machine=Cygwin;;
+    MINGW*)   machine=MinGw;;
+    *)        machine="UNKNOWN:${uname_s}"
+esac
+
+printf "${YELLOW}Platform: $machine${NORMAL}\n"

@@ -29,10 +29,10 @@ let mapleader=","
 "################################################################
 "################################################################
 
-let s:max_row_length = 100
+let s:max_line_length = 100
 let s:default_bg = 'dark'
 let s:rainbow_theme = s:default_bg
-
+let g:quickfix_window_height  = 16 " in rows
 
 "-----------------------------------------------------------------------------------------
 
@@ -53,14 +53,14 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'bling/vim-airline'
 Plug 'vim-scripts/AnsiEsc.vim'
-Plug 'embear/vim-localvimrc'  " Add a .lvimrc to a folder to override .vimrc config.
-Plug 'tpope/vim-obsession'    " Continuously updated session files
-Plug 'tpope/vim-fugitive'     " Git wrapper
-Plug 'junegunn/goyo.vim'      " Distraction-free mode with centered buffer
-Plug 'jremmen/vim-ripgrep'    " Wrapper around ripgrep (must intall ripgrep first; use Rust: cargo install ripgrep)
-Plug 'itchyny/vim-cursorword' " Underlines the word under the cursor
-Plug 'airblade/vim-gitgutter' " See git diff in the gutter and stage/unstage hunks.
-Plug 'ctrlpvim/ctrlp.vim'     " Fuzzy file, buffer, mru, tag, etc finder
+Plug 'embear/vim-localvimrc'    " Add a .lvimrc to a folder to override .vimrc config.
+Plug 'tpope/vim-obsession'      " Continuously updated session files
+Plug 'tpope/vim-fugitive'       " Git wrapper
+Plug 'junegunn/goyo.vim'        " Distraction-free mode with centered buffer
+Plug 'sir-pinecone/vim-ripgrep' " Wrapper around ripgrep (must intall ripgrep first; use Rust: cargo install ripgrep)
+Plug 'itchyny/vim-cursorword'   " Underlines the word under the cursor
+Plug 'airblade/vim-gitgutter'   " See git diff in the gutter and stage/unstage hunks.
+Plug 'ctrlpvim/ctrlp.vim'       " Fuzzy file, buffer, mru, tag, etc finder
 
 if IsWindows()
   Plug 'suxpert/vimcaps' " Disable capslock (useful if the OS isn't configured to do so)
@@ -168,7 +168,7 @@ Plug 'tpope/vim-markdown'
 "Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " C++
-Plug 'bfrg/vim-cpp-enhanced-highlight'
+Plug 'octol/vim-cpp-enhanced-highlight'
 
 " Haxe
 Plug 'jdonaldson/vaxe'
@@ -197,9 +197,9 @@ filetype plugin indent on
 set hidden
 set history=10000
 set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set autoindent
 set laststatus=2
 set showcmd " display incomplete commands
@@ -257,7 +257,7 @@ syntax on
 set wildmenu
 set wildmode=longest,list,full
 set wildignore+=*/log/*,*.so,*.swp,*.zip,*/rdoc/*
-let &colorcolumn=s:max_row_length
+let &colorcolumn=s:max_line_length
 
 " Requires ripgrep to be installed.
 set grepprg=rg\ --vimgrep
@@ -316,7 +316,7 @@ augroup campoCmds
 
   " Automatically wrap at N characters
   autocmd FileType gitcommit setlocal colorcolumn=72
-  autocmd BufRead,BufNewFile *.{md,txt,plan} execute "setlocal textwidth=" .s:max_row_length
+  autocmd BufRead,BufNewFile *.{md,txt,plan} execute "setlocal textwidth=" .s:max_line_length
 
   " Spell checking
   autocmd FileType gitcommit,markdown,text setlocal spell
@@ -573,6 +573,7 @@ let g:syntastic_check_on_wq = 0
 " RIPGREP
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:rg_highlight = 1
+let g:rg_window_height = g:quickfix_window_height
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTRL-P
@@ -851,19 +852,17 @@ set errorformat+=\\\ %#%f(%l)\ :\ %#%t%[A-z]%#\ %m
 " Microsoft HLSL compiler: fxc.exe
 set errorformat+=\\\ %#%f(%l\\\,%c-%*[0-9]):\ %#%t%[A-z]%#\ %m
 
-let g:build_window_size = 12 " in rows
-
 function! HideBuildResultsAndClearErrors()
   RemoveErrorMarkers
-  call asyncrun#quickfix_toggle(g:build_window_size, 0)
+  call asyncrun#quickfix_toggle(g:quickfix_window_height, 0)
 endfunction
 
 function! HideAsyncResults()
-  call asyncrun#quickfix_toggle(g:build_window_size, 0)
+  call asyncrun#quickfix_toggle(g:quickfix_window_height, 0)
 endfunction
 
 function! ToggleBuildResults()
-  call asyncrun#quickfix_toggle(g:build_window_size)
+  call asyncrun#quickfix_toggle(g:quickfix_window_height)
 endfunction
 
 function! StopRunTask()
@@ -882,7 +881,7 @@ endfunction
 
 " Show results window the moment the async job starts
 augroup vimrc
-  autocmd User AsyncRunStart call asyncrun#quickfix_toggle(g:build_window_size, 1)
+  autocmd User AsyncRunStart call asyncrun#quickfix_toggle(g:quickfix_window_height, 1)
 augroup END
 
 " Toggle build results
@@ -893,12 +892,7 @@ nnoremap <leader>bc :call ToggleBuildResults()<cr>
 noremap <F10> :call HideBuildResultsAndClearErrors()<cr>
 
 " Execute build script
-" Optimizations off
-nnoremap <leader>ba :AsyncRun! -save=2 ./build_all*<cr>
 nnoremap <leader>b :AsyncRun! -save=2 ./build*<cr>
-" Optimizations on
-nnoremap <leader>bb :AsyncRun! -save=2 ./build -o 1<cr>
-nnoremap <leader>baa :AsyncRun! -save=2 ./build_all* -o 1<cr>
 nnoremap <F8> :call SilentBuild()<cr>
 
 " Execute run script
@@ -961,8 +955,8 @@ endfunction
 map <leader>gg :call GlobalReplaceIt(0)<cr>
 map <leader>gr :call GlobalReplaceIt(1)<cr>
 
-function! Search(case_insensitive)
-  let helper = "[" . (a:case_insensitive ? "case-insensitive" : "case-sensitive") . "] search: "
+function! Search(case_sensitive)
+  let helper = "[" . (a:case_sensitive ? "case-sensitive" : "case-insensitive") . "] search: "
   let term = input(helper)
   if empty(term)
     return
@@ -972,7 +966,7 @@ function! Search(case_insensitive)
   "quickfix window doesn't seem to parse the ansi color codes.
   let rg_args = "--trim -g \"!vendor/*\""
 
-  if a:case_insensitive
+  if !a:case_sensitive
     let rg_args .= " --ignore-case"
   endif
 
@@ -987,8 +981,8 @@ function! Search(case_insensitive)
     execute 'Find ' . term
   endif
 endfunction
-map <leader>s :call Search(1)<cr>
-map <leader>ss :call Search(0)<cr>
+map <leader>s :call Search(0)<cr>
+map <leader>ss :call Search(1)<cr>
 
 " Navigation for the vim-ripgrep search results.
 " Hit o on a result line to open the file at that line.
