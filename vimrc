@@ -1,3 +1,6 @@
+" @incomplete Move all leader definitions to the bottom, so that it's easier to see them.
+" @incomplete Add setup steps (plugins, cache setup, search tool, etc).
+
 "Remove Menubar and Toolbar from gvim
 "set guioptions -=m
 "set guioptions -=T

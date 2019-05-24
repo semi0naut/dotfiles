@@ -13,6 +13,8 @@
     * Set the value to `SRV*c:\symbols*http://msdl.microsoft.com/download/symbols`, replacing the
       first path to where you want the symbols to live.
 
+* Configure crash dump storage location for projects via the registry.
+
 ## Enable security updates
 
 If you don't have an antivirus program, or you do but it's not verified by Microsoft, then you will
