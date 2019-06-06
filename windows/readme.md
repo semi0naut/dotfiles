@@ -32,14 +32,14 @@ Data="0x00000000”
 * https://docs.microsoft.com/en-us/windows/desktop/Win7AppQual/fault-tolerant-heap
   * Disable on system via regedit: set the REG_DWORD value **HKLM\\Software\\Microsoft\\FTH\\Enabled** to **0**.
 
-## Configure Shell
+## Setup up Unix-like Shell
 * Install [MSYS2 w/ MinGW-w64](http://www.msys2.org/) to `C:\msys64`
   * Open `C:\msys64\mingw64.exe`
   * Run `pacman -S base-devel mingw-w64-x86_64-toolchain git bc`
   * Use `C:\Users\<user>` as the terminal $HOME by editting `C:\msys64\etc\nsswitch.conf` and
     changing the `db_home` value to `windows`.
 * You may need to work around an issue with envsubst.exe - you'll know there's a bug if git
-  displays "': not a valid identifierline 89: export: dashless" or rebase complains about "new_count".
+  displays `not a valid identifier line 89: export: dashless` or rebase complains about `new_count`.
   * To patch, cd into `/mingw64/bin` and run `mv envsubst.exe envsubst.exe_backup`. Now run `pacman -S gettext`
     and verify that `which envsubst` reports back `/usr/bin/envsubst`.
   * Bug report is at https://github.com/Alexpux/MSYS2-packages/issues/735
@@ -62,7 +62,7 @@ Data="0x00000000”
 * The most important task is to setup the `c-dev-x64` shortcut for launching a msys shell with appropriate dev environment.
   * Add this to your taskbar and use this for launching a shell.
 
-## Setup dev tools
+## Setting up dev tools
 
 * Download the Windows 2003 Resource Kit in order to get tools like `list.exe` (command line hex
   editor)
@@ -71,7 +71,7 @@ Data="0x00000000”
   * Full list of tools can be found here
     https://www.technlg.net/windows/download-windows-resource-kit-tools/
 
-## Setup Visual Studio
+## Setting up Visual Studio
 
 * Use the backed up VS2015 ISO.
 * Pick a custom install directory, e.g. /x/programs/VS2015, /c/VS2015, etc.
@@ -96,14 +96,15 @@ something like `~\.dotfiles\vim`, otherwise it won't work. The full path is some
 `c:\users\michael\.dotfiles\vim`. Be careful when removing symlinks as it will delete the
 linked source as well.
 
-**Search Setup**
-The vim search setup requires some setup:
+### Setting up Custom Search
+
 * First install Rusto. See `Setting up Rust` below.
 * Setup `ripgrep`:
   * Open an `msvc x64` shell and run `cargo install ripgrep`.
   * Verify it works by running `rg` in a shell.
 
-**ctags**
+### Setting up ctags
+
 * Install the latest Universal ctags build: https://github.com/universal-ctags/ctags-win32/releases
 * Place it in `~/bin`.
 
@@ -125,7 +126,7 @@ The vim search setup requires some setup:
 
 * Install Lein: https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
 
-## Setup Xbox stuff
+## Setting up Xbox stuff
 
 * Install the xbox controller drivers
 * Turn off stats collection
@@ -143,7 +144,7 @@ The vim search setup requires some setup:
   * Inside the sdk dir, run `$ tools/bin/sdkmanager.bat platform-tools`.
   * You can now add the platform-tools dir to your path if you want, or just symlink `adb` to `~/bin`.
 
-## Firefox
+### Firefox
 * If you see jaggy fonts then about `about:config` and check the value of
   `gfx.font_rendering.cleartype_params.rendering_mode`. Mine was -1 by default. Setting it to 5
   removed the bad font rendering.
