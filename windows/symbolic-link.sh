@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # @improve this path stuff
-source_helpers="$HOME/.game-libs/project-templates/_helpers"
+source_helpers="$HOME/.dotfiles/script_helpers"
 source "$source_helpers/printing.sh"
 source "$source_helpers/file_ops.sh"
 
