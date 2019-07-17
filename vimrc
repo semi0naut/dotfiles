@@ -236,6 +236,9 @@ set t_ti= t_te=
 " keep more context when scrolling off the end of a buffer
 set scrolloff=3
 
+set cursorline
+set cursorcolumn
+
 " Store temporary files in a central spot
 set backup
 set backupcopy=yes
