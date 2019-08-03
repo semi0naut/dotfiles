@@ -46,7 +46,7 @@ Data="0x00000000”
   * Bug report is at https://github.com/Alexpux/MSYS2-packages/issues/735
 * Map caps to left-ctrl using https://sharpkeys.codeplex.com/
 
-* Use symlink command `cmd //c 'mklink .name-of-dotfile drive:\path\to\file`.
+* Use symlink command `cmd //c 'mklink .name-of-dotfile drive:\path\to\file'`.
 * Symlink `~/.private-files` to the root directory containing `dev/`.
 * Symlink `~/.dev` to `~/.private-files/path/to/dev`.
 * Symlink `~/.dotfiles` to `~/.dev/path/to/dotfiles`.
@@ -75,7 +75,7 @@ Data="0x00000000”
 ## Setting up Visual Studio
 
 * Use the backed up VS2015 ISO.
-* Pick a custom install directory, e.g. /x/programs/VS2015, /c/VS2015, etc.
+* Pick a custom install directory, e.g. `/x/programs/Visual Studio 15`
 * Make sure to not do a default install. You must select the C++ language support.
 * Edit visual studio options. Open Debugging -> Symbols and add the path to your cached symbols.
 
@@ -90,12 +90,8 @@ Data="0x00000000”
 
 ### Configuring
 
-You have to make a copy of the vim folder. For some unknown reason the Plugged scripts
-don't work when running them on a symlinked .vim directory. Can also symlink most of the
-directories in the vim folder. You have to symlink using the full path instead of
-something like `~\.dotfiles\vim`, otherwise it won't work. The full path is something like
-`c:\users\michael\.dotfiles\vim`. Be careful when removing symlinks as it will delete the
-linked source as well.
+1. Open Vim and run `:PlugInstall` to fetch all plugins.
+2. Create tmp folder for swap files. See `set directory` and `set backupdir` paths in `vimrc`.
 
 ### Setting up Custom Search
 
@@ -137,6 +133,11 @@ linked source as well.
 * cmd-r -> msconfig.exe -> startup tab
 
 ## Software
+
+* Place into ~/bin
+    * cloc.exe
+    * ctime.exe
+    * youtube-dl.exe
 
 * Install Desktop Restore (http://www.midiox.com/index.htm?http://midiox.com/desktoprestore.htm)
 * Install Android platform tools to get adb.exe:
