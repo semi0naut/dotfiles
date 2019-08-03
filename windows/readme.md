@@ -35,6 +35,7 @@ Data="0x00000000”
 ## Setup up Unix-like Shell
 * Install [MSYS2 w/ MinGW-w64](http://www.msys2.org/) to `C:\msys64`
   * Open `C:\msys64\mingw64.exe`
+  * Run `pacman -Syu`, then restart the terminal and run `pacman -Su`.
   * Run `pacman -S base-devel mingw-w64-x86_64-toolchain git bc`
   * Use `C:\Users\<user>` as the terminal $HOME by editting `C:\msys64\etc\nsswitch.conf` and
     changing the `db_home` value to `windows`.
