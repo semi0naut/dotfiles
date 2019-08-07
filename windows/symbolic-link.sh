@@ -44,7 +44,7 @@ dest_path=""
 #path_debug $2
 
 if [[ $1 ]]; then
-  source_path=$1
+  source_path="$1"
 else
   printf "${BOLD}${YELLOW}Enter full path to source file/dir:\n${NORMAL}"
   read -e source_path
@@ -54,7 +54,7 @@ source_path=$(clean_path "$source_path")
 ! test -d "$source_path" && ! test -e "$source_path" && error "Source path '$source_path' doesn't exist!" && abort
 
 if [[ $2 ]]; then
-  dest_path=$2
+  dest_path="$2"
 else
   printf "${BOLD}${YELLOW}Enter full path to symlink destination:\n${NORMAL}"
   read -e dest_path
