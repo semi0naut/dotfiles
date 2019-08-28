@@ -1064,6 +1064,6 @@ map <leader>n :call RenameFile()<cr>
 " FILE MAPPINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Notes and other helpers
-map <leader>pn :sp ~/.dev-scratchpad<cr>
+map <leader>pn :sp ~/.dev-scratchpad.md<cr>
 
 "let g:autotagStopAt = "$HOME"
