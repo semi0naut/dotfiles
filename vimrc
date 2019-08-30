@@ -1,7 +1,28 @@
+﻿" @fixme i'm now experiencing end of file history more often after the big
+" changes to this file. Coincidence?
+"
+" Check out https://stackoverflow.com/a/34253629 to change the cursor to a
+    " @incomplete check for mappings in terminus to verify they don't override anything I used.
+" block or whatever depending on the mode.
 " @incomplete Move all leader definitions to the bottom, so that it's easier to see them.
 " @incomplete Add setup steps (plugins, cache setup, search tool, etc).
 
-"Remove Menubar and Toolbar from gvim
+"###################################################################################################
+"
+" The config is chopped up into sections. These are the headings, which you
+" can use to quickly jump to a particular section:
+
+" #0. GLOBALS
+" #1. PLUGINS
+" #2. BASE CONFIG
+" #3. PLUGIN CONFIGS
+" #4. VISUALS
+" #5. HELPER FUNCTIONS
+" #6. PERSONAL
+"
+"###################################################################################################
+
+" Remove Menubar and Toolbar from gvim
 "set guioptions -=m
 "set guioptions -=T
 
@@ -16,10 +37,10 @@ let s:uname = system("echo -n \"$(uname)\"")
 let s:vim_dir = $HOME . "/.vim"
 
 function! IsWindows()
-  if s:uname =~ "mingw"
-    return 1
-  endif
-  return 0
+    if s:uname =~ "mingw"
+        return 1
+    endif
+    return 0
 endfunction
 
 let mapleader=","
@@ -27,7 +48,7 @@ let mapleader=","
 "################################################################
 "################################################################
 "################################################################
-" 0. GLOBALS
+"#0. GLOBALS
 "################################################################
 "################################################################
 "################################################################
@@ -37,13 +58,12 @@ let s:default_bg = 'dark'
 let s:rainbow_theme = s:default_bg
 let g:quickfix_window_height  = 16 " in rows
 
-"-----------------------------------------------------------------------------------------
+"---------------------------------------------------------------------------------------------------
 
-
 "################################################################
 "################################################################
 "################################################################
-" 1. PLUGINS
+"#1. PLUGINS
 "################################################################
 "################################################################
 "################################################################
@@ -54,140 +74,102 @@ call plug#begin('~/.vim/plugged')
 " MISC
 "////////////////////////////////////////////////////////////////
 
-Plug 'bling/vim-airline'
-Plug 'vim-scripts/AnsiEsc.vim'
-Plug 'embear/vim-localvimrc'    " Add a .lvimrc to a folder to override .vimrc config.
-Plug 'tpope/vim-obsession'      " Continuously updated session files
-Plug 'tpope/vim-fugitive'       " Git wrapper
-Plug 'junegunn/goyo.vim'        " Distraction-free mode with centered buffer
-Plug 'sir-pinecone/vim-ripgrep' " Wrapper around ripgrep (must intall ripgrep first; use Rust: cargo install ripgrep)
-Plug 'itchyny/vim-cursorword'   " Underlines the word under the cursor
-Plug 'airblade/vim-gitgutter'   " See git diff in the gutter and stage/unstage hunks.
-Plug 'ctrlpvim/ctrlp.vim'       " Fuzzy file, buffer, mru, tag, etc finder
+Plug 'bling/vim-airline'              " Enhanced status/tabline.
+Plug 'embear/vim-localvimrc'          " Add a .lvimrc to a folder to override .vimrc config.
+Plug 'tpope/vim-obsession'            " Continuously updated session files (tracks window positions, open folds, etc).
+Plug 'tpope/vim-fugitive'             " Git wrapper (I particularly like :Gblame, which I've wrapped as :Blame)
+Plug 'junegunn/goyo.vim'              " Distraction-free mode with centered buffer.
+Plug 'sir-pinecone/vim-ripgrep'       " Fast grep-like search. Requires ripgrep; install Rust package: `cargo install ripgrep`.
+Plug 'itchyny/vim-cursorword'         " Underlines all instances of the symbol under the cursor.
+Plug 'airblade/vim-gitgutter'         " Displays a git diff in the vim gutter and allows staging/unstaging of hunks.
+Plug 'ctrlpvim/ctrlp.vim'             " Fuzzy file, buffer, mru, tag, etc finder.
+Plug 'majutsushi/tagbar'              " Display ctags in a window, ordered by scope.
+Plug 'tommcdo/vim-lion'               " For text alignment, use gl= and gL=
+Plug 'tpope/tpope-vim-abolish'        " Easily search for, substitute, and abbreviate multiple variants of a word. Add them to `vim/after/plugin/abolish.vim`
+Plug 'vim-scripts/AnsiEsc.vim'        " Ansi escape sequences concealed, but highlighted as specified.
+Plug 'tommcdo/vim-kangaroo'           " Maintain a manually-defined jump stack. Set with zp or <leader>a and pop with zP or <leader>aa.
+Plug 'mh21/errormarker.vim'           " Build error highlighting (requires skywind3000/asyncrun.vim).
+Plug 'skywind3000/asyncrun.vim'       " Async commands.
+Plug 'nelstrom/vim-qargs'             " For the GlobalReplaceIt function (i.e. search and replace).
+" @fixme Disable the file reloading. Plug 'wincent/terminus'               " Enhanced terminal integration for Vim (namely iTerm). Changes the cursor depending on the mode; enhanced pasting; file reloading on external changes.
 
 if IsWindows()
-  Plug 'suxpert/vimcaps' " Disable capslock (useful if the OS isn't configured to do so)
+    Plug 'suxpert/vimcaps'            " Disable capslock (useful if the OS isn't configured to do so).
 else
-  Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-  Plug 'itchyny/dictionary.vim' " A way to query dictionary.com with :Dictionary
+    " Fuzzy search
+    " @incomplete Test out ctrlp for non-Windows setup.
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
 
-  " Fuzzy search
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
+    " @fixme Doesn't do anything under Windows...
+    Plug 'ervandew/supertab'          " Improved autocompletion.
 endif
-
-Plug 'majutsushi/tagbar'
-Plug 'jeetsukumaran/vim-filesearch'
-Plug 'rking/ag.vim'
-Plug 'nelstrom/vim-qargs' " For search and replace
-Plug 'tommcdo/vim-lion' " For text alignment, use gl= and gL=
-
-" Easily search for, substitute, and abbreviate multiple variants of a word
-Plug 'tpope/tpope-vim-abolish'
-
-" Maintain a manually-defined jump stack. Set with zp and pop with zP
-Plug 'tommcdo/vim-kangaroo'
-
-" Async commands + build error highlighting
-Plug 'skywind3000/asyncrun.vim'
-Plug 'mh21/errormarker.vim'
 
 "///////////////////
 " MAYBE SOME DAY
 "///////////////////
-"Plug 'shougo/unite.vim'         " Create user interfaces. Not currently needed.
-"Plug 'itchyny/vim-winfix'       " Fix the focus and the size of windows in Vim
-"Plug 'scrooloose/nerdcommenter' " Better commenting
-
-"///////////////////
-" DISABLED
-"///////////////////
-" I don't think I need this anymore...
-"Plug 'craigemery/vim-autotag' " Automatically discover and 'properly' update ctags files on save
-
-" Doesn't do anything on my Windows desktop...
-"Plug 'ervandew/supertab' " For autocompletion
+"Plug 'shougo/unite.vim'              " Create user interfaces. Not currently needed.
+"Plug 'itchyny/vim-winfix'            " Fix the focus and the size of windows in Vim.
+"Plug 'scrooloose/nerdcommenter'      " Better commenting.
 
 "////////////////////////////////////////////////////////////////
 " COLORS
 "////////////////////////////////////////////////////////////////
 
-Plug 'godlygeek/csapprox' " Try to make gvim themes look decent in Windows
-
-Plug 'sir-pinecone/rainbow'
-
-" WARNING: Has a lot of themes, but they break the other themes listed below
-"Plug 'flazz/vim-colorschemes'
+Plug 'sir-pinecone/rainbow'           " Rainbow parens.
+Plug 'godlygeek/csapprox'             " Try to make gvim themes look decent in Windows
+"Plug 'flazz/vim-colorschemes'        " @warning: Has a lot of themes, but they break the other themes listed below
 Plug 'elixir-lang/vim-elixir'
 Plug 'vim-airline/vim-airline-themes'
 
 " Light Themes
-Plug 'raggi/vim-color-raggi' " No Win support, unless using gvim
-Plug 'LanFly/vim-colors'     " No Win support, unless using gvim
+Plug 'raggi/vim-color-raggi'          " @note No Win support, unless using gvim.
+Plug 'LanFly/vim-colors'              " @note No Win support, unless using gvim.
 
 " Dark Themes
-Plug 'rhysd/vim-color-spring-night' " No Win support, unless using gvim
+Plug 'rhysd/vim-color-spring-night'   " @note No Win support, unless using gvim.
 Plug 'nanotech/jellybeans.vim'
 Plug 'zcodes/vim-colors-basic'
 
 " Hybrid Themes
 Plug 'sickill/vim-monokai'
 Plug 'chmllr/elrodeo-vim-colorscheme' " A little dark on Windows, term
-Plug 'reedes/vim-colors-pencil' " High-contrast
+Plug 'reedes/vim-colors-pencil'       " High-contrast
 " Seabird themes
   " High contrast: seagull  (light),  petrel      (dark)
   " Low contrast:  greygull (light),  stormpetrel (dark)
-Plug 'nightsense/seabird' " No Win support, unless using gvim
+Plug 'nightsense/seabird'             " @note No Win support, unless using gvim.
 
+"//////////////////////////////
+" SYNTAX HIGHLIGHTING
+"//////////////////////////////
 
-"////////////////////////////////////////////////////////////////
-" CLOJURE
-"////////////////////////////////////////////////////////////////
-" Temporarily disabled since I'm not doing any Clojure work atm.
+Plug 'tpope/vim-markdown'               " Markdown
+Plug 'octol/vim-cpp-enhanced-highlight' " C/C++
+Plug 'vim-ruby/vim-ruby'                " Ruby
+Plug 'fatih/vim-go'                     " Go
+Plug 'rust-lang/rust.vim'               " Rust
+Plug 'peterhoeg/vim-qml'                " QML
+Plug 'jdonaldson/vaxe'                  " Haxe
+
+" Clojure -- Disabled since I'm not doing any Clojure work atm.
 "Plug 'tpope/vim-classpath' " For Java
 "Plug 'guns/vim-clojure-highlight'
 "Plug 'guns/vim-clojure-static'
 "Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
-
-"////////////////////////////////////////////////////////////////
-" OTHER LANGUAGES
-"////////////////////////////////////////////////////////////////
-
-" Rust
-Plug 'rust-lang/rust.vim'
-
-" Ruby
-Plug 'vim-ruby/vim-ruby'
-
-" Go
-Plug 'fatih/vim-go'
-
-" QML
-Plug 'peterhoeg/vim-qml'
-
-" Markdown
-Plug 'tpope/vim-markdown'
-"Plug 'vim-pandoc/vim-pandoc-syntax'
-
-" C++
-Plug 'octol/vim-cpp-enhanced-highlight'
-
-" Haxe
-Plug 'jdonaldson/vaxe'
+"//////////////////////////////
 
 call plug#end()
-
 filetype plugin indent on
 
-
-"-----------------------------------------------------------------------------------------
+"---------------------------------------------------------------------------------------------------
 
 
 "################################################################
 "################################################################
 "################################################################
-" 2. BASE CONFIG
+"#2. BASE CONFIG
 "################################################################
 "################################################################
 "################################################################
@@ -524,13 +506,13 @@ inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
 
-"-----------------------------------------------------------------------------------------
+"---------------------------------------------------------------------------------------------------
 
 
 "################################################################
 "################################################################
 "################################################################
-" 3. PLUGIN CONFIGS
+"#3. PLUGIN CONFIGS
 "################################################################
 "################################################################
 "################################################################
@@ -548,16 +530,21 @@ let g:localvimrc_ask = 0
 noremap <F12> :TagbarToggle<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" KANGAROO
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <leader>a zp
+nmap <leader>aa zP
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GITGUTTER
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gitgutter_enabled = 0
-let g:gitgutter_highlight_lines = 1
+let g:gitgutter_enabled = 1
+let g:gitgutter_highlight_lines = 0
 nmap <leader>ha <Plug>GitGutterStageHunk
-nmap <leader>hh :GitGutterToggle
+nmap <leader>hh :GitGutterToggle<cr>
 nmap [h <Plug>GitGutterNextHunk
 nmap ]h <Plug>GitGutterPrevHunk
-" Run on file save. Realtime update is disabled in after/plugins/gitgutter.vim
-autocmd BufWritePost * GitGutter
+autocmd BufWritePost * GitGutter " Update marks on save
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTASTIC
@@ -686,13 +673,20 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set tags+=tags;$HOME
 
-"-----------------------------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TERMINUS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:TerminusMouse=0 " Disable mouse stuff.
+let g:TerminusFocusReporting=0 " Disable auto file reloading on external changes.
 
 
+"---------------------------------------------------------------------------------------------------
+
 "################################################################
 "################################################################
 "################################################################
-" 4. VISUALS
+"#4. VISUALS
 "################################################################
 "################################################################
 "################################################################
@@ -825,12 +819,12 @@ augroup vimrc_annotated_notes
           \ containedin=.*Comment,vimCommentTitle
 augroup END
 
-"-----------------------------------------------------------------------------------------
+"---------------------------------------------------------------------------------------------------
 
 "################################################################
 "################################################################
 "################################################################
-" 5. HELPER FUNCTIONS
+"#5. HELPER FUNCTIONS
 "################################################################
 "################################################################
 "################################################################
@@ -977,14 +971,10 @@ function! Search(case_sensitive)
   endif
 
   if IsWindows()
-    "@deprecated: Fsgrep is slow...."
-    "exec 'Fsgrep "' . term . '"'
     exec 'Rg ' . rg_args . ' "' . term . '"'
   else
-    "@deprecated: ripgrep is faster than Ag.
-    "exec 'Ag "' . term . '"'
-    " @incomplete pass case sensitivity toggle to Find.
-    execute 'Find ' . term
+    " @incomplete Test out ripgrep on non-Windows OS
+    echo "Not implemented"
   endif
 endfunction
 map <leader>s :call Search(0)<cr>
@@ -995,44 +985,6 @@ map <leader>ss :call Search(1)<cr>
 " Hit p on a result line to open the file at that line and return to the results pane.
 nnoremap <expr> o (&buftype is# "quickfix" ? "<CR>\|:lopen<CR>" : "o")
 nnoremap <expr> p (&buftype is# "quickfix" ? "<CR>\|:copen<CR>" : "p")
-
-"////////////////////////////////////////////////////////////////
-" FILESEARCH PLUGIN
-"////////////////////////////////////////////////////////////////
- let g:filesearch_viewport_split_policy = "B"
- let g:filesearch_split_size = 10
- let g:filesearch_autodismiss_on_select = 0
-
-
-"////////////////////////////////////////////////////////////////
-" SELECTA -- find files with fuzzy-search
-"////////////////////////////////////////////////////////////////
-
-" Run a given vim command on the results of fuzzy selecting from a given shell
-" command. See usage below.
-function! SelectaCommand(choice_command, selecta_args, vim_command)
-  if IsWindows()
-    let l:term = input('File name: ')
-    exec 'Fsfind "' . l:term . '"'
-  else
-    try
-      let l:selection = system(a:choice_command . " | selecta " . a:selecta_args)
-    catch /Vim:Interrupt/
-      " Swallow the ^C so that the redraw below happens; otherwise there will be
-      " leftovers from selecta on the screen
-      redraw!
-      return
-    endtry
-    redraw!
-    exec a:vim_command . " " . l:selection
-  endif
-endfunction
-
-" Find all files in all non-dot directories starting in the working directory.
-" Fuzzy select one of those. Open the selected file with :e.
-" DISABLED (2019-03) because I'm now using ctrl-p for fuzzy searching.
-" nnoremap <leader>f :call SelectaCommand("find * -type f ! -path 'resources/public/js/*' ! -path 'resources/.sass-cache/*' ! -path 'target/*'", "", ":e")<cr>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
@@ -1049,13 +1001,13 @@ endfunction
 map <leader>n :call RenameFile()<cr>
 
 
-"-----------------------------------------------------------------------------------------
+"---------------------------------------------------------------------------------------------------
 
 
 "################################################################
 "################################################################
 "################################################################
-" 6. PERSONAL
+"#6. PERSONAL
 "################################################################
 "################################################################
 "################################################################
