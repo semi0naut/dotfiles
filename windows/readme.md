@@ -79,14 +79,48 @@ Data="0x00000000”
 * Make sure to not do a default install. You must select the C++ language support.
 * Edit visual studio options. Open Debugging -> Symbols and add the path to your cached symbols.
 
+
+
+
+
+## Setting up Python
+
+* In the msys shell, run: `pacman -Qs python` to get a list of available Python packages.
+* When I do this the first two options are:
+
+local/mingw-w64-x86_64-python2 2.7.16-7
+    A high-level scripting language (mingw-w64)
+local/mingw-w64-x86_64-python3 3.7.4-7
+    A high-level scripting language (mingw-w64)
+
+* The local part in the name means I already have th
+
+* Install Python3 and Python2.7 by copying their names and using pacman, e.g. `pacman -S mingw-w64-x86_64-python3`.
+
+
 ## Setting up Vim
 
-### Compiling
+### Compiling on Windows (optional)
 
-* If for some reason you want to compile Vim on Windows, do the following:
-  * Git clone vim from Github
-  * `cd vim/src`
-  * `make -f Make_ming.mak ARCH=x86-64 OPTIMIZE=MAXSPEED STATIC_STDCPLUS=yes FEATURES=HUGE PYTHON="C:/Python27" PYTHON_VER=27 DYNAMIC_PYTHON=yes PYTHON3="C:/Python3" PYTHON3_VER=361 DYNAMIC_PYTHON=yes`
+* 
+* Open the shell with `C:\msys64\msys2_shell.cmd` -- If you don't do this then vim will not compile.
+
+* Run `pacman -S --needed base-devel msys2-devel gawk perl python2 python3 ruby libiconv ncurses-devel libcrypt-devel`
+* Clone msys packages: `https://github.com/msys2/MSYS2-packages`
+* cd into the vim package
+* Edit `PKGBUILD` and change the version number to the one you want to build. You can see the available versions at `https://github.com/vim/vim` 
+* Run `makepkg`
+* If checksums fail then generate new ones: `makepkg -g -f -p PKGBUILD`, copy the output, edit `PKGBUILD` and replace the checksums array with the new values.
+	* Run `makepkg` again
+	* If it fails to apply a patch then you'll need to make the fixes yourself:
+  		* Clone vim (`https://github.com/vim/vim`), cd into `vim/src`.
+  		* Modify the file(s) that they failed patch was changing and make the correct fixes.
+  		* Commit the change.
+  		* Generate a patch file with `git diff commitid1 commitid2 > newpatch.patch`
+  		* Copy the patch to `MSYS2-packages/vim` and use the same name as the original patch that failed.
+  		* Regen the pkg checksums and add them to `PKGBUILD`. 
+  		* Run `makepkg` again.
+* Once built, install it with `pacman -U ${package-name}*.pkg.tar.xz`
 
 ### Configuring
 
