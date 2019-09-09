@@ -178,7 +178,6 @@ filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" allow unsaved background buffers and remember marks/undo for them
 set hidden
 set history=10000
 set expandtab
@@ -187,24 +186,23 @@ set shiftwidth=4
 set softtabstop=4
 set autoindent
 set laststatus=2
-set showcmd " display incomplete commands
+set showcmd                       " Display incomplete commands.
 set showmatch
-set incsearch " Highlight matches as you type
-set hlsearch " Highlight matches
+set incsearch                     " Highlight matches as you type.
+set hlsearch                      " Highlight matches.
 set dictionary+=/usr/share/dict/words
-"set clipboard=unnamed " yank and paste with the system clipboard
+"set clipboard=unnamed            " Yank and paste with the system clipboard.
 set number
-" make searches case-sensitive only if they contain upper-case characters
-set ignorecase smartcase
-set visualbell " No bell sounds
+set ignorecase smartcase          " Make searches case-sensitive only if they contain upper-case characters.
+set visualbell                    " No bell sounds.
 set ttyfast
-" highlight current line
 set cmdheight=2
 set switchbuf=useopen,split
 set numberwidth=5
 set showtabline=2
 set winwidth=79
 
+" @warning: This must come AFTER `set ignorecase smartcase` otherwise vim spews out a ton of errors. No idea why!
 if IsWindows()
   " Just assume we don't have a zsh shell
   set shell=bash
@@ -212,62 +210,47 @@ else
   set shell=zsh
 endif
 
-" Prevent Vim from clobbering the scrollback buffer. See
-" http://www.shallowsky.com/linux/noaltscreen.html
-set t_ti= t_te=
-" keep more context when scrolling off the end of a buffer
-set scrolloff=3
-
+set t_ti= t_te=                   " Prevent Vim from clobbering the scrollback buffer. See http://www.shallowsky.com/linux/noaltscreen.html
+set scrolloff=3                   " keep more context when scrolling off the end of a buffer
 set cursorline
 set cursorcolumn
 
-" Store temporary files in a central spot
+" Store temporary files in a central spot. Make sure these directories exist on disk.
 set backup
 set backupcopy=yes
-set directory=X://tmp//vim// " For swap files
+set directory=X://tmp//vim//      " For swap files.
 set backupdir=X://tmp//vim//
 :au BufWritePre * let &bex = '.' . strftime("%Y-%m-%d-%T") . '.bak'
 set writebackup
 
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
+set backspace=indent,eol,start    " Allow backspacing over everything in insert mode.
 
-set complete+=kspell  " Spell checking autocomplete.
-set complete-=i       " Don't scan all included files since it's really slow.
+set complete+=kspell              " Spell checking autocomplete.
+set complete-=i                   " Don't scan all included files since it's really slow.
 
-" Enable highlighting for syntax
-syntax on
-" Enable file type detection.
-" Use the default filetype settings, so that mail gets 'tw' set to 72,
-" 'cindent' is on in C files, etc.
-" Also load indent files, to automatically do language-dependent indenting.
-" use emacs-style tab completion when selecting files, etc
+syntax on                         " Enable highlighting for syntax
+
 set wildmenu
 set wildmode=longest,list,full
 set wildignore+=*/log/*,*.so,*.swp,*.zip,*/rdoc/*
 let &colorcolumn=s:max_line_length
 
-" Requires ripgrep to be installed.
-set grepprg=rg\ --vimgrep
+set grepprg=rg\ --vimgrep         " Requires ripgrep to be installed.
 
-" Show trailing whitespace.
-set list listchars=tab:»·,trail:·
+set list listchars=tab:»·,trail:· " Show trailing whitespace.
 
-" Adding this since the esc remap on the 'i' key had a long delay when pressed.
-set timeoutlen=300 ttimeoutlen=0
+set timeoutlen=300 ttimeoutlen=0  " Adding this since the esc remap on the 'i' key had a long delay when pressed.
 
-" Allow undo when doing back into a closed file
-set undolevels=1000
+" @new might be broken:
+" set updatetime=100              " I lowered this to make git-gutter updates faster.
+
+set undolevels=1000               " Allow undo when going back into a closed file
 set undoreload=10000
-" Keep undo history across sessions by storing it in a file
+" Keep undo history across sessions by storing it in a file.
 if has('persistent_undo')
     let undo_dir = expand(s:vim_dir . '/undo')
-    " Create dirs
-    if IsWindows()
-      let mkdir = 'mkdir '
-    else
-      let mkdir = 'mkdir -p '
-    endif
+    " Create directory.
+    let mkdir = 'mkdir -p '
     :silent call system(mkdir . s:vim_dir)
     :silent call system(mkdir . undo_dir)
     let &undodir = undo_dir
@@ -277,13 +260,13 @@ endif
 
 " Fix vim's background colour erase - http://snk.tuxfamily.org/log/vim-256color-bce.html
 if &term =~ '256color'
-  " Disable Background Color Erase (BCE) so that color schemes
-  " work properly when Vim is used inside tmux and GNU screen.
-  " See also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
+    " Disable Background Color Erase (BCE) so that color schemes
+    " work properly when Vim is used inside tmux and GNU screen.
+    " See also http://snk.tuxfamily.org/log/vim-256color-bce.html
+    set t_ut=
 endif
 
-" Disable arrow keys
+" Disable arrow keys.
 map <up> <nop>
 map <down> <nop>
 map <left> <nop>
@@ -293,42 +276,41 @@ imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 augroup campoCmds
-  " Clear all autocmds in the group
+  " Clear all autocmds in the group.
   autocmd!
 
-  " Automatically wrap at N characters
+  " Automatically wrap at N characters.
   autocmd FileType gitcommit setlocal colorcolumn=72
   autocmd BufRead,BufNewFile *.{md,txt,plan} execute "setlocal textwidth=" .s:max_line_length
 
-  " Spell checking
+  " Spell checking.
   autocmd FileType gitcommit,markdown,text setlocal spell
 
-  " Jump to last cursor position unless it's invalid or in an event handler
+  " Jump to last cursor position unless it's invalid or in an event handler.
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-  " Language identation
+  " Language identation.
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,rust,go set ai sw=2 sts=2 et
   autocmd FileType python,qml set sw=4 sts=4 et
 
-  " Indent p tags
+  " Indent HTML <p> tags.
   autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
 
-  " Properly indent schemes (scheme, racket, etc)
+  " Properly indent schemes (scheme, racket, etc).
   autocmd bufread,bufnewfile *.{lisp,scm,rkt} setlocal equalprg=scmindent.rkt
 
-  " Auto reload VIM when settings changed
+  " Auto reload VIM when settings changed.
   autocmd BufWritePost .vimrc so $MYVIMRC
   autocmd BufWritePost *.vim so $MYVIMRC
   autocmd BufWritePost vimrc.symlink so $MYVIMRC
 
-  " Generate ctags
-  " Include local variables for c languages.
+  " Generate ctags on save.
+  " Also Include local variables for C-like languages.
   au BufWritePost *.py,*.c,*.cpp,*.h silent! !eval 'ctags --c-types=+l --c++-types=+l --exclude=vendor -R -o newtags; mv newtags tags' &
 
   " Remove trailing whitespace on save all files.
@@ -344,11 +326,11 @@ augroup campoCmds
   " FILE TEMPLATES
   "////////////////////////////////////////////////////////////////
 
-  " Shell script template
+  " Shell script template.
   autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh
   autocmd BufNewFile *.plan 0r ~/.vim/templates/skeleton.plan
 
-  " C/C++ template
+  " C/C++ template.
   autocmd bufnewfile *.{c,cc,cpp,h,hpp} 0r ~/.vim/templates/c_header_notice
   autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 6 . "g/File:.*/s//File: " .expand("%")
   autocmd bufnewfile *.{c,cc,cpp,h,hpp} exe "2," . 6 . "g/Creation Date:.*/s//Creation Date: " .strftime("%Y-%m-%d")
@@ -368,21 +350,23 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Mapping ESC in insert mode and command mode to double i
+" Mapping ESC in insert mode and command mode to double i.
 imap jj <Esc>
 "cmap ii <Esc>
 
-" suspend process
+" Suspend vim process and return to the shell. Can return to vim with `fg`.
 nmap <leader>z <c-z>
 
-" Quickly edit/reload the vimrc file
+" Open the vimrc file for editing / reload vimrc file.
 nmap <silent> <leader>ev :vsp $MYVIMRC<cr>
 nmap <silent> <leader>rv :so $MYVIMRC<cr>
 
-" Easy way to open a file in the directory of the current file
+" Type %/ in the command bar to have it replaced with the current buffer's
+" path if the file is on disk. One thing I noticed is that you have to type
+" the full %/ quickly otherwise it won't replace it.
 :cmap %/ %:p:h/
 
-" remap saving and quiting
+" Remap saving and quiting.
 nmap <leader>w :w!<cr>
 nmap <leader>q :q<cr>
 nmap <leader>qq :q!<cr>
@@ -394,17 +378,17 @@ nmap <leader>x :x<cr>
 :ca W w!
 :ca Q q
 
-" lowercase the e (have a habit of making it uppercase)
+" Lowercase the e (have a habit of making it uppercase).
 :ca E e
 
 command! Q q " Bind :Q to :q
 command! Qall qall
 command! Qa qall
-" Disable Ex mode
+" Disable Ex mode.
 map Q <Nop>
 
+" Open a terminal within vim. Use `exit` to close it.
 if exists(':terminal')
-  " Terminal mapping
   map <leader>t :terminal<cr>
   tnoremap <leader>e <C-\><C-n>
   tnoremap <A-h> <C-\><C-n><C-w>h
@@ -417,14 +401,14 @@ if exists(':terminal')
   nnoremap <A-l> <C-w>l
 endif
 
-" Map ctrl-movement keys to window switching
+" Jump to other buffers.
 map <c-k> <c-w><Up>
 map <c-j> <c-w><Down>
 map <c-l> <c-w><Right>
 map <c-h> <c-w><Left>
 
 " Make it easier to jump around the command line. The default behaviour is
-" using the arrow keys with or without shift
+" using the arrow keys with or without shift.
 :cnoremap <C-J> <S-Left>
 :cnoremap <C-K> <S-Right>
 
@@ -433,33 +417,33 @@ map <c-h> <c-w><Left>
 map <leader>m :vsplit<cr>
 map <leader>mm :split<cr>
 
-" Delete a word forward and backward
-map <leader>a daw
+" Forward delete and replace a word.
 map <leader>d ciw
 
-" Map paste and nonumber
+" Map paste and nonumber.
 map <leader>p :set paste! paste?<cr>
 map <leader>o :set number! number?<cr>
 
-" Spell checking
+" Show spell checking.
+" @note: you can add new entries to the dict by moving the cursor over the
+" word and pressing `zg`.
 map <leader>j :exec &spell==&spell? "se spell! spelllang=en_us" : "se spell!"<cr>
 map <leader>= z=
-" NOTE: you can add a new word to the dict with `zg`
 
-" Clear the search buffer (highlighting) when hitting return
+" Clear the search buffer (highlighting) when hitting return.
 function! MapCR()
   nnoremap <cr> :nohlsearch<cr>
 endfunction
 call MapCR()
 nnoremap <leader><leader> <c-^>
 
-" Replace currently selected text with default register without yanking it
+" Replace currently selected text with default register without yanking it.
 vnoremap p "_dP
 
-" Use Marked.app to preview Markdown files...
+" Use Marked.app to preview Markdown files.
 nnoremap <leader>pp :silent !open -a Marked.app '%:p'<cr>
 
-" Switch between C++ source and header files
+" Switch between C++ source and header files.
 map <leader>v :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 "map <leader>vv :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
 "map <leader>vvv :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
