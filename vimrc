@@ -218,8 +218,8 @@ set cursorcolumn
 " Store temporary files in a central spot. Make sure these directories exist on disk.
 set backup
 set backupcopy=yes
-set directory=X://tmp//vim//      " For swap files.
-set backupdir=X://tmp//vim//
+set directory=C://tmp//vim//      " For swap files.
+set backupdir=C://tmp//vim//
 :au BufWritePre * let &bex = '.' . strftime("%Y-%m-%d-%T") . '.bak'
 set writebackup
 
