@@ -1,8 +1,8 @@
 [include]
   path = ~/.gitconfig.platform
 [user]
-	name = Michael Campagnaro
-	email = mikecampo@gmail.com
+	name = Keith McManamen
+	email = kmcmanamen@gmail.com
 [merge]
   summary = true
   tool = vimdiff
